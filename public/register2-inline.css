@@ -1,0 +1,60 @@
+/* Moved from register2.html inline styles */
+@media (max-width: 768px) {
+
+
+        .container {
+            display: flex;
+            align-self: center;
+            justify-self: center;
+            margin-top: 8em;
+            margin-bottom: 8em;
+            box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.26);
+            transform: scale(0.85);
+            transform-origin: top center;
+        }
+
+        .register-form {
+            width: 22em;
+            height: 17em;
+        }
+
+        input {
+            padding: 15px;
+            height: 35px;
+            width: 22em;
+            margin: 15px;
+            font-size: 13px;
+        }
+
+        h2,
+        h3 {
+            margin: 15px;
+            font-size: 18px;
+        }
+
+        .reg {
+            margin: 15px;
+            padding: 8px;
+            width: 120px;
+            font-size: 13px;
+        }
+
+
+        .log {
+            margin: 25px;
+            padding: 8px;
+            width: 120px;
+            margin-left: 70px;
+            font-size: 13px;
+        }
+
+        .home {
+            top: 30em;
+            padding: 8px;
+            width: 120px;
+        }
+
+        a {
+            font-size: 13px;
+        }
+    }

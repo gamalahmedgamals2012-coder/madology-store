@@ -1,0 +1,69 @@
+*{ margin:0px;padding:0px;box-sizing: border-box;font-family: "Inter", sans-serif;}
+body{
+    padding-top: 100px;
+    background-image: url(/ascets/images/signup.avif);
+    background-size: cover;
+    background-position: center;
+}
+.sign-up{
+display:flex;
+justify-self: center;
+text-align: center;
+align-items: center;
+min-height:500px;
+height:auto;
+width:450px;
+padding: 20px 0;
+box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.26);
+border-radius: 20px;
+flex-direction: column;
+background-color: transparent;
+backdrop-filter: blur(20px);
+border: 1px solid #fff;
+}
+
+input{
+display: block;
+padding:10px;
+height: 40px;
+width:25em;
+border-color: rgba(0, 0, 0, 0.426);
+border: none;
+border-bottom: 1px solid rgb(87, 90, 173);
+margin:20px;
+}
+.address-map{
+width:25em;
+height:220px;
+margin:10px 20px 20px;
+border-radius:16px;
+overflow:hidden;
+background:rgba(255,255,255,.78);
+border:1px solid rgba(87,90,173,.35);
+display:flex;
+align-items:center;
+justify-content:center;
+color:#333;
+font-size:14px;
+}
+h2{
+margin:20px;
+}
+#registerBtn{
+    padding :10px;
+    color: black;
+    border: white 1px;
+    text-decoration: none;
+    width:70%;
+    margin: 10px;
+    background-color: white;
+    border-radius: 10px;
+}
+.account-login{
+    color: rgb(232, 227, 227);
+    font-size: 15px;
+}
+.account-login a{
+    text-decoration: none;
+    color:blue;
+}

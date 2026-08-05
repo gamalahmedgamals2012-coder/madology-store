@@ -1,0 +1,47 @@
+/* Moved from admin.html inline styles */
+body {
+        font-family: Arial, Helvetica, sans-serif;
+        padding: 20px;
+        background: #f5f5f5
+    }
+
+    .order {
+        background: #fff;
+        padding: 15px;
+        border-radius: 6px;
+        margin-bottom: 12px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, .08)
+    }
+
+    .order h3 {
+        margin: 0 0 8px 0
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse
+    }
+
+    th,
+    td {
+        padding: 6px;
+        border: 1px solid #e6e6e6;
+        text-align: left
+    }
+
+    .meta {
+        color: #666;
+        font-size: 13px;
+        margin-bottom: 8px
+    }
+
+    .maps-link {
+        display: inline-block;
+        margin-left: 8px;
+        padding: 5px 10px;
+        border-radius: 999px;
+        background: #ff9d00;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 700;
+    }

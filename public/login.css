@@ -1,0 +1,46 @@
+*{ margin:0px;padding:0px;box-sizing: border-box;font-family: "Inter", sans-serif;}
+body{
+    padding-top: 100px;
+
+}
+.log-in{
+display:flex;
+justify-self: center;
+text-align: center;
+align-items: center;
+height:400px;
+width:450px;
+box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.26);
+border-radius: 20px;
+flex-direction: column;
+background-color: transparent;
+padding-top: 20px;
+}
+input{
+display: block;
+padding:10px;
+height: 40px;
+width:25em;
+border-color: rgba(0, 0, 0, 0.426);
+border: none;
+border-bottom: 1px solid rgb(87, 90, 173);
+margin:20px;
+}
+#loginBtn{    padding :10px;
+    color: black;
+    border: white 1px;
+    text-decoration: none;
+    width:70%;
+    margin: 10px;
+    background-color: white;
+    border-radius: 10px;
+}
+.account-signup{
+    color: rgb(232, 227, 227);
+    font-size: 15px;
+
+}
+.account-signup a{
+    color:blue;
+    text-decoration: none;
+}

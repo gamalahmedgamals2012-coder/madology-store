@@ -1,0 +1,339 @@
+/* ===================================================
+   Add-to-Cart Modal Styles
+   New file - does NOT modify existing CSS
+   =================================================== */
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  padding: 20px;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Modal Container */
+.atc-modal {
+  background: #ffffff;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 440px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.25);
+  transform: scale(0.92) translateY(20px);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+  opacity: 0;
+  position: relative;
+}
+
+.modal-overlay.active .atc-modal {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+/* Modal Close (X) Button */
+.atc-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  z-index: 2;
+}
+
+.atc-modal-close:hover {
+  background: #fee2e2;
+  color: #dc2626;
+  transform: scale(1.08);
+}
+
+/* Modal Inner Padding */
+.atc-modal-inner {
+  padding: 32px 28px 28px;
+}
+
+/* Product Preview Section */
+.atc-product-preview {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.atc-product-preview img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 16px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+.atc-product-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.atc-product-details h3 {
+  margin: 0 0 4px;
+  font-size: 18px;
+  font-weight: 800;
+  color: #0f172a;
+  text-transform: capitalize;
+  letter-spacing: 0;
+}
+
+.atc-product-price {
+  font-size: 16px;
+  font-weight: 700;
+  color: #8b6f4e;
+  margin: 0;
+}
+
+/* Modal Message Text */
+.atc-modal-message {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #475569;
+  margin: 0 0 24px;
+  text-align: center;
+}
+
+/* Button Group */
+.atc-modal-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.atc-modal-actions .btn-cancel,
+.atc-modal-actions .btn-continue,
+.atc-modal-actions .btn-back,
+.atc-modal-actions .btn-add-cart {
+  flex: 1;
+  height: 48px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+.atc-modal-actions .btn-cancel,
+.atc-modal-actions .btn-back {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+.atc-modal-actions .btn-cancel:hover,
+.atc-modal-actions .btn-back:hover {
+  background: #e2e8f0;
+  transform: translateY(-1px);
+}
+
+.atc-modal-actions .btn-continue,
+.atc-modal-actions .btn-add-cart {
+  background: #111827;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(17, 24, 39, 0.2);
+}
+
+.atc-modal-actions .btn-continue:hover,
+.atc-modal-actions .btn-add-cart:hover {
+  background: #020617;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(17, 24, 39, 0.25);
+}
+
+.atc-modal-actions .btn-add-cart:disabled {
+  background: #94a3b8;
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ===================================================
+   Size Selector
+   =================================================== */
+.size-selector {
+  margin: 20px 0 24px;
+}
+
+.size-selector-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.size-selector-grid {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.size-option {
+  position: relative;
+}
+
+.size-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.size-option label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 52px;
+  height: 44px;
+  padding: 0 14px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fff;
+  color: #475569;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+}
+
+.size-option label:hover {
+  border-color: #8b6f4e;
+  color: #8b6f4e;
+  background: #f5efe8;
+}
+
+.size-option input:checked + label {
+  border-color: #111827;
+  background: #111827;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(17, 24, 39, 0.2);
+}
+
+/* Size Validation Error */
+.size-error {
+  display: none;
+  color: #dc2626;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: #fef2f2;
+  border-radius: 8px;
+  border: 1px solid #fecaca;
+}
+
+.size-error.visible {
+  display: block;
+  animation: shakeError 0.4s ease;
+}
+
+@keyframes shakeError {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+}
+
+/* ===================================================
+   Step Indicator
+   =================================================== */
+.atc-step-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.atc-step-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.atc-step-dot.active {
+  background: #111827;
+  width: 24px;
+  border-radius: 4px;
+}
+
+.atc-step-dot.completed {
+  background: #16a34a;
+}
+
+/* ===================================================
+   Responsive
+   =================================================== */
+@media (max-width: 480px) {
+  .atc-modal-inner {
+    padding: 24px 20px 20px;
+  }
+
+  .atc-product-preview img {
+    width: 64px;
+    height: 64px;
+  }
+
+  .atc-product-details h3 {
+    font-size: 16px;
+  }
+
+  .atc-modal-actions {
+    flex-direction: column;
+  }
+
+  .atc-modal-actions .btn-cancel,
+  .atc-modal-actions .btn-continue,
+  .atc-modal-actions .btn-back,
+  .atc-modal-actions .btn-add-cart {
+    width: 100%;
+  }
+
+  .size-option label {
+    min-width: 44px;
+    height: 40px;
+    padding: 0 10px;
+    font-size: 13px;
+  }
+}
