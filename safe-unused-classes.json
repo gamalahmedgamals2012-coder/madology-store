@@ -1,0 +1,566 @@
+{
+  "safeUnused": [
+    "about-copy-container",
+    "action-bar",
+    "addtocurt",
+    "button1",
+    "category-text",
+    "circle-bg",
+    "circle-outline",
+    "contact-visiting",
+    "containerFour",
+    "containerOne",
+    "containerThree",
+    "containerTwo",
+    "goal",
+    "goal-box",
+    "goals-container",
+    "hi",
+    "homedesc",
+    "homepara",
+    "img3",
+    "imgfooter",
+    "item-price",
+    "left-bottom",
+    "left-row",
+    "left-top",
+    "nature1",
+    "offers",
+    "orderBtn",
+    "person",
+    "premium-cart-link",
+    "products-row",
+    "quick-links",
+    "register-form",
+    "right-top",
+    "s1",
+    "shoph",
+    "shopn",
+    "social",
+    "socialContainer",
+    "socialSvg",
+    "stor",
+    "store1",
+    "story",
+    "visit"
+  ],
+  "usedCandidates": [
+    "card",
+    "cart-icon",
+    "cart-item",
+    "close",
+    "contact",
+    "desc",
+    "home",
+    "item-info",
+    "label",
+    "logo",
+    "name",
+    "new",
+    "store"
+  ],
+  "selectorsByClass": {
+    "goal": [
+      {
+        "file": "about.css",
+        "selector": ".goal"
+      },
+      {
+        "file": "about.css",
+        "selector": ".goal"
+      },
+      {
+        "file": "about.css",
+        "selector": ".goal"
+      }
+    ],
+    "goals-container": [
+      {
+        "file": "about.css",
+        "selector": ".goals-container"
+      },
+      {
+        "file": "about.css",
+        "selector": ".goals-container"
+      }
+    ],
+    "goal-box": [
+      {
+        "file": "about.css",
+        "selector": ".goal-box"
+      },
+      {
+        "file": "about.css",
+        "selector": ".goal-box:hover"
+      },
+      {
+        "file": "about.css",
+        "selector": ".goal-box:hover h1"
+      },
+      {
+        "file": "about.css",
+        "selector": ".goal-box h1"
+      },
+      {
+        "file": "about.css",
+        "selector": ".goal-box p"
+      },
+      {
+        "file": "about.css",
+        "selector": ".goal-box"
+      }
+    ],
+    "story": [
+      {
+        "file": "about.css",
+        "selector": ".story"
+      },
+      {
+        "file": "about.css",
+        "selector": ".story"
+      },
+      {
+        "file": "about.css",
+        "selector": ".story"
+      }
+    ],
+    "stor": [
+      {
+        "file": "about.css",
+        "selector": ".stor"
+      }
+    ],
+    "social": [
+      {
+        "file": "about.css",
+        "selector": ".social"
+      },
+      {
+        "file": "home.css",
+        "selector": ".social"
+      },
+      {
+        "file": "products.css",
+        "selector": ".social"
+      }
+    ],
+    "socialContainer": [
+      {
+        "file": "about.css",
+        "selector": ".socialContainer"
+      },
+      {
+        "file": "about.css",
+        "selector": ".socialContainer"
+      },
+      {
+        "file": "home.css",
+        "selector": ".desc .socialContainer"
+      },
+      {
+        "file": "products.css",
+        "selector": ".socialContainer"
+      }
+    ],
+    "containerOne": [
+      {
+        "file": "about.css",
+        "selector": ".containerOne:hover"
+      }
+    ],
+    "containerTwo": [
+      {
+        "file": "about.css",
+        "selector": ".containerTwo:hover"
+      }
+    ],
+    "containerThree": [
+      {
+        "file": "about.css",
+        "selector": ".containerThree:hover"
+      }
+    ],
+    "containerFour": [
+      {
+        "file": "about.css",
+        "selector": ".containerFour:hover"
+      }
+    ],
+    "socialSvg": [
+      {
+        "file": "about.css",
+        "selector": ".socialSvg"
+      },
+      {
+        "file": "about.css",
+        "selector": ".socialSvg path"
+      },
+      {
+        "file": "home.css",
+        "selector": ".socialSvg"
+      },
+      {
+        "file": "home.css",
+        "selector": ".socialSvg path"
+      },
+      {
+        "file": "products.css",
+        "selector": ".socialSvg"
+      },
+      {
+        "file": "products.css",
+        "selector": ".socialSvg path"
+      }
+    ],
+    "img3": [
+      {
+        "file": "about.css",
+        "selector": ".img3"
+      },
+      {
+        "file": "about.css",
+        "selector": ".img3"
+      }
+    ],
+    "s1": [
+      {
+        "file": "about.css",
+        "selector": ".s1"
+      },
+      {
+        "file": "home.css",
+        "selector": ".s1"
+      },
+      {
+        "file": "products.css",
+        "selector": ".s1"
+      }
+    ],
+    "quick-links": [
+      {
+        "file": "about.css",
+        "selector": ".quick-links"
+      },
+      {
+        "file": "about.css",
+        "selector": ".quick-links a"
+      },
+      {
+        "file": "home.css",
+        "selector": ".quick-links"
+      },
+      {
+        "file": "home.css",
+        "selector": ".quick-links a"
+      },
+      {
+        "file": "products.css",
+        "selector": ".quick-links"
+      },
+      {
+        "file": "products.css",
+        "selector": ".quick-links a"
+      }
+    ],
+    "imgfooter": [
+      {
+        "file": "about.css",
+        "selector": ".imgfooter"
+      },
+      {
+        "file": "home.css",
+        "selector": ".imgfooter"
+      },
+      {
+        "file": "products.css",
+        "selector": ".imgfooter"
+      }
+    ],
+    "store1": [
+      {
+        "file": "about.css",
+        "selector": ".store1"
+      },
+      {
+        "file": "home.css",
+        "selector": ".store1"
+      },
+      {
+        "file": "products.css",
+        "selector": ".store1"
+      }
+    ],
+    "nature1": [
+      {
+        "file": "about.css",
+        "selector": ".nature1"
+      },
+      {
+        "file": "home.css",
+        "selector": ".nature1"
+      },
+      {
+        "file": "products.css",
+        "selector": ".nature1"
+      }
+    ],
+    "contact-visiting": [
+      {
+        "file": "about.css",
+        "selector": ".contact-visiting"
+      },
+      {
+        "file": "about.css",
+        "selector": ".contact-visiting:hover"
+      }
+    ],
+    "visit": [
+      {
+        "file": "about.css",
+        "selector": ".visit"
+      }
+    ],
+    "about-copy-container": [
+      {
+        "file": "about.css",
+        "selector": ".about-copy-container"
+      },
+      {
+        "file": "premium-ui.css",
+        "selector": ".about-copy-container"
+      },
+      {
+        "file": "premium-ui.css",
+        "selector": ".about-copy-container"
+      }
+    ],
+    "homedesc": [
+      {
+        "file": "home.css",
+        "selector": ".homedesc"
+      },
+      {
+        "file": "home.css",
+        "selector": ".homedesc"
+      }
+    ],
+    "homepara": [
+      {
+        "file": "home.css",
+        "selector": ".homepara"
+      },
+      {
+        "file": "home.css",
+        "selector": ".homepara"
+      }
+    ],
+    "shoph": [
+      {
+        "file": "home.css",
+        "selector": ".shoph"
+      },
+      {
+        "file": "home.css",
+        "selector": ".shopn:hover .shoph"
+      },
+      {
+        "file": "home.css",
+        "selector": ".shoph"
+      }
+    ],
+    "left-row": [
+      {
+        "file": "home.css",
+        "selector": ".left-row"
+      }
+    ],
+    "shopn": [
+      {
+        "file": "home.css",
+        "selector": ".shopn:hover"
+      },
+      {
+        "file": "home.css",
+        "selector": ".shopn:hover .shoph"
+      },
+      {
+        "file": "home.css",
+        "selector": ".shopn"
+      }
+    ],
+    "offers": [
+      {
+        "file": "home.css",
+        "selector": ".offers"
+      },
+      {
+        "file": "products.css",
+        "selector": ".offers"
+      }
+    ],
+    "addtocurt": [
+      {
+        "file": "home.css",
+        "selector": ".addtocurt"
+      },
+      {
+        "file": "products.css",
+        "selector": ".addtocurt"
+      }
+    ],
+    "button1": [
+      {
+        "file": "home.css",
+        "selector": ".button1"
+      },
+      {
+        "file": "home.css",
+        "selector": ".button1 p"
+      },
+      {
+        "file": "home.css",
+        "selector": ".button1 svg"
+      },
+      {
+        "file": "home.css",
+        "selector": ".button1:hover p"
+      },
+      {
+        "file": "home.css",
+        "selector": ".button1:hover svg"
+      },
+      {
+        "file": "home.css",
+        "selector": ".button1:hover"
+      }
+    ],
+    "hi": [
+      {
+        "file": "home.css",
+        "selector": ".hi"
+      }
+    ],
+    "circle-bg": [
+      {
+        "file": "home.css",
+        "selector": ".circle-bg"
+      },
+      {
+        "file": "home.css",
+        "selector": ".circle-bg"
+      }
+    ],
+    "circle-outline": [
+      {
+        "file": "home.css",
+        "selector": ".circle-outline"
+      },
+      {
+        "file": "home.css",
+        "selector": ".circle-outline"
+      }
+    ],
+    "left-top": [
+      {
+        "file": "home.css",
+        "selector": ".left-top"
+      }
+    ],
+    "right-top": [
+      {
+        "file": "home.css",
+        "selector": ".right-top"
+      }
+    ],
+    "left-bottom": [
+      {
+        "file": "home.css",
+        "selector": ".left-bottom"
+      }
+    ],
+    "products-row": [
+      {
+        "file": "home.css",
+        "selector": ".products-row"
+      }
+    ],
+    "person": [
+      {
+        "file": "home.css",
+        "selector": ".person"
+      }
+    ],
+    "category-text": [
+      {
+        "file": "home.css",
+        "selector": ".category-text"
+      }
+    ],
+    "item-price": [
+      {
+        "file": "products.css",
+        "selector": ".cart-tab .item-price"
+      }
+    ],
+    "action-bar": [
+      {
+        "file": "products.css",
+        "selector": ".cart-tab .action-bar"
+      },
+      {
+        "file": "products.css",
+        "selector": ".cart-tab .action-bar button"
+      },
+      {
+        "file": "products.css",
+        "selector": ".cart-tab .action-bar .orderBtn"
+      },
+      {
+        "file": "products.css",
+        "selector": ".cart-tab .action-bar .orderBtn:hover"
+      },
+      {
+        "file": "products.css",
+        "selector": ".cart-tab .action-bar .close"
+      },
+      {
+        "file": "products.css",
+        "selector": ".cart-tab .action-bar .close:hover"
+      }
+    ],
+    "orderBtn": [
+      {
+        "file": "products.css",
+        "selector": ".cart-tab .action-bar .orderBtn"
+      },
+      {
+        "file": "products.css",
+        "selector": ".cart-tab .action-bar .orderBtn:hover"
+      },
+      {
+        "file": "products.css",
+        "selector": ".cart-tab .order .orderBtn"
+      }
+    ],
+    "premium-cart-link": [
+      {
+        "file": "products.css",
+        "selector": ".premium-cart-link"
+      }
+    ],
+    "register-form": [
+      {
+        "file": "register2-inline.css",
+        "selector": ".register-form"
+      },
+      {
+        "file": "register2.css",
+        "selector": ".register-form"
+      },
+      {
+        "file": "register2.css",
+        "selector": ".register-form"
+      }
+    ]
+  }
+}

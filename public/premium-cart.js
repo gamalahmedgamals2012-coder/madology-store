@@ -196,7 +196,7 @@ elements.checkoutBtn.addEventListener("click", () => {
     return;
   }
 
-  window.alert("Checkout started. Connect this button to your payment or order flow.");
+  window.MADOLOGY_SHOW_TOAST?.("Checkout is ready. Connect this button to your payment or order flow.", "info");
 });
 
 renderCart();

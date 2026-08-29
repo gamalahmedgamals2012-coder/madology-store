@@ -106,9 +106,35 @@ const orderSchema = new mongoose.Schema(
       required: true,
       min: 0
     },
+    trackingNumber: {
+      type: String,
+      trim: true,
+      default: null
+    },
+    statusHistory: {
+      type: [
+        {
+          status: {
+            type: String,
+            required: true,
+            trim: true
+          },
+          note: {
+            type: String,
+            trim: true,
+            default: ""
+          },
+          timestamp: {
+            type: Date,
+            default: Date.now
+          }
+        }
+      ],
+      default: []
+    },
     status: {
       type: String,
-      enum: ["pending", "processing", "completed", "cancelled"],
+      enum: ["pending", "processing", "confirmed", "shipped", "delivered", "completed", "cancelled"],
       default: "pending"
     }
   },

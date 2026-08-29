@@ -2,9 +2,17 @@ const User = require("../models/User");
 const Order = require("../models/Order");
 const asyncHandler = require("../middleware/async.middleware");
 
+const ORDER_STATUSES = ["pending", "processing", "confirmed", "shipped", "delivered", "completed", "cancelled"];
+
+function createError(message, statusCode) {
+  const error = new Error(message);
+  error.statusCode = statusCode;
+  return error;
+}
+
 const listUsers = asyncHandler(async (req, res) => {
   const users = await User.find()
-    .select("-password -verificationToken -passwordResetTokenHash")
+    .select("-password -verificationToken -passwordResetTokenHash -passwordResetTokenExpiresAt")
     .sort({ createdAt: -1 });
 
   res.json({
@@ -47,7 +55,47 @@ const listOrders = asyncHandler(async (req, res) => {
   });
 });
 
+const updateOrderStatus = asyncHandler(async (req, res) => {
+  const { status, note, trackingNumber } = req.body;
+
+  if (!ORDER_STATUSES.includes(status)) {
+    throw createError("A valid order status is required.", 400);
+  }
+
+  const order = await Order.findById(req.params.id);
+
+  if (!order) {
+    throw createError("Order not found.", 404);
+  }
+
+  order.status = status;
+
+  if (trackingNumber !== undefined) {
+    order.trackingNumber = String(trackingNumber || "").trim() || order.trackingNumber;
+  }
+
+  order.statusHistory.push({
+    status,
+    note: String(note || "").trim()
+  });
+
+  await order.save();
+
+  res.json({
+    success: true,
+    message: "Order status updated successfully.",
+    order: {
+      id: order._id,
+      status: order.status,
+      trackingNumber: order.trackingNumber,
+      statusHistory: order.statusHistory,
+      updatedAt: order.updatedAt
+    }
+  });
+});
+
 module.exports = {
   listUsers,
-  listOrders
+  listOrders,
+  updateOrderStatus
 };

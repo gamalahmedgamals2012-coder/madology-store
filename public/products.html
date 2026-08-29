@@ -4,7 +4,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MADOLOGY</title>
+  <script src="theme-init.js"></script>
+  <title>Shop MADOLOGY | Premium Fashion Essentials</title>
+  <meta name="description"
+    content="Browse MADOLOGY’s premium fashion essentials with a polished shopping experience and easy product search.">
+  <meta name="robots" content="index,follow">
+  <meta property="og:title" content="Shop MADOLOGY | Premium Fashion Essentials">
+  <meta property="og:description" content="Explore curated fashion essentials and add your favorites to the cart.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/ascets/images/logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Shop MADOLOGY | Premium Fashion Essentials">
+  <meta name="twitter:description" content="Browse the latest MADOLOGY fashion essentials online.">
   <link rel="icon" type="image/png" href="/ascets/images/Logo.png">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
@@ -20,6 +31,7 @@
 </head>
 
 <body>
+  <div id="uiToastContainer"></div>
 
   <!-- NAV -->
   <nav class="navbar navbar-expand-lg fixed-top">
@@ -45,12 +57,44 @@
   <div class="cart-overlay" id="cartOverlay"></div>
   <div class="cart-tab" id="premiumCartPanel"></div>
 
-  <div class="products-container">
+  <div class="products-toolbar" role="search" aria-label="Product search and filters">
+    <label class="products-search" for="productSearch">
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      <input id="productSearch" type="search" placeholder="Search products" autocomplete="off">
+      <div id="searchSuggestions" class="search-suggestions" hidden></div>
+    </label>
+    <label class="products-sort" for="productSort">
+      <span>Sort</span>
+      <select id="productSort">
+        <option value="default">Featured</option>
+        <option value="name-asc">Name A-Z</option>
+        <option value="name-desc">Name Z-A</option>
+        <option value="price-asc">Price Low-High</option>
+        <option value="price-desc">Price High-Low</option>
+      </select>
+    </label>
+    <label class="products-sort" for="productType">
+      <span>Type</span>
+      <select id="productType">
+        <option value="all">All types</option>
+      </select>
+    </label>
+    <label class="products-sort" for="productPrice">
+      <span>Price</span>
+      <select id="productPrice">
+        <option value="all">Any price</option>
+      </select>
+    </label>
+  </div>
 
+  <div class="products-filters" role="group" aria-label="Product filters">
+    <button class="filter-chip active" type="button" data-filter="all">All products</button>
+    <button class="filter-chip" type="button" data-filter="essentials">Essentials</button>
+    <button class="filter-chip" type="button" data-filter="streetwear">Streetwear</button>
+    <button class="filter-chip" type="button" data-filter="limited">Limited</button>
+  </div>
 
-
-
-
+  <div class="products-container" id="productsContainer">
 
     <div class="product-card">
       <img src="../ascets/clothes/Air jordan.jpeg" alt="Air Jordan Hoodie">
@@ -343,6 +387,7 @@
   </footer>
 
   <!-- Auth Script -->
+  <script src="ui-feedback.js"></script>
   <script src="auth.js"></script>
   <script src="cart-store.js"></script>
   <script src="add-to-cart-modal.js"></script>

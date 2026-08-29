@@ -5,12 +5,66 @@
     return;
   }
 
+  const themeStorageKey = "mado-theme";
+
+  function getPreferredTheme() {
+    const storedTheme = localStorage.getItem(themeStorageKey);
+
+    if (storedTheme === "light" || storedTheme === "dark") {
+      return storedTheme;
+    }
+
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem(themeStorageKey, theme);
+
+    const themeButton = document.querySelector(".theme-toggle");
+    const themeIcon = themeButton?.querySelector("i");
+    const themeLabel = themeButton?.querySelector(".theme-toggle-label");
+
+    if (themeIcon) {
+      themeIcon.className = theme === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon";
+    }
+
+    if (themeLabel) {
+      themeLabel.textContent = theme === "dark" ? "Light mode" : "Dark mode";
+    }
+
+    if (themeButton) {
+      themeButton.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+      themeButton.setAttribute("aria-pressed", String(theme === "dark"));
+    }
+  }
+
+  function createThemeToggle() {
+    const themeButton = document.createElement("button");
+    themeButton.type = "button";
+    themeButton.className = "theme-toggle";
+    themeButton.setAttribute("aria-label", "Switch to dark mode");
+    themeButton.setAttribute("aria-pressed", "false");
+    themeButton.innerHTML = '<i class="fa-solid fa-moon" aria-hidden="true"></i><span class="visually-hidden theme-toggle-label">Dark mode</span>';
+
+    themeButton.addEventListener("click", () => {
+      const nextTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      applyTheme(nextTheme);
+    });
+
+    return themeButton;
+  }
+
+  applyTheme(getPreferredTheme());
+  const themeToggle = createThemeToggle();
+
   const token = localStorage.getItem("token");
   const userName = localStorage.getItem("userName");
 
   if (!token || !userName) {
     authButton.href = "register.html";
     authButton.innerHTML = '<i class="fa-solid fa-user-plus"></i>';
+    authButton.insertAdjacentElement("afterend", themeToggle);
     return;
   }
 
@@ -24,12 +78,24 @@
           <div>${userName}</div>
           <div class="dropdown-user-name">User Account</div>
         </div>
+        <a class="dropdown-link" href="account.html#profile">
+          Account
+        </a>
+        <a class="dropdown-link" href="account.html#wishlist">
+          Wishlist
+        </a>
+        <a class="dropdown-link" href="account.html#orders">
+          Orders
+        </a>
         <button class="dropdown-logout-btn" id="logoutBtn" type="button">
           Logout
         </button>
       </div>
     </div>
   `;
+
+  const profileContainer = document.querySelector(".profile-container");
+  profileContainer?.insertAdjacentElement("afterend", themeToggle);
 
   const profileButton = document.getElementById("profileBtn");
   const dropdownMenu = document.getElementById("dropdownMenu");

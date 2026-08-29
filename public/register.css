@@ -5,7 +5,7 @@ body{
     background-size: cover;
     background-position: center;
 }
-.sign-up{
+.auth-card{
 display:flex;
 justify-self: center;
 text-align: center;
@@ -45,6 +45,42 @@ align-items:center;
 justify-content:center;
 color:#333;
 font-size:14px;
+}
+.address-search-results{
+width:25em;
+margin: 0 20px 10px;
+background: rgba(255,255,255,.96);
+border: 1px solid rgba(87,90,173,.18);
+border-radius: 14px;
+overflow: hidden;
+box-shadow: 0 10px 24px rgba(0,0,0,.08);
+}
+.address-search-results button{
+display:block;
+width:100%;
+padding: 10px 12px;
+border: 0;
+background: transparent;
+text-align: left;
+cursor: pointer;
+color: #1f2937;
+}
+.address-search-results button:hover{
+background: rgba(87,90,173,.08);
+}
+.address-search-results small{
+display:block;
+margin-top: 4px;
+color: #6b7280;
+font-size: 12px;
+}
+.address-status{
+width:25em;
+margin: -8px 20px 12px;
+min-height: 18px;
+color: #f8fafc;
+font-size: 12px;
+text-align: left;
 }
 h2{
 margin:20px;

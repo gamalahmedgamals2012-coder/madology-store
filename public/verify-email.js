@@ -62,12 +62,12 @@ verifyBtn.onclick = async () => {
   const code = verificationCodeInput.value.trim();
 
   if (!email) {
-    alert("Missing email address. Please register again.");
+    window.MADOLOGY_SHOW_TOAST?.("Missing email address. Please register again.", "error");
     return;
   }
 
   if (code.length !== 6) {
-    alert("Please enter the 6-digit code.");
+    window.MADOLOGY_SHOW_TOAST?.("Please enter the 6-digit code.", "error");
     return;
   }
 
@@ -84,7 +84,7 @@ verifyBtn.onclick = async () => {
     const result = await res.json();
 
     if (!res.ok) {
-      alert(result.message);
+      window.MADOLOGY_SHOW_TOAST?.(result.message || "Verification failed.", "error");
       return;
     }
 
@@ -99,7 +99,7 @@ verifyBtn.onclick = async () => {
     window.location.href = "index.html";
   } catch (error) {
     console.error(error);
-    alert("Server error. Try again later.");
+    window.MADOLOGY_SHOW_TOAST?.("Server error. Try again later.", "error");
   } finally {
     verifyBtn.disabled = false;
     verifyBtn.innerText = "Verify Code";

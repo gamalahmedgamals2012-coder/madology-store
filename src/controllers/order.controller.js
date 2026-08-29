@@ -1,7 +1,7 @@
 const Order = require("../models/Order");
-const User = require("../models/User");
+const { findProductById } = require("../data/products");
+const productController = require("./product.controller");
 const asyncHandler = require("../middleware/async.middleware");
-const { verifyAuthToken } = require("../services/token.service");
 
 function createError(message, statusCode) {
   const error = new Error(message);
@@ -16,6 +16,11 @@ function normalizeText(value) {
 function normalizeCoordinate(value) {
   const coordinate = Number(value);
   return Number.isFinite(coordinate) ? coordinate : null;
+}
+
+function buildTrackingNumber() {
+  const randomPart = Math.random().toString(36).slice(2, 8).toUpperCase();
+  return `MADO-${Date.now().toString(36).toUpperCase()}-${randomPart}`;
 }
 
 function normalizeCart(cart) {
@@ -63,6 +68,46 @@ function normalizeCart(cart) {
   });
 }
 
+function buildTrustedOrderItems(cart) {
+  const normalizedItems = normalizeCart(cart);
+
+  return normalizedItems.map((item, index) => {
+    const product = findProductById(item.productId);
+
+    if (!product) {
+      throw createError(`Product ${index + 1} is no longer available.`, 400);
+    }
+
+    const productSize = product.sizes.some((size) => normalizeText(size).toLowerCase() === item.size.toLowerCase());
+
+    if (!productSize) {
+      throw createError(`Selected size is invalid for cart item ${index + 1}.`, 400);
+    }
+
+    const selectedColor = item.color || "Default";
+    const colorMatches = !item.color
+      || item.color === "Default"
+      || product.colors.some((color) => normalizeText(color).toLowerCase() === item.color.toLowerCase());
+
+    if (!colorMatches) {
+      throw createError(`Selected color is invalid for cart item ${index + 1}.`, 400);
+    }
+
+    const trustedPrice = Number(product.price);
+
+    return {
+      productId: product.id,
+      name: product.displayName || product.name,
+      size: item.size,
+      color: selectedColor,
+      price: trustedPrice,
+      quantity: item.quantity,
+      img: product.image || item.img || "",
+      itemTotal: trustedPrice * item.quantity
+    };
+  });
+}
+
 function buildCustomerSnapshot(req, user) {
   const customerPayload = req.body.customer || {};
   const fullName = normalizeText(customerPayload.fullName || customerPayload.name || req.body.customerName || user.name);
@@ -94,25 +139,8 @@ function buildCustomerSnapshot(req, user) {
   };
 }
 
-async function resolveUserFromRequest(req) {
-  if (req.user) {
-    return req.user;
-  }
-
-  if (!req.body || !req.body.token) {
-    return null;
-  }
-
-  try {
-    const payload = verifyAuthToken(req.body.token);
-    return await User.findById(payload.sub).select("-password");
-  } catch (error) {
-    return null;
-  }
-}
-
 const createOrder = asyncHandler(async (req, res) => {
-  const user = await resolveUserFromRequest(req);
+  const user = req.user;
 
   if (!user) {
     return res.status(401).json({
@@ -121,7 +149,7 @@ const createOrder = asyncHandler(async (req, res) => {
     });
   }
 
-  const normalizedItems = normalizeCart(req.body.cart || req.body.items);
+  const normalizedItems = buildTrustedOrderItems(req.body.cart || req.body.items);
 
   if (normalizedItems.length === 0) {
     return res.status(400).json({
@@ -131,13 +159,15 @@ const createOrder = asyncHandler(async (req, res) => {
   }
 
   const customer = buildCustomerSnapshot(req, user);
-  const totalAmount = normalizedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const totalAmount = normalizedItems.reduce((sum, item) => sum + item.itemTotal, 0);
 
   const order = await Order.create({
     user: user._id,
     customer,
     items: normalizedItems,
-    totalAmount
+    totalAmount,
+    trackingNumber: buildTrackingNumber(),
+    statusHistory: [{ status: "pending", note: "Order received" }]
   });
 
   res.status(201).json({
@@ -149,12 +179,59 @@ const createOrder = asyncHandler(async (req, res) => {
       items: order.items,
       totalAmount: order.totalAmount,
       status: order.status,
+      trackingNumber: order.trackingNumber,
       createdAt: order.createdAt
     }
   });
 });
 
+const getOrderHistory = asyncHandler(async (req, res) => {
+  const user = req.user;
+  const orders = await Order.find({ user: user._id }).sort({ createdAt: -1 });
+
+  res.json({
+    success: true,
+    orders: orders.map((order) => ({
+      id: order._id,
+      customer: order.customer,
+      items: order.items,
+      totalAmount: order.totalAmount,
+      status: order.status,
+      trackingNumber: order.trackingNumber,
+      statusHistory: order.statusHistory,
+      createdAt: order.createdAt
+    }))
+  });
+});
+
+const getOrderTracking = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const order = await Order.findOne({ _id: id, user: req.user._id });
+
+  if (!order) {
+    throw createError("Order not found.", 404);
+  }
+
+  res.json({
+    success: true,
+    order: {
+      id: order._id,
+      status: order.status,
+      trackingNumber: order.trackingNumber,
+      statusHistory: order.statusHistory,
+      createdAt: order.createdAt
+    }
+  });
+});
+
+const addReview = productController.submitReview;
+
 module.exports = {
   createOrder,
-  normalizeCart
+  normalizeCart,
+  buildTrackingNumber,
+  buildTrustedOrderItems,
+  getOrderHistory,
+  getOrderTracking,
+  addReview
 };

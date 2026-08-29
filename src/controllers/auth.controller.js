@@ -1,4 +1,4 @@
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const asyncHandler = require("../middleware/async.middleware");
 const {
@@ -29,7 +29,61 @@ function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-function validateRegistrationInput({ name, email, address, phone, password }) {
+function normalizeRequiredText(value, label, minLength, maxLength) {
+  if (typeof value !== "string") {
+    throw createError(`${label} must be a string.`, 400);
+  }
+
+  const normalized = value.trim();
+
+  if (normalized.length < minLength) {
+    throw createError(`${label} must be at least ${minLength} characters long.`, 400);
+  }
+
+  if (maxLength && normalized.length > maxLength) {
+    throw createError(`${label} must be ${maxLength} characters or fewer.`, 400);
+  }
+
+  return normalized;
+}
+
+function normalizeRequiredCoordinate(value, label, min, max) {
+  const coordinate = Number(value);
+
+  if (!Number.isFinite(coordinate) || coordinate < min || coordinate > max) {
+    throw createError(`${label} must be a number between ${min} and ${max}.`, 400);
+  }
+
+  return coordinate;
+}
+
+function normalizeAddressDetails(addressDetails) {
+  if (addressDetails === undefined || addressDetails === null) {
+    return undefined;
+  }
+
+  if (typeof addressDetails !== "object" || Array.isArray(addressDetails)) {
+    throw createError("Address details must be an object.", 400);
+  }
+
+  const city = typeof addressDetails.city === "string" ? addressDetails.city.trim() : "";
+  const state = typeof addressDetails.state === "string" ? addressDetails.state.trim() : "";
+  const country = typeof addressDetails.country === "string" ? addressDetails.country.trim() : "";
+  const postalCode = typeof addressDetails.postalCode === "string" ? addressDetails.postalCode.trim() : "";
+
+  if (!city && !state && !country && !postalCode) {
+    return undefined;
+  }
+
+  return {
+    city,
+    state,
+    country,
+    postalCode
+  };
+}
+
+function validateRegistrationInput({ name, email, address, phone, password, latitude, longitude, addressDetails }) {
   if (!name || !email || !address || !phone || !password) {
     throw createError("Name, email, address, phone, and password are required.", 400);
   }
@@ -49,6 +103,11 @@ function validateRegistrationInput({ name, email, address, phone, password }) {
   if (String(password).length < 6) {
     throw createError("Password must be at least 6 characters long.", 400);
   }
+
+  normalizeRequiredText(address, "Address", 5, 250);
+  normalizeRequiredCoordinate(latitude, "Latitude", -90, 90);
+  normalizeRequiredCoordinate(longitude, "Longitude", -180, 180);
+  normalizeAddressDetails(addressDetails);
 }
 
 function normalizeCoordinate(value) {
@@ -66,9 +125,7 @@ async function sendVerificationEmail(user, verificationCode) {
   const expiresInMinutes = Number(process.env.EMAIL_VERIFICATION_CODE_EXPIRES_MINUTES) || 10;
 
   console.log("[AUTH] Sending verification email", {
-    email: user.email,
-    verificationCode,
-    verifyPageUrl
+    userId: user._id?.toString()
   });
 
   try {
@@ -122,36 +179,24 @@ async function sendPasswordResetEmail(user, rawToken) {
 
 async function createAndSendVerificationCode(user) {
   const verificationCode = createVerificationCode();
-  console.log("[AUTH] Generating verification code", {
-    userId: user._id?.toString(),
-    email: user.email,
-    verificationCode
-  });
 
   user.verificationToken = hashToken(verificationCode);
   user.verificationTokenExpires = getVerificationExpiryDate();
   await user.save();
 
   console.log("[AUTH] Verification token stored", {
-    userId: user._id?.toString(),
-    email: user.email,
-    verificationTokenExpires: user.verificationTokenExpires
+    userId: user._id?.toString()
   });
 
   await sendVerificationEmail(user, verificationCode);
 }
 
 const register = asyncHandler(async (req, res) => {
-  const { name, email, address, phone, password, latitude, longitude } = req.body;
+  const { name, email, address, phone, password, latitude, longitude, addressDetails } = req.body;
 
-  console.log("[AUTH] Registration request received", {
-    name: String(name || "").trim(),
-    email: String(email || "").trim().toLowerCase(),
-    phone: String(phone || "").trim(),
-    address: String(address || "").trim()
-  });
+  console.log("[AUTH] Registration request received");
 
-  validateRegistrationInput({ name, email, address, phone, password });
+  validateRegistrationInput({ name, email, address, phone, password, latitude, longitude, addressDetails });
 
   const normalizedEmail = String(email).trim().toLowerCase();
   const existingUser = await User.findOne({ email: normalizedEmail });
@@ -165,13 +210,16 @@ const register = asyncHandler(async (req, res) => {
   }
 
   const hashedPassword = await bcrypt.hash(password, 12);
-  const normalizedLatitude = normalizeCoordinate(latitude);
-  const normalizedLongitude = normalizeCoordinate(longitude);
+  const normalizedAddress = normalizeRequiredText(address, "Address", 5, 250);
+  const normalizedAddressDetails = normalizeAddressDetails(addressDetails);
+  const normalizedLatitude = normalizeRequiredCoordinate(latitude, "Latitude", -90, 90);
+  const normalizedLongitude = normalizeRequiredCoordinate(longitude, "Longitude", -180, 180);
 
   const user = await User.create({
     name: String(name).trim(),
     email: normalizedEmail,
-    address: String(address).trim(),
+    address: normalizedAddress,
+    addressDetails: normalizedAddressDetails,
     latitude: normalizedLatitude,
     longitude: normalizedLongitude,
     phone: String(phone).trim(),
@@ -181,8 +229,7 @@ const register = asyncHandler(async (req, res) => {
   });
 
   console.log("[AUTH] User created; sending verification email", {
-    userId: user._id?.toString(),
-    email: user.email
+    userId: user._id?.toString()
   });
 
   await createAndSendVerificationCode(user);
@@ -377,26 +424,9 @@ const renderResetPasswordForm = asyncHandler(async (req, res) => {
             <input type="password" id="password" placeholder="New password" required minlength="6" />
             <button type="submit">Update Password</button>
           </form>
-          <p id="message"></p>
+        <p id="message"></p>
         </div>
-        <script>
-          const form = document.getElementById("resetForm");
-          const message = document.getElementById("message");
-          form.addEventListener("submit", async (event) => {
-            event.preventDefault();
-            const password = document.getElementById("password").value;
-            const response = await fetch(window.location.pathname, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ password })
-            });
-            const data = await response.json();
-            message.textContent = data.message;
-            if (response.ok) {
-              form.reset();
-            }
-          });
-        </script>
+        <script src="/reset-password-form.js"></script>
       </body>
     </html>
   `);
@@ -437,6 +467,180 @@ const getMe = asyncHandler(async (req, res) => {
   });
 });
 
+const updateProfile = asyncHandler(async (req, res) => {
+  const { name, phone, address, latitude, longitude } = req.body;
+  const user = await User.findById(req.user._id);
+
+  if (!user) {
+    throw createError("User not found.", 404);
+  }
+
+  if (name !== undefined) {
+    if (String(name).trim().length < 2) {
+      throw createError("Name must be at least 2 characters long.", 400);
+    }
+
+    user.name = String(name).trim();
+  }
+
+  if (phone !== undefined) {
+    user.phone = String(phone).trim();
+  }
+
+  if (address !== undefined) {
+    user.address = String(address).trim();
+  }
+
+  if (latitude !== undefined) {
+    user.latitude = Number.isFinite(Number(latitude)) ? Number(latitude) : null;
+  }
+
+  if (longitude !== undefined) {
+    user.longitude = Number.isFinite(Number(longitude)) ? Number(longitude) : null;
+  }
+
+  await user.save();
+
+  res.json({
+    success: true,
+    message: "Profile updated successfully.",
+    user: {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      address: user.address,
+      latitude: user.latitude,
+      longitude: user.longitude,
+      phone: user.phone,
+      role: user.role
+    }
+  });
+});
+
+const changePassword = asyncHandler(async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+
+  if (!currentPassword || !newPassword) {
+    throw createError("Current and new password are required.", 400);
+  }
+
+  const user = await User.findById(req.user._id);
+
+  if (!user) {
+    throw createError("User not found.", 404);
+  }
+
+  const match = await bcrypt.compare(currentPassword, user.password);
+
+  if (!match) {
+    throw createError("Current password is incorrect.", 401);
+  }
+
+  if (String(newPassword).length < 6) {
+    throw createError("New password must be at least 6 characters long.", 400);
+  }
+
+  user.password = await bcrypt.hash(newPassword, 12);
+  await user.save();
+
+  res.json({
+    success: true,
+    message: "Password updated successfully."
+  });
+});
+
+const getWishlist = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+  res.json({
+    success: true,
+    wishlist: user.wishlist || []
+  });
+});
+
+const updateWishlist = asyncHandler(async (req, res) => {
+  const { productId, name, price, image } = req.body;
+  const user = await User.findById(req.user._id);
+
+  if (!productId || !name) {
+    throw createError("Product ID and name are required.", 400);
+  }
+
+  const existingItem = user.wishlist.find((item) => item.productId === productId);
+
+  if (existingItem) {
+    user.wishlist = user.wishlist.filter((item) => item.productId !== productId);
+  } else {
+    user.wishlist.push({ productId, name, price: Number(price) || 0, image: image || "" });
+  }
+
+  await user.save();
+
+  res.json({
+    success: true,
+    message: existingItem ? "Removed from wishlist." : "Added to wishlist.",
+    wishlist: user.wishlist || []
+  });
+});
+
+const getAddresses = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+  res.json({
+    success: true,
+    addresses: user.addresses || []
+  });
+});
+
+const updateAddresses = asyncHandler(async (req, res) => {
+  const { addresses } = req.body;
+  const user = await User.findById(req.user._id);
+
+  if (!Array.isArray(addresses)) {
+    throw createError("Addresses must be an array.", 400);
+  }
+
+  if (addresses.length > 8) {
+    throw createError("You can save up to 8 addresses.", 400);
+  }
+
+  user.addresses = addresses.map((entry, index) => {
+    const address = String(entry.address || "").trim();
+
+    if (!address) {
+      throw createError(`Address ${index + 1} is required.`, 400);
+    }
+
+    return {
+      label: String(entry.label || `Address ${index + 1}`).trim().slice(0, 60),
+      address,
+      latitude: Number.isFinite(Number(entry.latitude)) ? Number(entry.latitude) : null,
+      longitude: Number.isFinite(Number(entry.longitude)) ? Number(entry.longitude) : null,
+      isDefault: Boolean(entry.isDefault)
+    };
+  });
+
+  if (user.addresses.length > 0 && !user.addresses.some((entry) => entry.isDefault)) {
+    user.addresses[0].isDefault = true;
+  }
+
+  let defaultWasAssigned = false;
+  user.addresses = user.addresses.map((entry) => {
+    if (entry.isDefault && !defaultWasAssigned) {
+      defaultWasAssigned = true;
+      return entry;
+    }
+
+    entry.isDefault = false;
+    return entry;
+  });
+
+  await user.save();
+
+  res.json({
+    success: true,
+    addresses: user.addresses || []
+  });
+});
+
 module.exports = {
   register,
   login,
@@ -445,5 +649,15 @@ module.exports = {
   forgotPassword,
   renderResetPasswordForm,
   resetPassword,
-  getMe
+  getMe,
+  updateProfile,
+  changePassword,
+  getWishlist,
+  updateWishlist,
+  getAddresses,
+  updateAddresses,
+  validateRegistrationInput,
+  normalizeRequiredText,
+  normalizeRequiredCoordinate,
+  normalizeAddressDetails
 };

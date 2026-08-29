@@ -6,14 +6,19 @@ const API_BASE_URL =
 const emailInput = document.getElementById("email");
 const nameInput = document.getElementById("name");
 const phoneInput = document.getElementById("phone");
-const addressInput = document.getElementById("address");
-const latitudeInput = document.getElementById("latitude");
-const longitudeInput = document.getElementById("longitude");
+const selectedAddressInput = document.getElementById("address");
+const selectedLatitudeInput = document.getElementById("latitude");
+const selectedLongitudeInput = document.getElementById("longitude");
+const addressStatus = document.getElementById("addressStatus");
 const passwordInput = document.getElementById("password");
 const registerBtn = document.getElementById("registerBtn");
 
 function isValidMapSelection() {
-  return addressInput.dataset.locationSelected === "true" && latitudeInput.value && longitudeInput.value;
+  return selectedAddressInput.dataset.locationSelected === "true" && selectedLatitudeInput.value !== "" && selectedLongitudeInput.value !== "";
+}
+
+function getSelectedLocation() {
+  return window.MADOLOGY_SELECTED_LOCATION || null;
 }
 
 registerBtn.onclick = async () => {
@@ -21,15 +26,15 @@ registerBtn.onclick = async () => {
     !emailInput.value ||
     !nameInput.value ||
     !phoneInput.value ||
-    !addressInput.value ||
+    !selectedAddressInput.value ||
     !passwordInput.value
   ) {
-    alert("Please fill all fields");
+    window.MADOLOGY_SHOW_TOAST?.("Please fill all fields.", "error");
     return;
   }
 
   if (!isValidMapSelection()) {
-    alert("Please select your address from Google Maps first");
+    window.MADOLOGY_SHOW_TOAST?.("Please select your address from the map first.", "error");
     return;
   }
 
@@ -40,9 +45,10 @@ registerBtn.onclick = async () => {
     email: emailInput.value.trim(),
     name: nameInput.value.trim(),
     phone: phoneInput.value.trim(),
-    address: addressInput.value.trim(),
-    latitude: Number(latitudeInput.value),
-    longitude: Number(longitudeInput.value),
+    address: selectedAddressInput.value.trim(),
+    latitude: Number(selectedLatitudeInput.value),
+    longitude: Number(selectedLongitudeInput.value),
+    addressDetails: getSelectedLocation()?.addressDetails,
     password: passwordInput.value
   };
 
@@ -56,18 +62,24 @@ registerBtn.onclick = async () => {
     const result = await res.json();
 
     if (!res.ok) {
-      alert(result.message);
+      window.MADOLOGY_SHOW_TOAST?.(result.message || "Registration failed.", "error");
       return;
     }
 
-    alert(result.message);
+    window.MADOLOGY_SHOW_TOAST?.(result.message || "Registration successful.", "success");
 
     window.location.href = `verify-email.html?email=${encodeURIComponent(data.email)}`;
   } catch (err) {
     console.error(err);
-    alert("Server error. Try again later.");
+    window.MADOLOGY_SHOW_TOAST?.("Server error. Try again later.", "error");
   } finally {
     registerBtn.disabled = false;
     registerBtn.innerText = "Register";
+  }
+};
+
+window.MADOLOGY_SET_ADDRESS_STATUS = (message) => {
+  if (addressStatus) {
+    addressStatus.textContent = message || "";
   }
 };

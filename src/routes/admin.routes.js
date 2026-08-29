@@ -8,5 +8,6 @@ router.use(requireAuth, requireRole("admin"));
 
 router.get("/users", adminController.listUsers);
 router.get("/orders", adminController.listOrders);
+router.patch("/orders/:id/status", adminController.updateOrderStatus);
 
 module.exports = router;

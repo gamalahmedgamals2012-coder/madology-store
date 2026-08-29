@@ -3,7 +3,7 @@ body{
     padding-top: 100px;
 
 }
-.log-in{
+.auth-card{
 display:flex;
 justify-self: center;
 text-align: center;

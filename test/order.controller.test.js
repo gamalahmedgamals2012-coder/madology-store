@@ -1,6 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { normalizeCart } = require('../src/controllers/order.controller');
+const { normalizeCart, buildTrackingNumber, buildTrustedOrderItems } = require('../src/controllers/order.controller');
 
 test('normalizeCart keeps selected size and item total', () => {
   const normalized = normalizeCart([
@@ -30,4 +30,28 @@ test('normalizeCart rejects items without a selected size', () => {
       img: 'https://example.com/tee.png'
     }
   ]), /Selected size is required/);
+});
+
+test('buildTrackingNumber returns a stable MADOLOGY tracking format', () => {
+  assert.match(buildTrackingNumber(), /^MADO-[A-Z0-9]+-[A-Z0-9]{6}$/);
+});
+
+test('buildTrustedOrderItems ignores tampered client prices', () => {
+  const trustedItems = buildTrustedOrderItems([
+    {
+      id: 'air-jordan',
+      name: 'Fake Name',
+      size: 'M',
+      color: 'Black',
+      price: 1,
+      quantity: 2,
+      img: 'https://example.com/tampered.png'
+    }
+  ]);
+
+  assert.equal(trustedItems[0].productId, 'air-jordan');
+  assert.equal(trustedItems[0].name, 'Air Jordan');
+  assert.equal(trustedItems[0].price, 700);
+  assert.equal(trustedItems[0].itemTotal, 1400);
+  assert.equal(trustedItems[0].img, '/ascets/clothes/Air jordan.jpeg');
 });

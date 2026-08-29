@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account | MADOLOGY</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" type="image/png" href="/ascets/images/logo.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="products.css">
+  <link rel="stylesheet" href="premium-ui.css">
+  <link rel="stylesheet" href="account.css">
+</head>
+
+<body>
+  <div id="uiToastContainer"></div>
+
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="brand-link title" href="index.html">
+        <img class="brand-logo" src="/ascets/images/logo.png" alt="MADOLOGY logo">
+        MADO<span>LOGY</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto" id="nav">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="products.html">Shop</a></li>
+        </ul>
+        <a href="register.html" class="register ms-3"><i class="fa-solid fa-user-plus"></i></a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="account-shell">
+    <aside class="account-sidebar" aria-label="Account sections">
+      <div class="account-user-card">
+        <span class="account-avatar"><i class="fa-solid fa-circle-user"></i></span>
+        <div>
+          <p class="account-kicker">Account</p>
+          <h1 id="accountName">MADOLOGY</h1>
+          <p id="accountEmail"></p>
+        </div>
+      </div>
+
+      <div class="account-tabs" role="tablist">
+        <button class="account-tab active" type="button" data-panel="profilePanel">
+          <i class="fa-solid fa-user"></i>
+          <span>Profile</span>
+        </button>
+        <button class="account-tab" type="button" data-panel="passwordPanel">
+          <i class="fa-solid fa-lock"></i>
+          <span>Password</span>
+        </button>
+        <button class="account-tab" type="button" data-panel="wishlistPanel">
+          <i class="fa-solid fa-heart"></i>
+          <span>Wishlist</span>
+        </button>
+        <button class="account-tab" type="button" data-panel="addressesPanel">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>Addresses</span>
+        </button>
+        <button class="account-tab" type="button" data-panel="ordersPanel">
+          <i class="fa-solid fa-box"></i>
+          <span>Orders</span>
+        </button>
+      </div>
+    </aside>
+
+    <section class="account-content">
+      <section class="account-panel active" id="profilePanel">
+        <div class="panel-heading">
+          <p class="account-kicker">Profile</p>
+          <h2>User Profile</h2>
+        </div>
+        <form class="account-form" id="profileForm">
+          <label>
+            <span>Name</span>
+            <input type="text" id="profileName" autocomplete="name" required minlength="2">
+          </label>
+          <label>
+            <span>Email</span>
+            <input type="email" id="profileEmail" autocomplete="email" disabled>
+          </label>
+          <label>
+            <span>Phone</span>
+            <input type="tel" id="profilePhone" autocomplete="tel">
+          </label>
+          <label class="span-2">
+            <span>Address</span>
+            <textarea id="profileAddress" rows="3" autocomplete="street-address"></textarea>
+          </label>
+          <label>
+            <span>Latitude</span>
+            <input type="number" step="any" id="profileLatitude">
+          </label>
+          <label>
+            <span>Longitude</span>
+            <input type="number" step="any" id="profileLongitude">
+          </label>
+          <button class="account-primary" type="submit">Save Profile</button>
+        </form>
+      </section>
+
+      <section class="account-panel" id="passwordPanel">
+        <div class="panel-heading">
+          <p class="account-kicker">Security</p>
+          <h2>Change Password</h2>
+        </div>
+        <form class="account-form" id="passwordForm">
+          <label>
+            <span>Current password</span>
+            <input type="password" id="currentPassword" autocomplete="current-password" required>
+          </label>
+          <label>
+            <span>New password</span>
+            <input type="password" id="newPassword" autocomplete="new-password" required minlength="6">
+          </label>
+          <label>
+            <span>Confirm password</span>
+            <input type="password" id="confirmPassword" autocomplete="new-password" required minlength="6">
+          </label>
+          <button class="account-primary" type="submit">Update Password</button>
+        </form>
+      </section>
+
+      <section class="account-panel" id="wishlistPanel">
+        <div class="panel-heading">
+          <p class="account-kicker">Saved</p>
+          <h2>Wishlist</h2>
+        </div>
+        <div class="account-grid" id="wishlistList"></div>
+      </section>
+
+      <section class="account-panel" id="addressesPanel">
+        <div class="panel-heading">
+          <p class="account-kicker">Delivery</p>
+          <h2>Saved Addresses</h2>
+        </div>
+        <form class="account-form address-form" id="addressForm">
+          <label>
+            <span>Label</span>
+            <input type="text" id="addressLabel" placeholder="Home">
+          </label>
+          <label class="span-2">
+            <span>Address</span>
+            <textarea id="addressText" rows="3" required></textarea>
+          </label>
+          <label>
+            <span>Latitude</span>
+            <input type="number" step="any" id="addressLatitude">
+          </label>
+          <label>
+            <span>Longitude</span>
+            <input type="number" step="any" id="addressLongitude">
+          </label>
+          <label class="account-check">
+            <input type="checkbox" id="addressDefault">
+            <span>Default address</span>
+          </label>
+          <button class="account-primary" type="submit">Add Address</button>
+        </form>
+        <div class="address-list" id="addressList"></div>
+      </section>
+
+      <section class="account-panel" id="ordersPanel">
+        <div class="panel-heading">
+          <p class="account-kicker">Purchases</p>
+          <h2>Order History</h2>
+        </div>
+        <div class="orders-layout">
+          <div class="order-list" id="orderList"></div>
+          <aside class="tracking-panel" id="trackingPanel">
+            <h3>Order Tracking</h3>
+            <p class="account-empty">Select an order to view tracking.</p>
+          </aside>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="ui-feedback.js"></script>
+  <script src="auth.js"></script>
+  <script src="cart-store.js"></script>
+  <script src="site-auth-menu.js"></script>
+  <script src="account.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

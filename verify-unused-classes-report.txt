@@ -1,0 +1,15 @@
+found 14 used classes among 59 candidates
+card c:\websites\mado store\public\index.html, c:\websites\mado store\public\premium-cart-tailwind.config.js, c:\websites\mado store\public\premium-cart.js, c:\websites\mado store\public\products.html, c:\websites\mado store\public\products.js, c:\websites\mado store\public\verify-email.html
+cart-icon c:\websites\mado store\public\products.html, c:\websites\mado store\public\products.js
+cart-item c:\websites\mado store\public\products.js
+close c:\websites\mado store\public\add-to-cart-modal.js, c:\websites\mado store\public\products.js
+completed c:\websites\mado store\public\add-to-cart-modal.js
+contact c:\websites\mado store\public\about.html
+desc c:\websites\mado store\public\about.html, c:\websites\mado store\public\index.html, c:\websites\mado store\public\products.html
+home c:\websites\mado store\public\index.html, c:\websites\mado store\public\premium-cart.html
+item-info c:\websites\mado store\public\products.js
+label c:\websites\mado store\public\about.html, c:\websites\mado store\public\add-to-cart-modal.js, c:\websites\mado store\public\premium-cart.js, c:\websites\mado store\public\products.html, c:\websites\mado store\public\products.js, c:\websites\mado store\public\register.html, c:\websites\mado store\public\site-auth-menu.js
+logo c:\websites\mado store\public\about.html, c:\websites\mado store\public\index.html, c:\websites\mado store\public\login.html, c:\websites\mado store\public\premium-cart.html, c:\websites\mado store\public\products.html, c:\websites\mado store\public\register.html, c:\websites\mado store\public\register2.html, c:\websites\mado store\public\verify-email.html
+name c:\websites\mado store\public\about.html, c:\websites\mado store\public\add-to-cart-modal.js, c:\websites\mado store\public\admin.html, c:\websites\mado store\public\admin.js, c:\websites\mado store\public\auth.js, c:\websites\mado store\public\index.html, c:\websites\mado store\public\login.html, c:\websites\mado store\public\login.js, c:\websites\mado store\public\premium-cart.html, c:\websites\mado store\public\premium-cart.js, c:\websites\mado store\public\products.html, c:\websites\mado store\public\products.js, c:\websites\mado store\public\register-map.js, c:\websites\mado store\public\register.html, c:\websites\mado store\public\register.js, c:\websites\mado store\public\register2.html, c:\websites\mado store\public\site-auth-menu.js, c:\websites\mado store\public\verify-email.html, c:\websites\mado store\public\verify-email.js
+new c:\websites\mado store\public\add-to-cart-modal.js, c:\websites\mado store\public\admin.js, c:\websites\mado store\public\auth.js, c:\websites\mado store\public\login.js, c:\websites\mado store\public\premium-cart.js, c:\websites\mado store\public\register-map.js, c:\websites\mado store\public\verify-email.js
+store c:\websites\mado store\public\premium-cart.html, c:\websites\mado store\public\products.html

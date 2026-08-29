@@ -8,10 +8,6 @@ margin-top: 10em;
 margin-bottom: 10em;
 box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.26);
 }
-.register-form{
-width:25em;
-height: 20em;
-}
 input{
 display: block;
 padding:20px;

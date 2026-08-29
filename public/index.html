@@ -4,16 +4,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MADOLOGY</title>
+  <script src="theme-init.js"></script>
+  <title>MADOLOGY | Modern Fashion Essentials</title>
+  <meta name="description"
+    content="Discover premium fashion essentials at MADOLOGY with modern styles, curated collections, and a smooth shopping experience.">
+  <meta name="robots" content="index,follow">
+  <meta property="og:title" content="MADOLOGY | Modern Fashion Essentials">
+  <meta property="og:description" content="Shop curated fashion essentials built for modern style and comfort.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/ascets/images/hero-section.avif">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MADOLOGY | Modern Fashion Essentials">
+  <meta name="twitter:description" content="Modern fashion essentials with a polished online shopping experience.">
   <link rel="icon" type="image/png" href="/ascets/images/logo.png">
   <link rel="stylesheet" href="home.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="shortcut icon" href="../ascets/images/logo.png" type="image/x-icon">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
   <link rel="stylesheet" href="premium-ui.css">
 </head>
 
@@ -59,55 +68,86 @@
 
         <div class="hero-media-container">
           <div class="hero-image">
-            <img class="hero-photo" src="/ascets/images/hero-section.avif" alt="Fashion editorial model">
+            <img class="hero-photo" src="/ascets/images/hero-section.avif"
+              alt="Fashion editorial model wearing MADOLOGY apparel" loading="lazy">
           </div>
         </div>
       </div>
     </div>
     <hr class="section-divider">
-    <div class="container-fluid category-summary">
-      <h1 class="category-title">We Sell</h1>
-      <div class="row text-center">
+    <div class="container category-summary">
+      <h1 class="category-title fs-2">We Sell</h1>
+      <div class="row gx-5">
         <div class="col category-tile"><i class="fa-solid fa-shirt"></i>T-Shirts</div>
         <div class="col category-tile"><i class="fa-solid fa-shirt"></i>Hoodies</div>
         <div class="col category-tile"><i class="fa-solid fa-shirt"></i>Sweats</div>
       </div>
     </div>
 
-    <section class="lookbook-section">
-      <div class="container">
-        <div class="section-header">
-          <p class="section-kicker">Best products</p>
-          <p class="section-copy">
-            A quiet edit of pieces, poses, and spaces that shape the season.
-          </p>
+<section class="lookbook-section">
+  <div class="container">
+
+    <div class="section-header">
+      <p class="section-kicker">Best Poses</p>
+      <p class="section-copy">
+        A quiet edit of pieces, poses, and spaces that shape the season.
+      </p>
+    </div>
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators"
+          data-bs-slide-to="0" class="active"></button>
+
+        <button type="button" data-bs-target="#carouselExampleIndicators"
+          data-bs-slide-to="1"></button>
+
+        <button type="button" data-bs-target="#carouselExampleIndicators"
+          data-bs-slide-to="2"></button>
+      </div>
+
+      <div class="carousel-inner">
+
+        <div class="carousel-item active">
+          <img src="../ascets/images/home-3.avif"
+            class="d-block w-100"
+            alt="Product 1">
         </div>
 
-        <div class="lookbook-grid">
-          <figure class="lookbook-card featured">
-            <img src="../ascets/images/home-1.avif" 
-            alt="Product image of a black hoodie with a graphic design">
-
-          </figure>
-          <figure class="lookbook-card">
-            <img src="../ascets/images/home-2.avif" 
-              alt="Product image of a white t-shirt with a graphic design">
-          </figure>
-          <figure class="lookbook-card">
-            <img src="../ascets/images/home-3.avif" 
-              alt="Minimal fashion rack in a neutral studio">
-          </figure>
-          <figure class="lookbook-card">
-            <img src="../ascets/images/home-4.avif" 
-            alt="Woman in a white blazer">
-          </figure>            
-
+        <div class="carousel-item">
+          <img src="../ascets/images/home-2.avif"
+            class="d-block w-100"
+            alt="Product 2">
         </div>
-          <a href="products.html" class="hero-cta">Visit Now</a>
 
-    </section>
-  </section>
-  <footer class="footer">
+        <div class="carousel-item">
+          <img src="/ascets/images/home-1.avif"
+            class="d-block w-100"
+            alt="Product 3">
+        </div>
+
+      </div>
+
+      <button class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="prev">
+
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+
+      <button class="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="next">
+
+        <span class="carousel-control-next-icon"></span>
+      </button>
+
+    </div>
+  </div>
+</section>  <footer class="footer">
     <div class="container">
       <div class="row gy-4">
 

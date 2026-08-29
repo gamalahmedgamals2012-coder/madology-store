@@ -6,6 +6,7 @@ const fs = require("fs");
 const path = require("path");
 
 const app = express();
+const JWT_SECRET = process.env.JWT_SECRET || "CHANGE_ME_IN_ENV";
 
 // Middleware
 app.use(cors());
@@ -80,7 +81,7 @@ app.post("/register", async (req, res) => {
     saveUsers(users);
 
     // Create token
-    const token = jwt.sign({ id: user.id }, "SECRET123", { expiresIn: "7d" });
+    const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: "7d" });
 
     res.json({ 
       message: "✅ Registered successfully", 
@@ -113,7 +114,7 @@ app.post("/login", async (req, res) => {
     }
 
     // Create token
-    const token = jwt.sign({ id: user.id }, "SECRET123", { expiresIn: "7d" });
+    const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: "7d" });
 
     res.json({ 
       token, 

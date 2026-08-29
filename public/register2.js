@@ -1,10 +1,10 @@
 const loginBtn = document.querySelector(".log");
-        loginBtn.addEventListener("click", () => {
+        loginBtn?.addEventListener("click", () => {
             const email = document.querySelector("#username").value.trim();
             const password = document.querySelector("#password").value.trim();
 
             if (!email || !password) {
-                alert("Please fill in all fields!");
+                window.MADOLOGY_SHOW_TOAST?.("Please fill in all fields!", "error");
                 return;
             }
 
@@ -17,10 +17,10 @@ const loginBtn = document.querySelector(".log");
                 .then(data => {
                     if (data.userId) {
                         localStorage.setItem("userId", data.userId);
-                        alert("Login successful!");
+                        window.MADOLOGY_SHOW_TOAST?.("Login successful!", "success");
                         window.location.href = "index.html";
                     } else {
-                        alert(data.message);
+                        window.MADOLOGY_SHOW_TOAST?.(data.message || "Login failed.", "error");
                     }
                 })
                 .catch(err => console.error(err));

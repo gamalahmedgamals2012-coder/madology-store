@@ -5,8 +5,10 @@ const morgan = require("morgan");
 const path = require("path");
 
 const authRoutes = require("./routes/auth.routes");
+const locationRoutes = require("./routes/location.routes");
 const orderRoutes = require("./routes/order.routes");
 const adminRoutes = require("./routes/admin.routes");
+const productRoutes = require("./routes/product.routes");
 const { apiLimiter } = require("./middleware/rate-limit.middleware");
 const { notFoundHandler, errorHandler } = require("./middleware/error.middleware");
 
@@ -32,7 +34,44 @@ app.set("trust proxy", 1);
 
 app.use(
   helmet({
-    crossOriginResourcePolicy: false
+    crossOriginResourcePolicy: false,
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+
+        scriptSrc: [
+          "'self'",
+          "https://cdn.jsdelivr.net",
+          "https://unpkg.com"
+        ],
+
+        styleSrc: [
+          "'self'",
+          "https://cdn.jsdelivr.net",
+          "https://fonts.googleapis.com",
+          "https://cdnjs.cloudflare.com"
+        ],
+
+        fontSrc: [
+          "'self'",
+          "https://fonts.gstatic.com",
+          "https://cdnjs.cloudflare.com",
+          "data:"
+        ],
+
+        imgSrc: [
+          "'self'",
+          "data:",
+          "blob:",
+          "https:"
+        ],
+
+        connectSrc: [
+          "'self'",
+          "https:"
+        ]
+      }
+    }
   })
 );
 
@@ -85,6 +124,8 @@ app.get("/health", (req, res) => {
 });
 
 app.use("/auth", authRoutes);
+app.use("/location", locationRoutes);
+app.use("/products", productRoutes);
 app.use("/", orderRoutes);
 app.use("/admin", adminRoutes);
 

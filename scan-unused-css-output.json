@@ -1,0 +1,3391 @@
+{
+  "unusedClasses": [
+    "40px",
+    "98px",
+    "about-copy-container",
+    "action-bar",
+    "addtocurt",
+    "atc-product-details",
+    "atc-product-preview",
+    "atc-product-price",
+    "atc-step-indicator",
+    "btn-add-cart",
+    "btn-back",
+    "button1",
+    "card",
+    "cart-item",
+    "category-text",
+    "circle-bg",
+    "circle-outline",
+    "completed",
+    "contact",
+    "contact-visiting",
+    "containerFour",
+    "containerOne",
+    "containerThree",
+    "containerTwo",
+    "desc",
+    "goal",
+    "goal-box",
+    "goals-container",
+    "hi",
+    "home",
+    "homedesc",
+    "homepara",
+    "img3",
+    "imgfooter",
+    "item-info",
+    "item-price",
+    "label",
+    "left-bottom",
+    "left-row",
+    "left-top",
+    "logo",
+    "maps-link",
+    "nature1",
+    "offers",
+    "orderBtn",
+    "person",
+    "premium-cart-actions",
+    "premium-cart-body",
+    "premium-cart-close",
+    "premium-cart-footer",
+    "premium-cart-header",
+    "premium-cart-item",
+    "premium-cart-item-info",
+    "premium-cart-link",
+    "premium-cart-meta",
+    "premium-cart-price",
+    "premium-cart-topline",
+    "premium-empty",
+    "premium-order-btn",
+    "premium-qty",
+    "premium-remove",
+    "premium-summary-card",
+    "premium-summary-row",
+    "premium-summary-total",
+    "products-row",
+    "quick-links",
+    "register-form",
+    "right-top",
+    "s1",
+    "shoph",
+    "shopn",
+    "size-error",
+    "size-selector",
+    "size-selector-grid",
+    "size-selector-label",
+    "social",
+    "socialContainer",
+    "socialSvg",
+    "stor",
+    "store",
+    "store1",
+    "story",
+    "summary-total-label",
+    "visit"
+  ],
+  "unusedIds": [],
+  "usedClasses": [
+    "-",
+    "----------",
+    "0",
+    "1",
+    "118",
+    "12",
+    "14px",
+    "160",
+    "2",
+    "20",
+    "20px",
+    "30px",
+    "40",
+    "401",
+    "44H55L49",
+    "59Z",
+    "59a20",
+    "59h62l-5",
+    "59h76",
+    "6",
+    "60px",
+    "63",
+    "7",
+    "98",
+    "API",
+    "ATC_MODAL",
+    "Actually",
+    "Add",
+    "Auto-initialize",
+    "CSS",
+    "Clear",
+    "Close",
+    "Content-Type",
+    "Converts",
+    "DOM",
+    "Decrease",
+    "Dispatch",
+    "Do",
+    "Failed",
+    "Go",
+    "Google",
+    "Increase",
+    "Initializes",
+    "L",
+    "Listen",
+    "Login",
+    "M",
+    "M42",
+    "M49",
+    "M60",
+    "Manrope",
+    "Maps",
+    "No",
+    "Open",
+    "POST",
+    "Places",
+    "Please",
+    "Register",
+    "Reset",
+    "S",
+    "Saves",
+    "Server",
+    "Show",
+    "Try",
+    "UI",
+    "USD",
+    "Update",
+    "Validate",
+    "XL",
+    "XXL",
+    "YOUR_GOOGLE_MAPS_API_KEY",
+    "You",
+    "Your",
+    "a",
+    "about-copy",
+    "about-gallery",
+    "about-heading",
+    "about-image-column",
+    "about-media",
+    "about-media-grid",
+    "about-page",
+    "about-text",
+    "absolute",
+    "account",
+    "account-login",
+    "account-signup",
+    "action",
+    "actionBtn",
+    "active",
+    "add",
+    "add-to-cart-btn",
+    "adding",
+    "address",
+    "address-map",
+    "addressDisplay",
+    "addressGeocoder",
+    "addressInput",
+    "addressMap",
+    "addressMarker",
+    "admin",
+    "after",
+    "again",
+    "align-items-center",
+    "all",
+    "an",
+    "and",
+    "animate-rise",
+    "antialiased",
+    "any",
+    "apiBaseUrl",
+    "app",
+    "appear",
+    "as",
+    "async",
+    "atc-modal",
+    "atc-modal-actions",
+    "atc-modal-close",
+    "atc-modal-inner",
+    "atc-modal-message",
+    "atc-size",
+    "atc-step-dot",
+    "auth",
+    "autocomplete",
+    "await",
+    "back",
+    "backdrop-blur",
+    "background",
+    "been",
+    "before",
+    "bg-[radial-gradient(circle_at_top,_rgba(249,115,22,0.16),_transparent_45%),radial-gradient(circle_at_top_right,_rgba(251,191,36,0.12),_transparent_28%)]",
+    "bg-orange-50",
+    "bg-slate-100",
+    "bg-slate-50",
+    "bg-slate-900",
+    "bg-white",
+    "bg-white/80",
+    "block",
+    "border",
+    "border-dashed",
+    "border-slate-200",
+    "border-white/70",
+    "brand-link",
+    "brand-logo",
+    "btn-cancel",
+    "btn-continue",
+    "button",
+    "by",
+    "cache",
+    "call",
+    "can",
+    "cancel",
+    "cart",
+    "cart-icon",
+    "cart-num",
+    "cart-overlay",
+    "cart-tab",
+    "cart-updated",
+    "cartItems",
+    "cartList",
+    "cartOverlay",
+    "case",
+    "catch",
+    "category-summary",
+    "category-tile",
+    "category-title",
+    "change",
+    "checked",
+    "checkoutBtn",
+    "click",
+    "clicked",
+    "close",
+    "closeBtn",
+    "closeButton",
+    "code",
+    "col",
+    "col-12",
+    "col-lg-2",
+    "col-lg-3",
+    "col-lg-4",
+    "col-lg-6",
+    "col-md-6",
+    "collapse",
+    "const",
+    "contact-container",
+    "contact-email",
+    "contact-email-icon",
+    "contact-icon",
+    "contact-phone",
+    "contact-phone-icon",
+    "container",
+    "container-fluid",
+    "content",
+    "continue",
+    "copyright",
+    "created",
+    "currency",
+    "currentColor",
+    "currentItems",
+    "currentProduct",
+    "currentStep",
+    "custom",
+    "customer",
+    "customerAddress",
+    "customerLatitude",
+    "customerLongitude",
+    "customerPhone",
+    "data",
+    "decrease",
+    "delay",
+    "delegation",
+    "disabled:bg-slate-200",
+    "disabled:cursor-not-allowed",
+    "disabled:shadow-none",
+    "disabled:text-slate-400",
+    "dispatched",
+    "div",
+    "dragged",
+    "dropdown-header",
+    "dropdown-logout-btn",
+    "dropdown-menu",
+    "dropdown-user-name",
+    "dropdownMenu",
+    "duration-300",
+    "duration-500",
+    "ease-out",
+    "eco",
+    "else",
+    "email",
+    "emailText",
+    "en-US",
+    "enable",
+    "error",
+    "errorEl",
+    "event",
+    "existing",
+    "fa-cart-shopping",
+    "fa-circle-user",
+    "fa-envelope",
+    "fa-location-pin",
+    "fa-phone",
+    "fa-shirt",
+    "fa-solid",
+    "fa-user-plus",
+    "false",
+    "favorite",
+    "featured",
+    "fields",
+    "fill",
+    "finally",
+    "first",
+    "fixed-top",
+    "flex",
+    "flex-1",
+    "flex-col",
+    "focus:outline-none",
+    "focus:ring-4",
+    "focus:ring-slate-200",
+    "font-bold",
+    "font-extrabold",
+    "font-medium",
+    "font-semibold",
+    "footer",
+    "footer-brand",
+    "footer-brand-logo",
+    "footer-desc",
+    "footer-links",
+    "footer-logo",
+    "for",
+    "form",
+    "form2",
+    "formatted",
+    "formattedAddress",
+    "from",
+    "function",
+    "gap-2",
+    "gap-3",
+    "gap-4",
+    "gap-6",
+    "grid",
+    "gy-4",
+    "h-10",
+    "h-20",
+    "h-28",
+    "h-52",
+    "h-80",
+    "h-px",
+    "has",
+    "hasMapLocation",
+    "headerItemsCount",
+    "helpers",
+    "here",
+    "hero",
+    "hero-cta",
+    "hero-eyebrow",
+    "hero-image",
+    "hero-media-container",
+    "hero-meta",
+    "hero-photo",
+    "hero-text",
+    "highlighter",
+    "hover:-translate-y-0.5",
+    "hover:bg-slate-800",
+    "id",
+    "if",
+    "img-fluid",
+    "imgHtml",
+    "immediately",
+    "in",
+    "increase",
+    "init",
+    "inline-flex",
+    "inset-x-0",
+    "instead",
+    "into",
+    "is",
+    "isEmpty",
+    "isError",
+    "item",
+    "itemCount",
+    "itemTotal",
+    "items-center",
+    "items-end",
+    "items-start",
+    "itemsHtml",
+    "itemsMarkup",
+    "justify-between",
+    "justify-center",
+    "key",
+    "latitude",
+    "latitudeInput",
+    "leading-5",
+    "leading-6",
+    "let",
+    "lg:px-8",
+    "lg:py-12",
+    "load",
+    "location",
+    "log",
+    "log-in",
+    "login-form",
+    "loginBtn",
+    "logoutBtn",
+    "longitude",
+    "longitudeInput",
+    "lookbook-card",
+    "lookbook-grid",
+    "lookbook-section",
+    "madology_cart",
+    "map",
+    "mapElement",
+    "mapsButton",
+    "mapsUrl",
+    "marker",
+    "max-w-2xl",
+    "max-w-7xl",
+    "max-w-md",
+    "mb-2",
+    "mb-8",
+    "menu",
+    "meta",
+    "min-h-screen",
+    "min-w-0",
+    "min-w-12",
+    "mission-image-container",
+    "mission-section",
+    "modal",
+    "modal-overlay",
+    "ms-3",
+    "ms-auto",
+    "mt-1",
+    "mt-2",
+    "mt-3",
+    "mt-5",
+    "mt-6",
+    "mt-8",
+    "must",
+    "mx-auto",
+    "name",
+    "nav-item",
+    "nav-link",
+    "navbar",
+    "navbar-collapse",
+    "navbar-expand-lg",
+    "navbar-nav",
+    "navbar-toggler",
+    "navbar-toggler-icon",
+    "new",
+    "nextQuantity",
+    "none",
+    "now",
+    "null",
+    "number",
+    "object-cover",
+    "of",
+    "or",
+    "order",
+    "orderButton",
+    "orders",
+    "other",
+    "overflow-hidden",
+    "overlay",
+    "p-1",
+    "p-4",
+    "p-6",
+    "p-8",
+    "parts",
+    "password",
+    "pb-1",
+    "phone",
+    "pieces",
+    "place",
+    "pointer-events-none",
+    "position",
+    "premiumCartPanel",
+    "previous",
+    "product-card",
+    "product-info",
+    "product-name",
+    "product-price",
+    "productCard",
+    "productColor",
+    "productId",
+    "productImage",
+    "productName",
+    "productPrice",
+    "products-container",
+    "profile-button",
+    "profile-container",
+    "profileBtn",
+    "public",
+    "px-3",
+    "px-4",
+    "px-5",
+    "py-2",
+    "py-3",
+    "py-4",
+    "py-8",
+    "quantity",
+    "quantity-btn",
+    "quantityButton",
+    "radio",
+    "react",
+    "ready",
+    "really",
+    "reg",
+    "register",
+    "registerBtn",
+    "registration",
+    "relative",
+    "remove-btn",
+    "removeButton",
+    "render",
+    "renderCart",
+    "res",
+    "resendBtn",
+    "response",
+    "result",
+    "results",
+    "return",
+    "rise",
+    "round",
+    "rounded-2xl",
+    "rounded-3xl",
+    "rounded-[28px]",
+    "rounded-full",
+    "rounded-xl",
+    "row",
+    "sans-serif",
+    "script",
+    "scroll",
+    "scroll-top-button",
+    "searchInput",
+    "section-copy",
+    "section-divider",
+    "section-header",
+    "section-kicker",
+    "section-title",
+    "select",
+    "selected",
+    "selectedSize",
+    "shadow-card",
+    "shadow-soft",
+    "shipping",
+    "shippingValue",
+    "show",
+    "sign-up",
+    "size",
+    "size-option",
+    "sm:flex-row",
+    "sm:grid-cols-3",
+    "sm:items-end",
+    "sm:justify-between",
+    "sm:p-7",
+    "sm:px-6",
+    "sm:text-4xl",
+    "sm:text-base",
+    "smooth",
+    "so",
+    "space-y-4",
+    "state",
+    "statusMessage",
+    "step",
+    "subtotal",
+    "subtotalValue",
+    "sum",
+    "switch",
+    "system-ui",
+    "tall",
+    "target",
+    "tax",
+    "taxValue",
+    "text-2xl",
+    "text-3xl",
+    "text-center",
+    "text-ink",
+    "text-left",
+    "text-lg",
+    "text-orange-400",
+    "text-orange-500",
+    "text-right",
+    "text-slate-400",
+    "text-slate-500",
+    "text-slate-700",
+    "text-slate-900",
+    "text-sm",
+    "text-white",
+    "text-xl",
+    "text-xs",
+    "the",
+    "they",
+    "tiny",
+    "title",
+    "to",
+    "token",
+    "top-0",
+    "total",
+    "totalQuantity",
+    "totalValue",
+    "tracking-[0.18em]",
+    "tracking-[0.22em]",
+    "tracking-[0.24em]",
+    "tracking-tight",
+    "transition",
+    "true",
+    "try",
+    "typeof",
+    "ui-sans-serif",
+    "undefined",
+    "updateCartCount",
+    "uppercase",
+    "user",
+    "userEmail",
+    "userId",
+    "userName",
+    "userPhone",
+    "userRole",
+    "validation",
+    "verificationCodeInput",
+    "verified",
+    "verify-card",
+    "verify-email",
+    "verify-status",
+    "verify-wrapper",
+    "verifyBtn",
+    "visible",
+    "w-10",
+    "w-20",
+    "w-28",
+    "w-fit",
+    "w-full",
+    "want",
+    "when",
+    "who-container",
+    "will",
+    "with",
+    "xl:grid-cols-1",
+    "xl:grid-cols-[minmax(0,1.65fr)_minmax(340px,0.85fr)]",
+    "xl:self-start",
+    "xl:sticky",
+    "xl:top-6",
+    "you",
+    "your"
+  ],
+  "usedIds": [
+    "address",
+    "addressMap",
+    "addressSearch",
+    "cart-icon",
+    "cartList",
+    "cartOverlay",
+    "checkoutBtn",
+    "content",
+    "dropdownMenu",
+    "email",
+    "emailText",
+    "header",
+    "headerItemsCount",
+    "latitude",
+    "loginBtn",
+    "logoutBtn",
+    "longitude",
+    "name",
+    "nav",
+    "navbarNav",
+    "password",
+    "phone",
+    "premiumCartPanel",
+    "profileBtn",
+    "registerBtn",
+    "resendBtn",
+    "shippingValue",
+    "statusMessage",
+    "subtotalValue",
+    "taxValue",
+    "totalValue",
+    "username",
+    "verificationCode",
+    "verifyBtn"
+  ],
+  "cssSelectors": [
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "*"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ":root"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "body"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".title"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".title span"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "nav"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "#nav"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "#nav li"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "#nav li a"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "#nav li a::after"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "#nav li a:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "#nav li a:hover::after"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".logo"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".register"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".register:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".profile-container"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".profile-button"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".profile-button:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".dropdown-menu"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".dropdown-menu.show"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "@keyframes slideDown"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "from"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "to"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".dropdown-header"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".dropdown-user-name"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".dropdown-logout-btn"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".dropdown-logout-btn:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".about-heading"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".about-copy"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".about-image-column"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".goal"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".goals-container"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".goal-box"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".goal-box:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".goal-box:hover h1"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".goal-box h1"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".goal-box p"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".story"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".stor"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".social"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".card"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".socialContainer"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".containerOne:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".containerTwo:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".containerThree:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".containerFour:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".socialSvg"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".socialSvg path"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "@media (max-width: 1189.40px)"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".store"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "ul"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".img3"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".goal"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".goals-container"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".goal-box"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".story"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".register"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".reg"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "@media (max-width: 600px)"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".store"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "ul"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "ul li a"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".about-heading"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".about-copy"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".img3"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".goal"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".story"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".socialContainer"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".reg"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "@keyframes slide-in-top"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "0%"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "100%"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".footer"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".desc"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".s1"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".quick-links"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".quick-links a"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".contact"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".contact p"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".imgfooter"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".store1"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".nature1"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".scroll-top-button"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".contact-container"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".contact-email"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".contact-visiting"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".contact-phone"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".contact-container p"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".contact h1"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".call"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".email"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".visit"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".contact-visiting:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".who-container"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "*"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "body"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".title"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".title span"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "nav"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "#nav"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "#nav li"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "#nav li a"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "#nav li a::after"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "#nav li a:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "#nav li a:hover::after"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".register"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".register:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".about-heading"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".about-copy"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".about-text"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".about-text img"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".mission-section .mission-image-container"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".mission-section h1"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".mission-section p"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".about-image-column"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".contact-container"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".call"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".contact-phone"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".contact-phone:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".footer"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".footer-links"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".footer-links a"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".copyright"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".scroll-top-button"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "@media screen and (max-width: 992px)"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".about-copy-container"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".about-text"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".about-image-column"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "@media screen and (max-width: 576px)"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".contact-phone"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": "img"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".about-heading"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\about.css",
+      "selector": ".about-copy"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".modal-overlay"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".modal-overlay.active"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".atc-modal"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".modal-overlay.active .atc-modal"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".atc-modal-close"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".atc-modal-close:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".atc-modal-inner"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".atc-product-preview"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".atc-product-preview img"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".atc-product-details"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".atc-product-details h3"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".atc-product-price"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".atc-modal-message"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".atc-modal-actions"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".atc-modal-actions .btn-add-cart"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".atc-modal-actions .btn-back"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".atc-modal-actions .btn-back:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".atc-modal-actions .btn-add-cart"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".atc-modal-actions .btn-add-cart:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".atc-modal-actions .btn-add-cart:disabled"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".size-selector"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".size-selector-label"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".size-selector-grid"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".size-option"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".size-option input"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".size-option label"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".size-option label:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".size-option input:checked + label"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".size-error"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".size-error.visible"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": "@keyframes shakeError"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": "0%, 100%"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": "20%"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": "40%"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": "60%"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": "80%"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".atc-step-indicator"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".atc-step-dot"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".atc-step-dot.active"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".atc-step-dot.completed"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": "@media (max-width: 480px)"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".atc-modal-inner"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".atc-product-preview img"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".atc-product-details h3"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".atc-modal-actions"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".atc-modal-actions .btn-add-cart"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\add-to-cart-modal.css",
+      "selector": ".size-option label"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\admin.css",
+      "selector": "body"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\admin.css",
+      "selector": ".order"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\admin.css",
+      "selector": ".order h3"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\admin.css",
+      "selector": "table"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\admin.css",
+      "selector": "td"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\admin.css",
+      "selector": ".meta"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\admin.css",
+      "selector": ".maps-link"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "*"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".home"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "nav"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "#nav"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "#nav li"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "#nav li a"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "#nav li a::after"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "#nav li a:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "#nav li a:hover::after"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".logo"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".homedesc"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".homepara"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".shoph"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".left-row"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".shopn:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".shopn:hover .shoph"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".register"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".register:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".reg"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "@media (max-width: 768px)"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "body"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".store"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".homedesc"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".homepara"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".shopn"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".shoph"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "ul"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".register"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".hero-cta"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "ul li a"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".reg"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "table"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "tr"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "td"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "td:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".add-to-cart-btn"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "input[type=\"number\"]"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".offers"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".addtocurt"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".footer"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".desc"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".s1"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".quick-links"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".quick-links a"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".contact"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".contact p"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".contact p span"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".social"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".card"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".desc .socialContainer"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".socialSvg"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".socialSvg path"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".imgfooter"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".store1"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".nature1"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".scroll-top-button"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".button1"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".button1 p"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".button1 svg"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".button1:hover p"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".button1:hover svg"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".button1:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".hi"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "nav"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".title"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "#nav li a"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "#nav li a::after"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "#nav li a:hover::after"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "#nav li a:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".register"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".register:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".hero"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".hero-text"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".hero-text h1"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".hero-text h1 .highlighter"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".hero-text p"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".hero-cta"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".hero-media-container"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".hero-image"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".circle-bg"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".circle-outline"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".label"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".left-top"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".right-top"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".left-bottom"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".products-row"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".product-card"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".product-card:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".product-card img"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".product-card:hover img"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".product-card h3"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "}  @keyframes float"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "100%"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "50%"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".footer"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".contact"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".footer-links a"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".footer-links"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".copyright"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "@media (max-width: 992px)"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".hero"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".hero-text h1"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "@media (max-width: 576px)"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".hero-image"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".circle-bg"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".circle-outline"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".person"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "a"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "}.profile-container"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".profile-button"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".profile-button:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".dropdown-menu"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".dropdown-menu.show"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "@keyframes slideDown"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "from"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": "to"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".dropdown-header"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".dropdown-user-name"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".dropdown-logout-btn"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".dropdown-logout-btn:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".reg"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".section-divider"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".category-text"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\home.css",
+      "selector": ".category-title"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\login.css",
+      "selector": "*"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\login.css",
+      "selector": "body"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\login.css",
+      "selector": ".log-in"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\login.css",
+      "selector": "input"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\login.css",
+      "selector": "#loginBtn"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\login.css",
+      "selector": ".account-signup"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\login.css",
+      "selector": ".account-signup a"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ":root"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": "*"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": "html"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": "body"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": "a"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": "input"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".navbar-toggler:focus"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": "nav.navbar"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".navbar .container"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".navbar .brand-link"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".navbar img"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": "nav.navbar > .container > img"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".navbar .title"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".title .eco"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".navbar .brand-link"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".navbar-nav"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": "#nav li"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".navbar .nav-link"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": "#nav li a::after"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".navbar .nav-link:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".cart-icon"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".cart-icon:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".profile-container"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".dropdown-menu"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".dropdown-header"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".dropdown-user-name"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".dropdown-logout-btn"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".dropdown-logout-btn:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".hero"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".hero-text"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".hero-eyebrow"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".about-heading"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".footer-desc"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": "#checkoutBtn"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": "#checkoutBtn:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".hero-image"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".hero-photo"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".hero-meta"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".hero-meta span"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".hero .hero-cta"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".category-summary"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".category-summary h1"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": "body > h1"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".container .form2"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".category-tile"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".order:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".section-header"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".section-kicker"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".section-title"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".section-copy"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".products-container"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".products-container::before"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".product-card"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".product-card::before"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".product-card img"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".product-card:hover img"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".product-info"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".product-name"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".product-price"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": "input[type=\"number\"]"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".add-to-cart-btn"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".add-to-cart-btn::before"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".scroll-top-button"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".cart-tab"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".premium-cart-footer"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".premium-cart-close"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".premium-empty"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".premium-qty button"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".footer"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".footer .container"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".footer h5"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".footer-brand"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".footer-brand-logo"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".footer-logo"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".footer a"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": "hr"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".footer-links"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".footer-links a:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".copyright"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".about-page"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".about-gallery"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".about-media-grid"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".lookbook-grid"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".about-media"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".about-media img"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".about-media:hover img"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".lookbook-card.featured"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".lookbook-card.featured img"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".lookbook-card:nth-child(4)"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".about-media-grid"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".about-media.tall"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".about-media.tall img"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".mission-section"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".about-copy-container"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".about-text"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".about-copy"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".about-image-column"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".mission-section img"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".mission-section"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".mission-section .mission-image-container"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".about-gallery"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".contact-container"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".call"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".call i"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".sign-up"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".sign-up .form"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".login-form h2"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".login-form input"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".login-form input::placeholder"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": "#registerBtn"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".account-login"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".account-login a"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".verify-wrapper"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": "table"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": "th"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": "td"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".order"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".order h3"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".meta"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": "@media (max-width: 991.98px)"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".navbar-collapse"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".cart-icon"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".hero"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".hero-text"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".hero-image"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".products-container::before"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".about-copy-container"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".about-media-grid"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".about-media.tall"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": "@media (max-width: 575.98px)"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": "body"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": "nav.navbar"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".navbar img"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".navbar .title"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".hero"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".category-summary .row"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".category-tile"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".hero-photo"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".hero-meta"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".about-media-grid"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".about-media.tall"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".product-info"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".product-price"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".add-to-cart-btn"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\premium-ui.css",
+      "selector": ".footer"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "*"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".home"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ":root"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "body"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".title"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".title span"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "nav"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "#nav"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "#nav li"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "#nav li a"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "#nav li a::after"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "#nav li a:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "#nav li a:hover::after"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".logo"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".add-to-cart-btn"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".register"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".register:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".profile-container"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".profile-button"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".profile-button:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".dropdown-menu"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".dropdown-menu.show"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "@keyframes slideDown"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "from"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "to"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".dropdown-header"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".dropdown-user-name"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".dropdown-logout-btn"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".dropdown-logout-btn:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".add-to-cart-btn::before"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".add-to-cart-btn:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".add-to-cart-btn:hover::before"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "input[type=\"number\"]"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "table tr td p"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "input[type=\"number\"]:focus"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "table"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "table tr td img"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "td:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "table tr td:hover img"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "tr"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "td"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "td span"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".addtocurt"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".new"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".offers"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".scroll-top-button"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".footer"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".footer"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".contact"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".footer-links a"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".footer-links"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".copyright"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".desc"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".s1"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".quick-links"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".quick-links a"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".contact"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".contact p"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".social"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".card"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".socialContainer"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".socialSvg"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".socialSvg path"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".imgfooter"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".store1"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".nature1"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".title"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".title p"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".title h1"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "#cart-icon"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".cart-icon i"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "#cart-icon:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".cart-num"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".cart-tab"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".cart-tab h1"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".cart-tab .cart-item"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".cart-tab .cart-item img"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".cart-tab .cart-item .item-info"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".cart-tab .cart-item .item-info .name"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".cart-tab .cart-item .item-info .meta"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".cart-tab .item-price"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".cart-tab .action-bar"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".cart-tab .action-bar button"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".cart-tab .action-bar .orderBtn"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".cart-tab .action-bar .orderBtn:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".cart-tab .action-bar .close"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".cart-tab .action-bar .close:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".cart-tab .order"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".cart-tab .order"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".cart-tab .order button"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".cart-tab .order .orderBtn"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".cart-tab .order .close"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "*"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "body"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "nav"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".title"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".title span"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "#nav li a"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "#nav li a::after"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "#nav li a:hover::after"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "#nav li a:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".register"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".register:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".products-container"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".product-card"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".product-card:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".product-card img"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".product-card:hover img"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".product-info"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".product-info span"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".product-info input[type=\"number\"]"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".add-to-cart-btn"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".add-to-cart-btn:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".scroll-top-button"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".cart-overlay"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".cart-overlay.show"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".cart-tab"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".cart-tab.show"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-cart-header"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-cart-topline"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-cart-topline p"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-cart-topline h2"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-cart-close"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-cart-close:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-cart-link"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-cart-body"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-cart-item"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-cart-item:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-cart-item img"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-cart-item-info"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-cart-item-info h3"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-cart-meta"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-cart-price"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-cart-actions"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-qty"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-qty button"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-qty button:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-qty span"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-remove"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-empty"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-empty h3"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-empty p"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-cart-footer"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-summary-card"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-summary-row"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-summary-total"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-summary-total strong"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".summary-total-label"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-order-btn"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-order-btn:hover"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".premium-order-btn:disabled"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".footer"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".footer div"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".footer-links a"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".footer-links"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "@media(max-width:992px)"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".products-container"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": "@media(max-width:576px)"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\products.css",
+      "selector": ".product-card"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register.css",
+      "selector": "*"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register.css",
+      "selector": "body"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register.css",
+      "selector": ".sign-up"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register.css",
+      "selector": "input"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register.css",
+      "selector": ".address-map"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register.css",
+      "selector": "h2"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register.css",
+      "selector": "#registerBtn"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register.css",
+      "selector": ".account-login"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register.css",
+      "selector": ".account-login a"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2-inline.css",
+      "selector": "@media (max-width: 768px)"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2-inline.css",
+      "selector": ".container"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2-inline.css",
+      "selector": ".register-form"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2-inline.css",
+      "selector": "input"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2-inline.css",
+      "selector": "h3"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2-inline.css",
+      "selector": ".reg"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2-inline.css",
+      "selector": ".log"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2-inline.css",
+      "selector": ".home"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2-inline.css",
+      "selector": "a"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2.css",
+      "selector": "*"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2.css",
+      "selector": ".container"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2.css",
+      "selector": ".register-form"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2.css",
+      "selector": "input"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2.css",
+      "selector": "h2"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2.css",
+      "selector": ".reg"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2.css",
+      "selector": ".form2"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2.css",
+      "selector": "h3"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2.css",
+      "selector": ".log"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2.css",
+      "selector": ".home"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2.css",
+      "selector": "a"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2.css",
+      "selector": "@media (max-width: 768px)"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2.css",
+      "selector": ".container"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2.css",
+      "selector": ".register-form"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2.css",
+      "selector": "input"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2.css",
+      "selector": "h2, h3"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2.css",
+      "selector": ".reg"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2.css",
+      "selector": ".log"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2.css",
+      "selector": ".home"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\register2.css",
+      "selector": "a"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\verify-email.css",
+      "selector": ".verify-wrapper"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\verify-email.css",
+      "selector": ".verify-card"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\verify-email.css",
+      "selector": ".verify-card h2"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\verify-email.css",
+      "selector": ".verify-card p"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\verify-email.css",
+      "selector": ".verify-card input"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\verify-email.css",
+      "selector": ".verify-card button"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\verify-email.css",
+      "selector": ".verify-card button + button"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\verify-email.css",
+      "selector": ".verify-card .verify-status"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\verify-email.css",
+      "selector": ".verify-card .verify-status.error"
+    },
+    {
+      "file": "c:\\websites\\mado store\\public\\verify-email.css",
+      "selector": ".verify-email"
+    }
+  ]
+}

@@ -1,125 +1,379 @@
-let addressMap;
-let addressMarker;
-let addressGeocoder;
+delete L.Icon.Default.prototype._getIconUrl;
 
-const DEFAULT_MAP_CENTER = { lat: 29.0661, lng: 31.0994 };
+L.Icon.Default.mergeOptions({
+    iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+    iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png'
+});
+const REGISTER_API_BASE_URL =
+  window.MADOLOGY_API_BASE_URL ||
+  localStorage.getItem("apiBaseUrl") ||
+  "http://localhost:3000";
 
-// Loads the Google Maps JavaScript API after the page has defined the API key.
-function loadGoogleMapsScript() {
-  const mapElement = document.getElementById("addressMap");
-  const apiKey = window.MADOLOGY_GOOGLE_MAPS_API_KEY;
+const mapElement = document.getElementById("addressMap");
+const searchInput = document.getElementById("addressSearch");
+const searchResults = document.getElementById("addressSearchResults");
+const addressInput = document.getElementById("address");
+const latitudeInput = document.getElementById("latitude");
+const longitudeInput = document.getElementById("longitude");
 
-  if (!mapElement) return;
+const DEFAULT_MAP_CENTER = [29.0729812, 31.0982562];
+const DEFAULT_ZOOM = 14;
 
-  if (!apiKey || apiKey === "YOUR_GOOGLE_MAPS_API_KEY") {
-    mapElement.textContent = "Add your Google Maps API key to enable address selection.";
+let map = null;
+let marker = null;
+let debounceTimer = null;
+let reverseDebounceTimer = null;
+let requestToken = 0;
+let activeController = null;
+let resultsCache = [];
+const searchCache = new Map();
+const reverseCache = new Map();
+let mapInitialized = false;
+
+if (window.L?.Icon?.Default) {
+  L.Icon.Default.mergeOptions({
+    iconUrl: "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/images/marker-icon.png",
+    iconRetinaUrl: "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+    shadowUrl: "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/images/marker-shadow.png"
+  });
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function setStatus(message) {
+  if (typeof window.MADOLOGY_SET_ADDRESS_STATUS === "function") {
+    window.MADOLOGY_SET_ADDRESS_STATUS(message);
+  }
+}
+
+function clearResults() {
+  resultsCache = [];
+
+  if (searchResults) {
+    searchResults.innerHTML = "";
+    searchResults.hidden = true;
+  }
+}
+
+function clearSelection() {
+  window.MADOLOGY_SELECTED_LOCATION = null;
+
+  if (addressInput) {
+    addressInput.value = "";
+    addressInput.dataset.locationSelected = "false";
+  }
+
+  if (latitudeInput) {
+    latitudeInput.value = "";
+  }
+
+  if (longitudeInput) {
+    longitudeInput.value = "";
+  }
+
+  if (marker) {
+    marker.setOpacity(0);
+  }
+
+  setStatus("Search for an address or click on the map.");
+}
+
+function applySelection(location, focusMap = true) {
+  if (!location || !map || !marker) {
     return;
   }
 
-  const script = document.createElement("script");
-  script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(apiKey)}&libraries=places&callback=initAddressPicker`;
-  script.async = true;
-  script.defer = true;
-  document.head.appendChild(script);
+  clearResults();
+
+  const addressDetails = location.addressDetails || {};
+
+  window.MADOLOGY_SELECTED_LOCATION = {
+    formattedAddress: location.formattedAddress,
+    latitude: location.latitude,
+    longitude: location.longitude,
+    addressDetails: {
+      city: addressDetails.city || "",
+      state: addressDetails.state || "",
+      country: addressDetails.country || "",
+      postalCode: addressDetails.postalCode || ""
+    }
+  };
+
+  if (addressInput) {
+    addressInput.value = location.formattedAddress;
+    addressInput.dataset.locationSelected = "true";
+  }
+
+  if (searchInput) {
+    searchInput.value = location.formattedAddress;
+  }
+
+  if (latitudeInput) {
+    latitudeInput.value = String(location.latitude);
+  }
+
+  if (longitudeInput) {
+    longitudeInput.value = String(location.longitude);
+  }
+
+  marker.setLatLng([location.latitude, location.longitude]);
+  marker.setOpacity(1);
+
+  if (focusMap) {
+    map.setView([location.latitude, location.longitude], 16);
+  }
+
+  setStatus("Location selected.");
 }
 
-// Marks the current address as unconfirmed when the user edits the search text.
-function resetSelectedAddress() {
-  const addressInput = document.getElementById("address");
-  const latitudeInput = document.getElementById("latitude");
-  const longitudeInput = document.getElementById("longitude");
+function renderResults(results) {
+  resultsCache = Array.isArray(results) ? results : [];
 
-  if (!addressInput || !latitudeInput || !longitudeInput) return;
+  if (!searchResults) {
+    return;
+  }
 
-  addressInput.value = "";
-  addressInput.dataset.locationSelected = "false";
-  latitudeInput.value = "";
-  longitudeInput.value = "";
+  if (!resultsCache.length) {
+    searchResults.innerHTML = "";
+    searchResults.hidden = true;
+    return;
+  }
+
+  searchResults.innerHTML = resultsCache
+    .map((result, index) => {
+      const subtitle = [
+        result.addressDetails?.city,
+        result.addressDetails?.state,
+        result.addressDetails?.country
+      ].filter(Boolean).join(", ");
+
+      return `
+        <button type="button" data-result-index="${index}">
+          <span>${escapeHtml(result.formattedAddress)}</span>
+          <small>${escapeHtml(subtitle)}</small>
+        </button>
+      `;
+    })
+    .join("");
+
+  searchResults.hidden = false;
 }
 
-// Saves the selected Google Maps location into the existing registration fields.
-function setSelectedAddress(formattedAddress, location) {
-  const addressInput = document.getElementById("address");
-  const latitudeInput = document.getElementById("latitude");
-  const longitudeInput = document.getElementById("longitude");
+async function fetchJson(path) {
+  if (activeController) {
+    activeController.abort();
+  }
 
-  if (!addressInput || !latitudeInput || !longitudeInput || !location) return;
+  activeController = new AbortController();
 
-  addressInput.value = formattedAddress || `${location.lat().toFixed(6)}, ${location.lng().toFixed(6)}`;
-  addressInput.dataset.locationSelected = "true";
-  latitudeInput.value = location.lat();
-  longitudeInput.value = location.lng();
+  const response = await fetch(`${REGISTER_API_BASE_URL}${path}`, {
+    signal: activeController.signal
+  });
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new Error(data.message || "Request failed.");
+  }
+
+  return data;
 }
 
-// Converts a clicked or dragged marker position into a formatted address.
-function reverseGeocodeLocation(location) {
-  addressGeocoder.geocode({ location }, (results, status) => {
-    if (status === "OK" && results && results[0]) {
-      setSelectedAddress(results[0].formatted_address, location);
+async function searchAddresses(query) {
+  const trimmedQuery = String(query || "").trim();
+
+  if (trimmedQuery.length < 3) {
+    clearResults();
+    setStatus(trimmedQuery ? "Search for at least 3 characters." : "Search for an address or click on the map.");
+    return;
+  }
+
+  const currentRequest = ++requestToken;
+  setStatus("Searching addresses...");
+
+  try {
+    if (searchCache.has(trimmedQuery)) {
+      if (currentRequest !== requestToken) {
+        return;
+      }
+
+      renderResults(searchCache.get(trimmedQuery));
+      setStatus(searchCache.get(trimmedQuery).length ? "Select a result or click on the map." : "No matching address found.");
       return;
     }
 
-    setSelectedAddress("", location);
-  });
+    const data = await fetchJson(`/location/search?q=${encodeURIComponent(trimmedQuery)}`);
+
+    if (currentRequest !== requestToken) {
+      return;
+    }
+
+    const results = Array.isArray(data.results) ? data.results : [];
+    searchCache.set(trimmedQuery, results);
+    renderResults(results);
+
+    if (!results.length) {
+      setStatus("No matching address found.");
+    } else {
+      setStatus("Select a result or click on the map.");
+    }
+  } catch (error) {
+    if (currentRequest !== requestToken) {
+      return;
+    }
+
+    clearResults();
+    setStatus(error.message || "Address search failed.");
+  }
 }
 
-// Initializes the map, Places autocomplete, marker dragging, and map click selection.
-function initAddressPicker() {
-  const searchInput = document.getElementById("addressSearch");
-  const mapElement = document.getElementById("addressMap");
+async function reverseGeocode(latitude, longitude) {
+  const cacheKey = `${latitude},${longitude}`;
+  const currentRequest = ++requestToken;
+  setStatus("Resolving address...");
 
-  if (!searchInput || !mapElement || !window.google) return;
+  try {
+    if (reverseCache.has(cacheKey)) {
+      if (currentRequest !== requestToken) {
+        return;
+      }
 
-  addressGeocoder = new google.maps.Geocoder();
-  addressMap = new google.maps.Map(mapElement, {
-    center: DEFAULT_MAP_CENTER,
-    zoom: 13,
-    mapTypeControl: false,
-    streetViewControl: false,
-    fullscreenControl: false
-  });
+      const cachedLocation = reverseCache.get(cacheKey);
+      if (cachedLocation) {
+        applySelection(cachedLocation, false);
+      } else {
+        setStatus("No address found for that location.");
+      }
+      return;
+    }
 
-  addressMarker = new google.maps.Marker({
-    map: addressMap,
-    position: DEFAULT_MAP_CENTER,
+    const data = await fetchJson(`/location/reverse?lat=${encodeURIComponent(latitude)}&lon=${encodeURIComponent(longitude)}`);
+
+    if (currentRequest !== requestToken) {
+      return;
+    }
+
+    if (data.location) {
+      reverseCache.set(cacheKey, data.location);
+      applySelection(data.location, false);
+    } else {
+      reverseCache.set(cacheKey, null);
+      setStatus("No address found for that location.");
+    }
+  } catch (error) {
+    if (currentRequest !== requestToken) {
+      return;
+    }
+
+    if (error?.name === "AbortError") {
+      return;
+    }
+
+    setStatus(error.message || "Could not resolve address.");
+  }
+}
+
+function initMap() {
+  if (mapInitialized) {
+    return;
+  }
+
+  mapInitialized = true;
+
+  if (!mapElement || !window.L) {
+    if (mapElement) {
+      mapElement.textContent = "Map is unavailable right now.";
+    }
+    setStatus("Map failed to load.");
+    return;
+  }
+
+  map = L.map("addressMap", {
+    zoomControl: true,
+    scrollWheelZoom: true
+  }).setView(DEFAULT_MAP_CENTER, DEFAULT_ZOOM);
+
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    keepBuffer: 8,
+    updateWhenIdle: true,
+    updateWhenZooming: false,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  marker = L.marker(DEFAULT_MAP_CENTER, {
     draggable: true,
-    visible: false
+    opacity: 0
+  }).addTo(map);
+
+  map.whenReady(() => {
+    requestAnimationFrame(() => {
+      map.invalidateSize({ animate: false });
+      setStatus("Search for an address or click on the map.");
+    });
   });
 
-  const autocomplete = new google.maps.places.Autocomplete(searchInput, {
-    fields: ["formatted_address", "geometry", "name"]
+  searchInput?.addEventListener("input", () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      clearSelection();
+      searchAddresses(searchInput.value || "");
+    }, 300);
   });
 
-  autocomplete.bindTo("bounds", addressMap);
+  searchInput?.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      clearTimeout(debounceTimer);
+      searchAddresses(searchInput.value || "");
+    }
+  });
 
-  searchInput.addEventListener("input", resetSelectedAddress);
+  searchResults?.addEventListener("click", (event) => {
+    const button = event.target.closest("button[data-result-index]");
 
-  autocomplete.addListener("place_changed", () => {
-    const place = autocomplete.getPlace();
-
-    if (!place.geometry || !place.geometry.location) {
-      resetSelectedAddress();
+    if (!button) {
       return;
     }
 
-    const location = place.geometry.location;
-    addressMap.panTo(location);
-    addressMap.setZoom(16);
-    addressMarker.setPosition(location);
-    addressMarker.setVisible(true);
-    setSelectedAddress(place.formatted_address || place.name, location);
+    const index = Number(button.dataset.resultIndex);
+    const selected = resultsCache[index];
+
+    if (selected) {
+      searchInput.value = selected.formattedAddress;
+      applySelection(selected);
+      clearResults();
+    }
   });
 
-  addressMarker.addListener("dragend", () => {
-    reverseGeocodeLocation(addressMarker.getPosition());
+  marker.on("dragend", () => {
+    const { lat, lng } = marker.getLatLng();
+    clearTimeout(reverseDebounceTimer);
+    reverseDebounceTimer = setTimeout(() => {
+      reverseGeocode(lat, lng);
+    }, 250);
   });
 
-  addressMap.addListener("click", (event) => {
-    addressMarker.setPosition(event.latLng);
-    addressMarker.setVisible(true);
-    reverseGeocodeLocation(event.latLng);
+  map.on("click", (event) => {
+    const { lat, lng } = event.latlng;
+    marker.setOpacity(1);
+    marker.setLatLng([lat, lng]);
+    clearTimeout(reverseDebounceTimer);
+    reverseDebounceTimer = setTimeout(() => {
+      reverseGeocode(lat, lng);
+    }, 250);
   });
 }
 
-window.initAddressPicker = initAddressPicker;
-document.addEventListener("DOMContentLoaded", loadGoogleMapsScript);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initMap);
+} else {
+  initMap();
+}

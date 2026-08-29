@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "check": "node --check server.js && node --check src/app.js && node --check src/controllers/auth.controller.js && node --check src/controllers/admin.controller.js && node --check src/controllers/order.controller.js"
+    "check": "node --check server.js && node --check src/app.js && node --check src/controllers/auth.controller.js && node --check src/controllers/admin.controller.js && node --check src/controllers/order.controller.js && node --check src/controllers/product.controller.js && node --check src/routes/product.routes.js && node --check src/models/ProductReview.js"
   },
   "keywords": [
     "express",
@@ -22,7 +22,7 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",

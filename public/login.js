@@ -10,7 +10,7 @@ function showVerificationMessage() {
   const params = new URLSearchParams(window.location.search);
 
   if (params.get("verified") === "1") {
-    alert("Your email has been verified. You can log in now.");
+    window.MADOLOGY_SHOW_TOAST?.("Your email has been verified. You can log in now.", "success");
     window.history.replaceState({}, document.title, window.location.pathname);
   }
 }
@@ -32,7 +32,7 @@ loginBtn.onclick = async () => {
     const result = await res.json();
 
     if (!res.ok) {
-      alert(result.message);
+      window.MADOLOGY_SHOW_TOAST?.(result.message || "Login failed. Please try again.", "error");
       loginBtn.disabled = false;
       return;
     }
@@ -49,7 +49,7 @@ loginBtn.onclick = async () => {
 
   } catch (err) {
     console.error(err);
-    alert("Server error. Try again later.");
+    window.MADOLOGY_SHOW_TOAST?.("Server error. Try again later.", "error");
   } finally {
     loginBtn.disabled = false;
   }

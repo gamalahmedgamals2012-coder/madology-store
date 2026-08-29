@@ -22,6 +22,31 @@ const userSchema = new mongoose.Schema(
       trim: true,
       maxlength: 250
     },
+    addressDetails: {
+      type: {
+        city: {
+          type: String,
+          trim: true,
+          default: ""
+        },
+        state: {
+          type: String,
+          trim: true,
+          default: ""
+        },
+        country: {
+          type: String,
+          trim: true,
+          default: ""
+        },
+        postalCode: {
+          type: String,
+          trim: true,
+          default: ""
+        }
+      },
+      default: undefined
+    },
     latitude: {
       type: Number,
       default: null
@@ -35,6 +60,97 @@ const userSchema = new mongoose.Schema(
       trim: true,
       minlength: 7,
       maxlength: 30
+    },
+    addresses: {
+      type: [
+        {
+          label: {
+            type: String,
+            trim: true,
+            default: "Home"
+          },
+          address: {
+            type: String,
+            trim: true,
+            maxlength: 250
+          },
+          latitude: {
+            type: Number,
+            default: null
+          },
+          longitude: {
+            type: Number,
+            default: null
+          },
+          isDefault: {
+            type: Boolean,
+            default: false
+          }
+        }
+      ],
+      default: []
+    },
+    wishlist: {
+      type: [
+        {
+          productId: {
+            type: String,
+            trim: true,
+            required: true
+          },
+          name: {
+            type: String,
+            trim: true,
+            required: true
+          },
+          price: {
+            type: Number,
+            default: 0
+          },
+          image: {
+            type: String,
+            trim: true,
+            default: ""
+          },
+          addedAt: {
+            type: Date,
+            default: Date.now
+          }
+        }
+      ],
+      default: []
+    },
+    reviews: {
+      type: [
+        {
+          productId: {
+            type: String,
+            trim: true,
+            required: true
+          },
+          rating: {
+            type: Number,
+            required: true,
+            min: 1,
+            max: 5
+          },
+          comment: {
+            type: String,
+            trim: true,
+            default: ""
+          },
+          userName: {
+            type: String,
+            trim: true,
+            default: ""
+          },
+          createdAt: {
+            type: Date,
+            default: Date.now
+          }
+        }
+      ],
+      default: []
     },
     password: {
       type: String,
