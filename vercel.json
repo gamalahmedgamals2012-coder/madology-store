@@ -7,12 +7,18 @@
     }
   ],
   "rewrites": [
-    { "source": "/auth/(.*)", "destination": "/api/index.js" },
-    { "source": "/location/(.*)", "destination": "/api/index.js" },
-    { "source": "/products/(.*)", "destination": "/api/index.js" },
-    { "source": "/orders/(.*)", "destination": "/api/index.js" },
-    { "source": "/order", "destination": "/api/index.js" },
-    { "source": "/admin/(.*)", "destination": "/api/index.js" },
-    { "source": "/health", "destination": "/api/index.js" }
+    { "source": "/auth/login", "destination": "/api/index" },
+    { "source": "/auth/register", "destination": "/api/index" },
+    { "source": "/products", "destination": "/api/index" },
+    { "source": "/products/filters", "destination": "/api/index" },
+    { "source": "/products/suggestions", "destination": "/api/index" },
+    { "source": "/location/reverse", "destination": "/api/index" },
+    { "source": "/auth/(.*)", "destination": "/api/index" },
+    { "source": "/location/(.*)", "destination": "/api/index" },
+    { "source": "/products/(.*)", "destination": "/api/index" },
+    { "source": "/orders/(.*)", "destination": "/api/index" },
+    { "source": "/order", "destination": "/api/index" },
+    { "source": "/admin/(.*)", "destination": "/api/index" },
+    { "source": "/health", "destination": "/api/index" }
   ]
 }
