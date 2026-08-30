@@ -222,6 +222,8 @@ function populateFilterSelects(filters) {
   if (!filters) return;
 
   buildSelectOptions(typeSelect, filters.types || [], "All types");
+  buildSelectOptions(colorSelect, filters.colors || [], "All colors");
+  buildSelectOptions(sizeSelect, filters.sizes || [], "All sizes");
 
   if (priceSelect && filters.price) {
     const maxPrice = Number(filters.price.max || 0);
