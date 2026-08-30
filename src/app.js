@@ -109,6 +109,10 @@ app.use(
 );
 app.use("/images", express.static(path.join(__dirname, "../ascets/images"), staticOptions));
 
+app.get("/ascets/images/Logo.png", (req, res) => {
+  res.redirect(301, "/ascets/images/logo.png");
+});
+
 app.get("/", (req, res) => {
   res.json({
     success: true,

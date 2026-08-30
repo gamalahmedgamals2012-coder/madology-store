@@ -116,12 +116,23 @@ function normalizeCoordinate(value) {
 }
 
 function buildResetLink(token) {
-  const baseUrl = process.env.BACKEND_PUBLIC_URL || `http://localhost:${process.env.PORT || 3000}`;
+  const baseUrl = process.env.BACKEND_PUBLIC_URL || process.env.RENDER_EXTERNAL_URL || process.env.DEPLOY_URL;
+
+  if (!baseUrl) {
+    throw createError("BACKEND_PUBLIC_URL is missing. Configure the public backend URL.", 500);
+  }
+
   return `${baseUrl}/auth/reset-password/${token}`;
 }
 
 async function sendVerificationEmail(user, verificationCode) {
-  const verifyPageUrl = `${(process.env.FRONTEND_URL || "http://127.0.0.1:5500").replace(/\/$/, "")}/verify-email.html?email=${encodeURIComponent(user.email)}`;
+  const frontendUrl = process.env.FRONTEND_URL;
+
+  if (!frontendUrl) {
+    throw createError("FRONTEND_URL is missing. Configure the public frontend URL.", 500);
+  }
+
+  const verifyPageUrl = `${frontendUrl.replace(/\/$/, "")}/verify-email.html?email=${encodeURIComponent(user.email)}`;
   const expiresInMinutes = Number(process.env.EMAIL_VERIFICATION_CODE_EXPIRES_MINUTES) || 10;
 
   console.log("[AUTH] Sending verification email", {
@@ -205,10 +216,6 @@ const register = asyncHandler(async (req, res) => {
     throw createError("Email already exists.", 409);
   }
 
-  if (!hasSmtpConfig()) {
-    throw createError("Email sending is not configured. Add email settings to continue.", 500);
-  }
-
   const hashedPassword = await bcrypt.hash(password, 12);
   const normalizedAddress = normalizeRequiredText(address, "Address", 5, 250);
   const normalizedAddressDetails = normalizeAddressDetails(addressDetails);
@@ -232,11 +239,20 @@ const register = asyncHandler(async (req, res) => {
     userId: user._id?.toString()
   });
 
-  await createAndSendVerificationCode(user);
+  if (hasSmtpConfig()) {
+    await createAndSendVerificationCode(user);
+  } else {
+    user.verificationToken = hashToken(createVerificationCode());
+    user.verificationTokenExpires = getVerificationExpiryDate();
+    await user.save();
+    console.warn("[AUTH] SMTP not configured. Verification code stored but not emailed.");
+  }
 
   res.status(201).json({
     success: true,
-    message: "Registration successful. We sent a verification code to your email.",
+    message: hasSmtpConfig()
+      ? "Registration successful. We sent a verification code to your email."
+      : "Registration successful. Email delivery is not configured, so the verification code could not be sent.",
     data: {
       user: {
         id: user._id,
@@ -248,7 +264,8 @@ const register = asyncHandler(async (req, res) => {
         longitude: user.longitude,
         isVerified: user.isVerified
       },
-      requiresVerification: true
+      requiresVerification: true,
+      verificationEmailSent: hasSmtpConfig()
     }
   });
 });

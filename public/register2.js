@@ -8,15 +8,21 @@ const loginBtn = document.querySelector(".log");
                 return;
             }
 
-            fetch("http://localhost:5000/login", {
+            const apiBaseUrl =
+              window.MADOLOGY_GET_API_BASE_URL?.() || window.MADOLOGY_API_BASE_URL || "";
+
+            fetch(`${apiBaseUrl}/auth/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password })
             })
                 .then(res => res.json())
                 .then(data => {
-                    if (data.userId) {
-                        localStorage.setItem("userId", data.userId);
+                    if (data.token) {
+                        localStorage.setItem("token", data.token);
+                        if (data.user?.name || data.name) {
+                            localStorage.setItem("userName", data.user?.name || data.name);
+                        }
                         window.MADOLOGY_SHOW_TOAST?.("Login successful!", "success");
                         window.location.href = "index.html";
                     } else {

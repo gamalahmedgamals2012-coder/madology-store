@@ -2,7 +2,7 @@ async function load() {
   try {
     const token = localStorage.getItem("token");
     const apiBaseUrl =
-      window.MADOLOGY_API_BASE_URL || localStorage.getItem("apiBaseUrl") || "";
+      window.MADOLOGY_GET_API_BASE_URL?.() || window.MADOLOGY_API_BASE_URL || "";
 
     if (!token) {
       throw new Error("You must log in as an admin first.");

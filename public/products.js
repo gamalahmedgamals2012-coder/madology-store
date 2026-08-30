@@ -1,5 +1,5 @@
 const API_BASE_URL =
-  window.MADOLOGY_API_BASE_URL || localStorage.getItem("apiBaseUrl") || "";
+  window.MADOLOGY_GET_API_BASE_URL?.() || window.MADOLOGY_API_BASE_URL || "";
 
 const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
 const cartCountBadge = document.querySelector(".cart-num");
@@ -11,6 +11,8 @@ const searchInput = document.getElementById("productSearch");
 const searchSuggestions = document.getElementById("searchSuggestions");
 const sortSelect = document.getElementById("productSort");
 const typeSelect = document.getElementById("productType");
+const colorSelect = document.getElementById("productColor");
+const sizeSelect = document.getElementById("productSize");
 const priceSelect = document.getElementById("productPrice");
 const filterChips = Array.from(document.querySelectorAll(".filter-chip"));
 const productsContainer = document.getElementById("productsContainer");
@@ -978,6 +980,11 @@ function closeCart() {
 
 cartIcon.addEventListener("click", (event) => {
   event.stopPropagation();
+  if (cartPanel.classList.contains("show")) {
+    closeCart();
+    return;
+  }
+
   openCart();
 });
 

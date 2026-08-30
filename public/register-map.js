@@ -7,7 +7,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
 });
 const REGISTER_API_BASE_URL =
-  window.MADOLOGY_API_BASE_URL || localStorage.getItem("apiBaseUrl") || "";
+  window.MADOLOGY_GET_API_BASE_URL?.() || window.MADOLOGY_API_BASE_URL || "";
 
 const mapElement = document.getElementById("addressMap");
 const searchInput = document.getElementById("addressSearch");

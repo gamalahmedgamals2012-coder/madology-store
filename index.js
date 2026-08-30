@@ -145,4 +145,5 @@ app.get("/admin/orders", async (req, res) => {
 });
 
 // Start server
-app.listen(3000, () => console.log("🚀 Server running on http://localhost:3000"));
+const port = Number(process.env.PORT) || 5000;
+app.listen(port, () => console.log(`🚀 Server running on http://localhost:${port}`));

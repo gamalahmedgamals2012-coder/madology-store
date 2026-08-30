@@ -1,5 +1,5 @@
 window.MADOLOGY_API_BASE_URL =
-  window.MADOLOGY_API_BASE_URL || localStorage.getItem("apiBaseUrl") || "";
+  window.MADOLOGY_GET_API_BASE_URL?.() || window.MADOLOGY_API_BASE_URL || "";
 
 function parseJwtPayload(token) {
   try {
