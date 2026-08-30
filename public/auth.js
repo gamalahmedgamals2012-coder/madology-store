@@ -1,7 +1,5 @@
 window.MADOLOGY_API_BASE_URL =
-  window.MADOLOGY_API_BASE_URL ||
-  localStorage.getItem("apiBaseUrl") ||
-  "http://localhost:3000";
+  window.MADOLOGY_API_BASE_URL || localStorage.getItem("apiBaseUrl") || "";
 
 function parseJwtPayload(token) {
   try {
@@ -77,5 +75,5 @@ window.MADOLOGY_AUTH = {
   getUserName,
   getUserRole,
   logout,
-  isLoggedIn
+  isLoggedIn,
 };

@@ -1,14 +1,13 @@
 delete L.Icon.Default.prototype._getIconUrl;
 
 L.Icon.Default.mergeOptions({
-    iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
-    iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png'
+  iconRetinaUrl:
+    "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
 });
 const REGISTER_API_BASE_URL =
-  window.MADOLOGY_API_BASE_URL ||
-  localStorage.getItem("apiBaseUrl") ||
-  "http://localhost:3000";
+  window.MADOLOGY_API_BASE_URL || localStorage.getItem("apiBaseUrl") || "";
 
 const mapElement = document.getElementById("addressMap");
 const searchInput = document.getElementById("addressSearch");
@@ -33,9 +32,12 @@ let mapInitialized = false;
 
 if (window.L?.Icon?.Default) {
   L.Icon.Default.mergeOptions({
-    iconUrl: "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/images/marker-icon.png",
-    iconRetinaUrl: "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-    shadowUrl: "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/images/marker-shadow.png"
+    iconUrl:
+      "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/images/marker-icon.png",
+    iconRetinaUrl:
+      "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+    shadowUrl:
+      "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/images/marker-shadow.png",
   });
 }
 
@@ -103,8 +105,8 @@ function applySelection(location, focusMap = true) {
       city: addressDetails.city || "",
       state: addressDetails.state || "",
       country: addressDetails.country || "",
-      postalCode: addressDetails.postalCode || ""
-    }
+      postalCode: addressDetails.postalCode || "",
+    },
   };
 
   if (addressInput) {
@@ -152,8 +154,10 @@ function renderResults(results) {
       const subtitle = [
         result.addressDetails?.city,
         result.addressDetails?.state,
-        result.addressDetails?.country
-      ].filter(Boolean).join(", ");
+        result.addressDetails?.country,
+      ]
+        .filter(Boolean)
+        .join(", ");
 
       return `
         <button type="button" data-result-index="${index}">
@@ -175,7 +179,7 @@ async function fetchJson(path) {
   activeController = new AbortController();
 
   const response = await fetch(`${REGISTER_API_BASE_URL}${path}`, {
-    signal: activeController.signal
+    signal: activeController.signal,
   });
   const data = await response.json().catch(() => ({}));
 
@@ -191,7 +195,11 @@ async function searchAddresses(query) {
 
   if (trimmedQuery.length < 3) {
     clearResults();
-    setStatus(trimmedQuery ? "Search for at least 3 characters." : "Search for an address or click on the map.");
+    setStatus(
+      trimmedQuery
+        ? "Search for at least 3 characters."
+        : "Search for an address or click on the map.",
+    );
     return;
   }
 
@@ -205,11 +213,17 @@ async function searchAddresses(query) {
       }
 
       renderResults(searchCache.get(trimmedQuery));
-      setStatus(searchCache.get(trimmedQuery).length ? "Select a result or click on the map." : "No matching address found.");
+      setStatus(
+        searchCache.get(trimmedQuery).length
+          ? "Select a result or click on the map."
+          : "No matching address found.",
+      );
       return;
     }
 
-    const data = await fetchJson(`/location/search?q=${encodeURIComponent(trimmedQuery)}`);
+    const data = await fetchJson(
+      `/location/search?q=${encodeURIComponent(trimmedQuery)}`,
+    );
 
     if (currentRequest !== requestToken) {
       return;
@@ -254,7 +268,9 @@ async function reverseGeocode(latitude, longitude) {
       return;
     }
 
-    const data = await fetchJson(`/location/reverse?lat=${encodeURIComponent(latitude)}&lon=${encodeURIComponent(longitude)}`);
+    const data = await fetchJson(
+      `/location/reverse?lat=${encodeURIComponent(latitude)}&lon=${encodeURIComponent(longitude)}`,
+    );
 
     if (currentRequest !== requestToken) {
       return;
@@ -297,7 +313,7 @@ function initMap() {
 
   map = L.map("addressMap", {
     zoomControl: true,
-    scrollWheelZoom: true
+    scrollWheelZoom: true,
   }).setView(DEFAULT_MAP_CENTER, DEFAULT_ZOOM);
 
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -305,12 +321,13 @@ function initMap() {
     keepBuffer: 8,
     updateWhenIdle: true,
     updateWhenZooming: false,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
 
   marker = L.marker(DEFAULT_MAP_CENTER, {
     draggable: true,
-    opacity: 0
+    opacity: 0,
   }).addTo(map);
 
   map.whenReady(() => {

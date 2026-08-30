@@ -1,7 +1,5 @@
 const API_BASE_URL =
-  window.MADOLOGY_API_BASE_URL ||
-  localStorage.getItem("apiBaseUrl") ||
-  "http://localhost:3000";
+  window.MADOLOGY_API_BASE_URL || localStorage.getItem("apiBaseUrl") || "";
 
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
@@ -10,7 +8,10 @@ function showVerificationMessage() {
   const params = new URLSearchParams(window.location.search);
 
   if (params.get("verified") === "1") {
-    window.MADOLOGY_SHOW_TOAST?.("Your email has been verified. You can log in now.", "success");
+    window.MADOLOGY_SHOW_TOAST?.(
+      "Your email has been verified. You can log in now.",
+      "success",
+    );
     window.history.replaceState({}, document.title, window.location.pathname);
   }
 }
@@ -19,20 +20,23 @@ loginBtn.onclick = async () => {
 
   const data = {
     email: emailInput.value.trim(),
-    password: passwordInput.value
+    password: passwordInput.value,
   };
 
   try {
     const res = await fetch(`${API_BASE_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     });
 
     const result = await res.json();
 
     if (!res.ok) {
-      window.MADOLOGY_SHOW_TOAST?.(result.message || "Login failed. Please try again.", "error");
+      window.MADOLOGY_SHOW_TOAST?.(
+        result.message || "Login failed. Please try again.",
+        "error",
+      );
       loginBtn.disabled = false;
       return;
     }
@@ -46,7 +50,6 @@ loginBtn.onclick = async () => {
     localStorage.setItem("userLongitude", result.user.longitude ?? "");
 
     window.location.href = "index.html";
-
   } catch (err) {
     console.error(err);
     window.MADOLOGY_SHOW_TOAST?.("Server error. Try again later.", "error");

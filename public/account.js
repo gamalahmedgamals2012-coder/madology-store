@@ -1,13 +1,11 @@
 const API_BASE_URL =
-  window.MADOLOGY_API_BASE_URL ||
-  localStorage.getItem("apiBaseUrl") ||
-  "http://localhost:3000";
+  window.MADOLOGY_API_BASE_URL || localStorage.getItem("apiBaseUrl") || "";
 
 const state = {
   user: null,
   wishlist: [],
   addresses: [],
-  orders: []
+  orders: [],
 };
 
 const panels = Array.from(document.querySelectorAll(".account-panel"));
@@ -35,7 +33,7 @@ function formatDate(value) {
   return new Intl.DateTimeFormat("en-US", {
     year: "numeric",
     month: "short",
-    day: "numeric"
+    day: "numeric",
   }).format(new Date(value));
 }
 
@@ -50,9 +48,9 @@ async function authFetch(path, options = {}) {
     ...options,
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${getToken()}`,
-      ...(options.headers || {})
-    }
+      Authorization: `Bearer ${getToken()}`,
+      ...(options.headers || {}),
+    },
   });
 
   const data = await response.json().catch(() => ({}));
@@ -73,18 +71,26 @@ async function authFetch(path, options = {}) {
 }
 
 function setActivePanel(panelId) {
-  panels.forEach((panel) => panel.classList.toggle("active", panel.id === panelId));
-  tabs.forEach((tab) => tab.classList.toggle("active", tab.dataset.panel === panelId));
+  panels.forEach((panel) =>
+    panel.classList.toggle("active", panel.id === panelId),
+  );
+  tabs.forEach((tab) =>
+    tab.classList.toggle("active", tab.dataset.panel === panelId),
+  );
 
   const hashByPanel = {
     profilePanel: "profile",
     passwordPanel: "password",
     wishlistPanel: "wishlist",
     addressesPanel: "addresses",
-    ordersPanel: "orders"
+    ordersPanel: "orders",
   };
 
-  window.history.replaceState({}, document.title, `#${hashByPanel[panelId] || "profile"}`);
+  window.history.replaceState(
+    {},
+    document.title,
+    `#${hashByPanel[panelId] || "profile"}`,
+  );
 }
 
 function panelFromHash() {
@@ -94,7 +100,7 @@ function panelFromHash() {
     password: "passwordPanel",
     wishlist: "wishlistPanel",
     addresses: "addressesPanel",
-    orders: "ordersPanel"
+    orders: "ordersPanel",
   };
 
   return panelByHash[hash] || "profilePanel";
@@ -128,7 +134,9 @@ function renderWishlist() {
     return;
   }
 
-  container.innerHTML = state.wishlist.map((item) => `
+  container.innerHTML = state.wishlist
+    .map(
+      (item) => `
     <article class="wishlist-card">
       <img src="${escapeHtml(item.image || "/ascets/images/logo.png")}" alt="${escapeHtml(item.name)}">
       <div class="wishlist-body">
@@ -140,18 +148,23 @@ function renderWishlist() {
         </div>
       </div>
     </article>
-  `).join("");
+  `,
+    )
+    .join("");
 }
 
 function renderAddresses() {
   const container = document.getElementById("addressList");
 
   if (!state.addresses.length) {
-    container.innerHTML = '<p class="account-empty">No saved addresses yet.</p>';
+    container.innerHTML =
+      '<p class="account-empty">No saved addresses yet.</p>';
     return;
   }
 
-  container.innerHTML = state.addresses.map((address, index) => `
+  container.innerHTML = state.addresses
+    .map(
+      (address, index) => `
     <article class="address-card">
       ${address.isDefault ? '<span class="address-default">Default</span>' : ""}
       <h3>${escapeHtml(address.label || `Address ${index + 1}`)}</h3>
@@ -162,7 +175,9 @@ function renderAddresses() {
         <button class="account-danger address-delete-btn" type="button" data-index="${index}">Delete</button>
       </div>
     </article>
-  `).join("");
+  `,
+    )
+    .join("");
 }
 
 function renderOrders() {
@@ -173,7 +188,9 @@ function renderOrders() {
     return;
   }
 
-  container.innerHTML = state.orders.map((order) => `
+  container.innerHTML = state.orders
+    .map(
+      (order) => `
     <article class="order-card">
       <h3>Order #${escapeHtml(String(order.id).slice(-8).toUpperCase())}</h3>
       <div class="order-meta">
@@ -189,7 +206,9 @@ function renderOrders() {
         <button class="account-secondary track-order-btn" type="button" data-id="${escapeHtml(order.id)}">Track Order</button>
       </div>
     </article>
-  `).join("");
+  `,
+    )
+    .join("");
 }
 
 function renderTracking(order) {
@@ -202,13 +221,17 @@ function renderTracking(order) {
     <p>Tracking: ${escapeHtml(order.trackingNumber || "Pending")}</p>
     <span class="status-pill">${escapeHtml(order.status || "pending")}</span>
     <ul class="tracking-list">
-      ${history.map((entry) => `
+      ${history
+        .map(
+          (entry) => `
         <li>
           <strong>${escapeHtml(entry.status)}</strong>
           <span>${formatDate(entry.timestamp)}</span>
           <span>${escapeHtml(entry.note || "")}</span>
         </li>
-      `).join("")}
+      `,
+        )
+        .join("")}
     </ul>
   `;
 }
@@ -216,7 +239,7 @@ function renderTracking(order) {
 async function saveAddresses(nextAddresses) {
   const data = await authFetch("/auth/addresses", {
     method: "PUT",
-    body: JSON.stringify({ addresses: nextAddresses })
+    body: JSON.stringify({ addresses: nextAddresses }),
   });
 
   state.addresses = data.addresses || [];
@@ -237,7 +260,7 @@ async function loadAccount() {
     authFetch("/auth/me"),
     authFetch("/auth/wishlist"),
     authFetch("/auth/addresses"),
-    authFetch("/orders")
+    authFetch("/orders"),
   ]);
 
   state.user = meData.user;
@@ -251,164 +274,184 @@ async function loadAccount() {
   renderOrders();
 }
 
-document.getElementById("profileForm").addEventListener("submit", async (event) => {
-  event.preventDefault();
+document
+  .getElementById("profileForm")
+  .addEventListener("submit", async (event) => {
+    event.preventDefault();
 
-  try {
-    const data = await authFetch("/auth/me", {
-      method: "PUT",
-      body: JSON.stringify({
-        name: document.getElementById("profileName").value,
-        phone: document.getElementById("profilePhone").value,
-        address: document.getElementById("profileAddress").value,
-        latitude: document.getElementById("profileLatitude").value,
-        longitude: document.getElementById("profileLongitude").value
-      })
-    });
+    try {
+      const data = await authFetch("/auth/me", {
+        method: "PUT",
+        body: JSON.stringify({
+          name: document.getElementById("profileName").value,
+          phone: document.getElementById("profilePhone").value,
+          address: document.getElementById("profileAddress").value,
+          latitude: document.getElementById("profileLatitude").value,
+          longitude: document.getElementById("profileLongitude").value,
+        }),
+      });
 
-    state.user = data.user;
-    renderUser();
-    showToast(data.message || "Profile updated.", "success");
-  } catch (error) {
-    showToast(error.message, "error");
-  }
-});
-
-document.getElementById("passwordForm").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const newPassword = document.getElementById("newPassword").value;
-  const confirmPassword = document.getElementById("confirmPassword").value;
-
-  if (newPassword !== confirmPassword) {
-    showToast("New passwords do not match.", "error");
-    return;
-  }
-
-  try {
-    const data = await authFetch("/auth/change-password", {
-      method: "PUT",
-      body: JSON.stringify({
-        currentPassword: document.getElementById("currentPassword").value,
-        newPassword
-      })
-    });
-
-    event.target.reset();
-    showToast(data.message || "Password updated.", "success");
-  } catch (error) {
-    showToast(error.message, "error");
-  }
-});
-
-document.getElementById("addressForm").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const makeDefault = document.getElementById("addressDefault").checked || state.addresses.length === 0;
-  const nextAddresses = state.addresses.map((entry) => ({ ...entry, isDefault: makeDefault ? false : entry.isDefault }));
-
-  nextAddresses.push({
-    label: document.getElementById("addressLabel").value || "Home",
-    address: document.getElementById("addressText").value,
-    latitude: document.getElementById("addressLatitude").value || null,
-    longitude: document.getElementById("addressLongitude").value || null,
-    isDefault: makeDefault
+      state.user = data.user;
+      renderUser();
+      showToast(data.message || "Profile updated.", "success");
+    } catch (error) {
+      showToast(error.message, "error");
+    }
   });
 
-  try {
-    await saveAddresses(nextAddresses);
-    event.target.reset();
-  } catch (error) {
-    showToast(error.message, "error");
-  }
-});
+document
+  .getElementById("passwordForm")
+  .addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const newPassword = document.getElementById("newPassword").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
 
-document.getElementById("addressList").addEventListener("click", async (event) => {
-  const defaultButton = event.target.closest(".address-default-btn");
-  const deleteButton = event.target.closest(".address-delete-btn");
-
-  if (!defaultButton && !deleteButton) return;
-
-  const index = Number((defaultButton || deleteButton).dataset.index);
-  let nextAddresses = [...state.addresses];
-
-  if (defaultButton) {
-    nextAddresses = nextAddresses.map((entry, entryIndex) => ({
-      ...entry,
-      isDefault: entryIndex === index
-    }));
-  }
-
-  if (deleteButton) {
-    nextAddresses.splice(index, 1);
-    if (nextAddresses.length && !nextAddresses.some((entry) => entry.isDefault)) {
-      nextAddresses[0].isDefault = true;
+    if (newPassword !== confirmPassword) {
+      showToast("New passwords do not match.", "error");
+      return;
     }
-  }
 
-  try {
-    await saveAddresses(nextAddresses);
-  } catch (error) {
-    showToast(error.message, "error");
-  }
-});
+    try {
+      const data = await authFetch("/auth/change-password", {
+        method: "PUT",
+        body: JSON.stringify({
+          currentPassword: document.getElementById("currentPassword").value,
+          newPassword,
+        }),
+      });
 
-document.getElementById("wishlistList").addEventListener("click", async (event) => {
-  const removeButton = event.target.closest(".wishlist-remove");
-  const cartButton = event.target.closest(".wishlist-cart");
+      event.target.reset();
+      showToast(data.message || "Password updated.", "success");
+    } catch (error) {
+      showToast(error.message, "error");
+    }
+  });
 
-  if (!removeButton && !cartButton) return;
+document
+  .getElementById("addressForm")
+  .addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const makeDefault =
+      document.getElementById("addressDefault").checked ||
+      state.addresses.length === 0;
+    const nextAddresses = state.addresses.map((entry) => ({
+      ...entry,
+      isDefault: makeDefault ? false : entry.isDefault,
+    }));
 
-  const productId = (removeButton || cartButton).dataset.id;
-  const item = state.wishlist.find((entry) => entry.productId === productId);
-
-  if (!item) return;
-
-  if (cartButton) {
-    window.MADOLOGY_CART.addItem({
-      id: productId,
-      productId,
-      name: item.name,
-      price: Number(item.price || 0),
-      quantity: 1,
-      image: item.image,
-      img: item.image,
-      color: "Default",
-      size: "M"
+    nextAddresses.push({
+      label: document.getElementById("addressLabel").value || "Home",
+      address: document.getElementById("addressText").value,
+      latitude: document.getElementById("addressLatitude").value || null,
+      longitude: document.getElementById("addressLongitude").value || null,
+      isDefault: makeDefault,
     });
-    showToast("Added to cart.", "success");
-    return;
-  }
 
-  try {
-    const data = await authFetch("/auth/wishlist", {
-      method: "PUT",
-      body: JSON.stringify({
-        productId: item.productId,
+    try {
+      await saveAddresses(nextAddresses);
+      event.target.reset();
+    } catch (error) {
+      showToast(error.message, "error");
+    }
+  });
+
+document
+  .getElementById("addressList")
+  .addEventListener("click", async (event) => {
+    const defaultButton = event.target.closest(".address-default-btn");
+    const deleteButton = event.target.closest(".address-delete-btn");
+
+    if (!defaultButton && !deleteButton) return;
+
+    const index = Number((defaultButton || deleteButton).dataset.index);
+    let nextAddresses = [...state.addresses];
+
+    if (defaultButton) {
+      nextAddresses = nextAddresses.map((entry, entryIndex) => ({
+        ...entry,
+        isDefault: entryIndex === index,
+      }));
+    }
+
+    if (deleteButton) {
+      nextAddresses.splice(index, 1);
+      if (
+        nextAddresses.length &&
+        !nextAddresses.some((entry) => entry.isDefault)
+      ) {
+        nextAddresses[0].isDefault = true;
+      }
+    }
+
+    try {
+      await saveAddresses(nextAddresses);
+    } catch (error) {
+      showToast(error.message, "error");
+    }
+  });
+
+document
+  .getElementById("wishlistList")
+  .addEventListener("click", async (event) => {
+    const removeButton = event.target.closest(".wishlist-remove");
+    const cartButton = event.target.closest(".wishlist-cart");
+
+    if (!removeButton && !cartButton) return;
+
+    const productId = (removeButton || cartButton).dataset.id;
+    const item = state.wishlist.find((entry) => entry.productId === productId);
+
+    if (!item) return;
+
+    if (cartButton) {
+      window.MADOLOGY_CART.addItem({
+        id: productId,
+        productId,
         name: item.name,
-        price: item.price,
-        image: item.image
-      })
-    });
+        price: Number(item.price || 0),
+        quantity: 1,
+        image: item.image,
+        img: item.image,
+        color: "Default",
+        size: "M",
+      });
+      showToast("Added to cart.", "success");
+      return;
+    }
 
-    state.wishlist = data.wishlist || [];
-    renderWishlist();
-    showToast(data.message || "Wishlist updated.", "success");
-  } catch (error) {
-    showToast(error.message, "error");
-  }
-});
+    try {
+      const data = await authFetch("/auth/wishlist", {
+        method: "PUT",
+        body: JSON.stringify({
+          productId: item.productId,
+          name: item.name,
+          price: item.price,
+          image: item.image,
+        }),
+      });
 
-document.getElementById("orderList").addEventListener("click", async (event) => {
-  const button = event.target.closest(".track-order-btn");
+      state.wishlist = data.wishlist || [];
+      renderWishlist();
+      showToast(data.message || "Wishlist updated.", "success");
+    } catch (error) {
+      showToast(error.message, "error");
+    }
+  });
 
-  if (!button) return;
+document
+  .getElementById("orderList")
+  .addEventListener("click", async (event) => {
+    const button = event.target.closest(".track-order-btn");
 
-  try {
-    const data = await authFetch(`/orders/${button.dataset.id}/tracking`);
-    renderTracking(data.order);
-  } catch (error) {
-    showToast(error.message, "error");
-  }
-});
+    if (!button) return;
+
+    try {
+      const data = await authFetch(`/orders/${button.dataset.id}/tracking`);
+      renderTracking(data.order);
+    } catch (error) {
+      showToast(error.message, "error");
+    }
+  });
 
 tabs.forEach((tab) => {
   tab.addEventListener("click", () => setActivePanel(tab.dataset.panel));

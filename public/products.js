@@ -1,7 +1,5 @@
 const API_BASE_URL =
-  window.MADOLOGY_API_BASE_URL ||
-  localStorage.getItem("apiBaseUrl") ||
-  "http://localhost:3000";
+  window.MADOLOGY_API_BASE_URL || localStorage.getItem("apiBaseUrl") || "";
 
 const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
 const cartCountBadge = document.querySelector(".cart-num");
@@ -72,13 +70,18 @@ function slugify(value) {
 }
 
 function normalizeName(value) {
-  return String(value || "").trim().toLowerCase();
+  return String(value || "")
+    .trim()
+    .toLowerCase();
 }
 
 function normalizeList(value) {
   if (!value) return [];
   if (Array.isArray(value)) return value;
-  return String(value).split(",").map((entry) => entry.trim()).filter(Boolean);
+  return String(value)
+    .split(",")
+    .map((entry) => entry.trim())
+    .filter(Boolean);
 }
 
 async function fetchJson(path, options = {}) {
@@ -103,9 +106,9 @@ async function authFetch(path, options = {}) {
     ...options,
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`,
-      ...(options.headers || {})
-    }
+      Authorization: `Bearer ${token}`,
+      ...(options.headers || {}),
+    },
   });
   const data = await response.json().catch(() => ({}));
 
@@ -113,7 +116,9 @@ async function authFetch(path, options = {}) {
     localStorage.removeItem("token");
     localStorage.removeItem("userName");
     localStorage.removeItem("userRole");
-    throw new Error(data.message || "Your session expired. Please log in again.");
+    throw new Error(
+      data.message || "Your session expired. Please log in again.",
+    );
   }
 
   if (!response.ok) {
@@ -132,12 +137,13 @@ function formatDate(value) {
   return new Intl.DateTimeFormat("en-US", {
     year: "numeric",
     month: "short",
-    day: "numeric"
+    day: "numeric",
   }).format(new Date(value));
 }
 
 function getFallbackProduct(card) {
-  const name = card.querySelector(".product-name")?.textContent?.trim() || "Product";
+  const name =
+    card.querySelector(".product-name")?.textContent?.trim() || "Product";
   const priceText = card.querySelector(".product-price")?.textContent || "0";
   const image = card.querySelector("img")?.getAttribute("src") || "";
 
@@ -150,13 +156,15 @@ function getFallbackProduct(card) {
     image,
     category: card.getAttribute("data-category") || "essentials",
     type: card.getAttribute("data-product-type") || "t-shirt",
-    colors: normalizeList(card.getAttribute("data-product-colors") || "Default"),
+    colors: normalizeList(
+      card.getAttribute("data-product-colors") || "Default",
+    ),
     sizes: normalizeList(card.getAttribute("data-product-sizes") || "M"),
     tags: [],
     reviewSummary: {
       averageRating: 0,
-      reviewCount: 0
-    }
+      reviewCount: 0,
+    },
   };
 }
 
@@ -174,8 +182,10 @@ function getProductMeta(card) {
     product.type,
     ...normalizeList(product.colors),
     ...normalizeList(product.sizes),
-    ...normalizeList(product.tags)
-  ].join(" ").toLowerCase();
+    ...normalizeList(product.tags),
+  ]
+    .join(" ")
+    .toLowerCase();
 
   return {
     name: normalizeName(product.displayName || product.name),
@@ -184,7 +194,7 @@ function getProductMeta(card) {
     type: product.type || "t-shirt",
     colors: normalizeList(product.colors).map((entry) => entry.toLowerCase()),
     sizes: normalizeList(product.sizes).map((entry) => entry.toLowerCase()),
-    searchable
+    searchable,
   };
 }
 
@@ -199,7 +209,11 @@ function buildSelectOptions(select, values, defaultLabel) {
     option.textContent = value;
     select.appendChild(option);
   });
-  select.value = Array.from(select.options).some((option) => option.value === currentValue) ? currentValue : "all";
+  select.value = Array.from(select.options).some(
+    (option) => option.value === currentValue,
+  )
+    ? currentValue
+    : "all";
 }
 
 function populateFilterSelects(filters) {
@@ -210,12 +224,14 @@ function populateFilterSelects(filters) {
   if (priceSelect && filters.price) {
     const maxPrice = Number(filters.price.max || 0);
     priceSelect.innerHTML = '<option value="all">Any price</option>';
-    [800, maxPrice].filter((value, index, list) => value && list.indexOf(value) === index).forEach((value) => {
-      const option = document.createElement("option");
-      option.value = String(value);
-      option.textContent = `Up to ${formatMoney(value)}`;
-      priceSelect.appendChild(option);
-    });
+    [800, maxPrice]
+      .filter((value, index, list) => value && list.indexOf(value) === index)
+      .forEach((value) => {
+        const option = document.createElement("option");
+        option.value = String(value);
+        option.textContent = `Up to ${formatMoney(value)}`;
+        priceSelect.appendChild(option);
+      });
   }
 }
 
@@ -236,8 +252,14 @@ function applyProductToCard(card, product) {
   card.setAttribute("data-product-id", product.id);
   card.setAttribute("data-category", product.category);
   card.setAttribute("data-product-type", product.type);
-  card.setAttribute("data-product-colors", normalizeList(product.colors).join(","));
-  card.setAttribute("data-product-sizes", normalizeList(product.sizes).join(","));
+  card.setAttribute(
+    "data-product-colors",
+    normalizeList(product.colors).join(","),
+  );
+  card.setAttribute(
+    "data-product-sizes",
+    normalizeList(product.sizes).join(","),
+  );
   card.setAttribute("data-product-price", String(product.price));
 
   if (imageElement) {
@@ -261,7 +283,9 @@ function applyProductToCard(card, product) {
     rating.type = "button";
     rating.className = "product-rating";
     rating.setAttribute("data-product-id", product.id);
-    card.querySelector(".product-card-meta")?.insertAdjacentElement("afterend", rating);
+    card
+      .querySelector(".product-card-meta")
+      ?.insertAdjacentElement("afterend", rating);
   }
   rating.textContent = renderRating(product.reviewSummary);
 
@@ -288,7 +312,9 @@ function applyProductCatalog(products) {
   });
 
   productCards.forEach((card) => {
-    const cardName = normalizeName(card.querySelector(".product-name")?.textContent);
+    const cardName = normalizeName(
+      card.querySelector(".product-name")?.textContent,
+    );
     const product = productsByName.get(cardName) || getFallbackProduct(card);
 
     productsById.set(product.id, product);
@@ -310,13 +336,16 @@ async function hydrateProductCatalog() {
   try {
     const [productData, filterData] = await Promise.all([
       fetchJson("/products"),
-      fetchJson("/products/filters")
+      fetchJson("/products/filters"),
     ]);
 
     applyProductCatalog(productData.products || []);
     populateFilterSelects(filterData.filters);
   } catch (error) {
-    console.warn("[PRODUCTS] Catalog API unavailable, using page catalog.", error.message);
+    console.warn(
+      "[PRODUCTS] Catalog API unavailable, using page catalog.",
+      error.message,
+    );
   }
 
   filterAndSortProducts();
@@ -331,7 +360,9 @@ async function loadWishlist() {
 
   try {
     const data = await authFetch("/auth/wishlist");
-    wishlistProductIds = new Set((data.wishlist || []).map((item) => item.productId));
+    wishlistProductIds = new Set(
+      (data.wishlist || []).map((item) => item.productId),
+    );
   } catch (error) {
     console.warn("[PRODUCTS] Wishlist unavailable", error.message);
     wishlistProductIds = new Set();
@@ -358,13 +389,18 @@ async function toggleWishlist(product) {
         productId: product.id,
         name: product.displayName || product.name,
         price: product.price,
-        image: product.image
-      })
+        image: product.image,
+      }),
     });
 
-    wishlistProductIds = new Set((data.wishlist || []).map((item) => item.productId));
+    wishlistProductIds = new Set(
+      (data.wishlist || []).map((item) => item.productId),
+    );
     renderWishlistButtons();
-    window.MADOLOGY_SHOW_TOAST?.(data.message || "Wishlist updated.", "success");
+    window.MADOLOGY_SHOW_TOAST?.(
+      data.message || "Wishlist updated.",
+      "success",
+    );
   } catch (error) {
     window.MADOLOGY_SHOW_TOAST?.(error.message, "error");
   }
@@ -387,7 +423,9 @@ async function renderSuggestions(query) {
   let suggestions = [];
 
   try {
-    const data = await fetchJson(`/products/suggestions?q=${encodeURIComponent(trimmed)}`);
+    const data = await fetchJson(
+      `/products/suggestions?q=${encodeURIComponent(trimmed)}`,
+    );
     suggestions = data.suggestions || [];
   } catch (error) {
     suggestions = productCards
@@ -398,10 +436,12 @@ async function renderSuggestions(query) {
           name: product.displayName || product.name,
           price: product.price,
           image: product.image,
-          category: product.category
+          category: product.category,
         };
       })
-      .filter((product) => normalizeName(product.name).includes(normalizeName(trimmed)))
+      .filter((product) =>
+        normalizeName(product.name).includes(normalizeName(trimmed)),
+      )
       .slice(0, 5);
   }
 
@@ -416,12 +456,14 @@ async function renderSuggestions(query) {
   }
 
   searchSuggestions.innerHTML = suggestions
-    .map((product) => `
+    .map(
+      (product) => `
       <button type="button" data-suggestion="${escapeHtml(product.name)}" data-product-id="${escapeHtml(product.id)}">
         <span>${escapeHtml(product.name)}</span>
         <small>${formatMoney(product.price)}</small>
       </button>
-    `)
+    `,
+    )
     .join("");
   searchSuggestions.hidden = false;
 }
@@ -434,15 +476,18 @@ function filterAndSortProducts() {
   const query = searchInput.value.trim().toLowerCase();
   const sortValue = sortSelect.value;
   const selectedType = typeSelect?.value || "all";
-  const selectedMaxPrice = priceSelect?.value === "all" ? null : Number(priceSelect?.value);
+  const selectedMaxPrice =
+    priceSelect?.value === "all" ? null : Number(priceSelect?.value);
 
   renderSuggestions(query);
 
   const visibleCards = productCards.filter((card) => {
     const meta = getProductMeta(card);
-    const categoryMatch = activeFilter === "all" || meta.category === activeFilter;
+    const categoryMatch =
+      activeFilter === "all" || meta.category === activeFilter;
     const typeMatch = selectedType === "all" || meta.type === selectedType;
-    const priceMatch = selectedMaxPrice === null || meta.price <= selectedMaxPrice;
+    const priceMatch =
+      selectedMaxPrice === null || meta.price <= selectedMaxPrice;
     const queryMatch = !query || meta.searchable.includes(query);
     return categoryMatch && typeMatch && priceMatch && queryMatch;
   });
@@ -480,7 +525,8 @@ function filterAndSortProducts() {
       const message = document.createElement("div");
       message.id = "productsEmptyState";
       message.className = "products-empty-state";
-      message.innerHTML = '<h3>No products found</h3><p>Try a different search term or reset the filters.</p>';
+      message.innerHTML =
+        "<h3>No products found</h3><p>Try a different search term or reset the filters.</p>";
       productsContainer.appendChild(message);
     }
   } else {
@@ -528,7 +574,9 @@ function renderReviewList(reviews) {
     return '<p class="product-modal-empty">No reviews yet.</p>';
   }
 
-  return reviews.map((review) => `
+  return reviews
+    .map(
+      (review) => `
     <article class="review-card">
       <div>
         <strong>${escapeHtml(review.userName || "MADOLOGY customer")}</strong>
@@ -537,7 +585,9 @@ function renderReviewList(reviews) {
       <p>${escapeHtml(review.comment || "")}</p>
       <small>${formatDate(review.createdAt)}</small>
     </article>
-  `).join("");
+  `,
+    )
+    .join("");
 }
 
 function renderRelatedProducts(products) {
@@ -545,7 +595,9 @@ function renderRelatedProducts(products) {
     return '<p class="product-modal-empty">No related products found.</p>';
   }
 
-  return products.map((product) => `
+  return products
+    .map(
+      (product) => `
     <article class="related-card">
       <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.displayName || product.name)}">
       <div>
@@ -554,12 +606,15 @@ function renderRelatedProducts(products) {
         <button class="related-view" type="button" data-product-id="${escapeHtml(product.id)}">View</button>
       </div>
     </article>
-  `).join("");
+  `,
+    )
+    .join("");
 }
 
 function renderProductModal(product, reviewsData, relatedProducts) {
   const body = document.getElementById("productModalBody");
-  const summary = reviewsData?.summary || product.reviewSummary || { averageRating: 0, reviewCount: 0 };
+  const summary = reviewsData?.summary ||
+    product.reviewSummary || { averageRating: 0, reviewCount: 0 };
   const reviews = reviewsData?.reviews || [];
   const canReview = Boolean(getStoredToken());
 
@@ -582,7 +637,9 @@ function renderProductModal(product, reviewsData, relatedProducts) {
         <h3>Reviews</h3>
         <span>${renderRating(summary)}</span>
       </div>
-      ${canReview ? `
+      ${
+        canReview
+          ? `
         <form class="review-form" id="productReviewForm" data-product-id="${escapeHtml(product.id)}">
           <select id="reviewRating" required>
             <option value="5">5 stars</option>
@@ -594,7 +651,9 @@ function renderProductModal(product, reviewsData, relatedProducts) {
           <textarea id="reviewComment" rows="3" maxlength="500" placeholder="Share your review"></textarea>
           <button class="account-primary" type="submit">Submit Review</button>
         </form>
-      ` : '<a class="modal-login-link" href="login.html">Login to review</a>'}
+      `
+          : '<a class="modal-login-link" href="login.html">Login to review</a>'
+      }
       <div class="reviews-list">
         ${renderReviewList(reviews)}
       </div>
@@ -618,20 +677,31 @@ async function openProductDetails(productId) {
   }
 
   openModalShell();
-  document.getElementById("productModalBody").innerHTML = '<p class="product-modal-empty">Loading product...</p>';
+  document.getElementById("productModalBody").innerHTML =
+    '<p class="product-modal-empty">Loading product...</p>';
 
-  const [productResult, reviewsResult, relatedResult] = await Promise.allSettled([
-    fetchJson(`/products/${encodeURIComponent(productId)}`),
-    fetchJson(`/products/${encodeURIComponent(productId)}/reviews`),
-    fetchJson(`/products/${encodeURIComponent(productId)}/related`)
-  ]);
+  const [productResult, reviewsResult, relatedResult] =
+    await Promise.allSettled([
+      fetchJson(`/products/${encodeURIComponent(productId)}`),
+      fetchJson(`/products/${encodeURIComponent(productId)}/reviews`),
+      fetchJson(`/products/${encodeURIComponent(productId)}/related`),
+    ]);
 
-  const product = productResult.status === "fulfilled" ? productResult.value.product : fallbackProduct;
-  const reviewsData = reviewsResult.status === "fulfilled" ? reviewsResult.value : {
-    summary: product.reviewSummary,
-    reviews: []
-  };
-  const relatedProducts = relatedResult.status === "fulfilled" ? relatedResult.value.products || [] : [];
+  const product =
+    productResult.status === "fulfilled"
+      ? productResult.value.product
+      : fallbackProduct;
+  const reviewsData =
+    reviewsResult.status === "fulfilled"
+      ? reviewsResult.value
+      : {
+          summary: product.reviewSummary,
+          reviews: [],
+        };
+  const relatedProducts =
+    relatedResult.status === "fulfilled"
+      ? relatedResult.value.products || []
+      : [];
 
   productsById.set(product.id, product);
   renderProductModal(product, reviewsData, relatedProducts);
@@ -641,7 +711,10 @@ function openAddToCartModal(product, quantity = 1) {
   const token = getStoredToken();
 
   if (!token) {
-    window.MADOLOGY_SHOW_TOAST?.("Please login first to add products.", "error");
+    window.MADOLOGY_SHOW_TOAST?.(
+      "Please login first to add products.",
+      "error",
+    );
     return;
   }
 
@@ -651,7 +724,7 @@ function openAddToCartModal(product, quantity = 1) {
     price: Number(product.price || 0),
     quantity,
     image: product.image,
-    color: normalizeList(product.colors)[0] || "Default"
+    color: normalizeList(product.colors)[0] || "Default",
   });
 }
 
@@ -666,13 +739,17 @@ addToCartButtons.forEach((button) => {
     const token = getStoredToken();
 
     if (!token) {
-      window.MADOLOGY_SHOW_TOAST?.("Please login first to add products.", "error");
+      window.MADOLOGY_SHOW_TOAST?.(
+        "Please login first to add products.",
+        "error",
+      );
       return;
     }
 
     const productCard = button.closest(".product-card");
     const product = getCardProduct(productCard);
-    const quantity = parseInt(productCard.querySelector("input").value, 10) || 1;
+    const quantity =
+      parseInt(productCard.querySelector("input").value, 10) || 1;
 
     openAddToCartModal(product, quantity);
   });
@@ -686,13 +763,18 @@ document.addEventListener("cart-updated", () => {
 
 function updateCartCount() {
   cartItems = window.MADOLOGY_CART.getItems();
-  const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const totalQuantity = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0,
+  );
   cartCountBadge.innerText = totalQuantity;
 }
 
 if (searchInput) {
   searchInput.addEventListener("input", () => filterAndSortProducts());
-  searchInput.addEventListener("focus", () => renderSuggestions(searchInput.value));
+  searchInput.addEventListener("focus", () =>
+    renderSuggestions(searchInput.value),
+  );
   document.addEventListener("click", (event) => {
     if (!event.target.closest(".products-search")) {
       if (searchSuggestions) {
@@ -716,21 +798,27 @@ if (searchSuggestions) {
   });
 }
 
-[sortSelect, typeSelect, colorSelect, sizeSelect, priceSelect].forEach((select) => {
-  select?.addEventListener("change", filterAndSortProducts);
-});
+[sortSelect, typeSelect, colorSelect, sizeSelect, priceSelect].forEach(
+  (select) => {
+    select?.addEventListener("change", filterAndSortProducts);
+  },
+);
 
 filterChips.forEach((chip) => {
   chip.addEventListener("click", () => {
     activeFilter = chip.dataset.filter || "all";
-    filterChips.forEach((entry) => entry.classList.toggle("active", entry === chip));
+    filterChips.forEach((entry) =>
+      entry.classList.toggle("active", entry === chip),
+    );
     filterAndSortProducts();
   });
 });
 
 productsContainer.addEventListener("click", (event) => {
   const wishlistButton = event.target.closest(".wishlist-toggle");
-  const detailsButton = event.target.closest(".product-details-btn, .product-rating");
+  const detailsButton = event.target.closest(
+    ".product-details-btn, .product-rating",
+  );
 
   if (wishlistButton) {
     event.preventDefault();
@@ -747,49 +835,56 @@ productsContainer.addEventListener("click", (event) => {
   }
 });
 
-document.getElementById("productDetailsModal").addEventListener("click", async (event) => {
-  if (event.target.closest("[data-close-product-modal]")) {
-    closeProductModal();
-    return;
-  }
-
-  const addButton = event.target.closest(".modal-add-cart");
-  if (addButton) {
-    const product = productsById.get(addButton.dataset.productId);
-    if (product) {
-      openAddToCartModal(product, 1);
+document
+  .getElementById("productDetailsModal")
+  .addEventListener("click", async (event) => {
+    if (event.target.closest("[data-close-product-modal]")) {
+      closeProductModal();
+      return;
     }
-    return;
-  }
 
-  const relatedButton = event.target.closest(".related-view");
-  if (relatedButton) {
-    openProductDetails(relatedButton.dataset.productId);
-  }
-});
+    const addButton = event.target.closest(".modal-add-cart");
+    if (addButton) {
+      const product = productsById.get(addButton.dataset.productId);
+      if (product) {
+        openAddToCartModal(product, 1);
+      }
+      return;
+    }
 
-document.getElementById("productDetailsModal").addEventListener("submit", async (event) => {
-  const form = event.target.closest("#productReviewForm");
+    const relatedButton = event.target.closest(".related-view");
+    if (relatedButton) {
+      openProductDetails(relatedButton.dataset.productId);
+    }
+  });
 
-  if (!form) return;
+document
+  .getElementById("productDetailsModal")
+  .addEventListener("submit", async (event) => {
+    const form = event.target.closest("#productReviewForm");
 
-  event.preventDefault();
+    if (!form) return;
 
-  try {
-    await authFetch(`/products/${encodeURIComponent(form.dataset.productId)}/reviews`, {
-      method: "POST",
-      body: JSON.stringify({
-        rating: Number(document.getElementById("reviewRating").value),
-        comment: document.getElementById("reviewComment").value
-      })
-    });
+    event.preventDefault();
 
-    window.MADOLOGY_SHOW_TOAST?.("Review submitted.", "success");
-    await openProductDetails(form.dataset.productId);
-  } catch (error) {
-    window.MADOLOGY_SHOW_TOAST?.(error.message, "error");
-  }
-});
+    try {
+      await authFetch(
+        `/products/${encodeURIComponent(form.dataset.productId)}/reviews`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            rating: Number(document.getElementById("reviewRating").value),
+            comment: document.getElementById("reviewComment").value,
+          }),
+        },
+      );
+
+      window.MADOLOGY_SHOW_TOAST?.("Review submitted.", "success");
+      await openProductDetails(form.dataset.productId);
+    } catch (error) {
+      window.MADOLOGY_SHOW_TOAST?.(error.message, "error");
+    }
+  });
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
@@ -799,12 +894,17 @@ document.addEventListener("keydown", (event) => {
 
 function renderCart() {
   cartItems = window.MADOLOGY_CART.getItems();
-  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const subtotal = cartItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0,
+  );
   const shipping = cartItems.length ? 12 : 0;
   const total = subtotal + shipping;
 
   const itemsMarkup = cartItems.length
-    ? cartItems.map((item) => `
+    ? cartItems
+        .map(
+          (item) => `
       <article class="premium-cart-item">
         <img src="${item.image || item.img}" alt="${item.name}">
         <div class="premium-cart-item-info">
@@ -821,7 +921,9 @@ function renderCart() {
           </div>
         </div>
       </article>
-    `).join("")
+    `,
+        )
+        .join("")
     : `
       <div class="premium-empty">
         <svg viewBox="0 0 160 160" width="90" height="90" fill="none" aria-hidden="true">
@@ -891,7 +993,8 @@ cartPanel.addEventListener("click", async (event) => {
     const item = currentItems.find((entry) => String(entry.id) === String(id));
     if (!item) return;
 
-    const nextQuantity = action === "increase" ? item.quantity + 1 : item.quantity - 1;
+    const nextQuantity =
+      action === "increase" ? item.quantity + 1 : item.quantity - 1;
     window.MADOLOGY_CART.updateQuantity(item.id, nextQuantity);
     updateCartCount();
     renderCart();
@@ -934,10 +1037,13 @@ cartPanel.addEventListener("click", async (event) => {
     if (!isJwtLike(token)) {
       console.warn("[ORDER DEBUG] Refusing to send malformed token", {
         tokenLength: token.length,
-        tokenPreview: `${token.slice(0, 8)}...`
+        tokenPreview: `${token.slice(0, 8)}...`,
       });
       localStorage.removeItem("token");
-      window.MADOLOGY_SHOW_TOAST?.("Your session token is invalid. Please log in again.", "error");
+      window.MADOLOGY_SHOW_TOAST?.(
+        "Your session token is invalid. Please log in again.",
+        "error",
+      );
       return;
     }
 
@@ -947,7 +1053,8 @@ cartPanel.addEventListener("click", async (event) => {
     try {
       let customerPhone = localStorage.getItem("userPhone") || "";
       if (!customerPhone) {
-        customerPhone = window.prompt("Enter your phone number for delivery:") || "";
+        customerPhone =
+          window.prompt("Enter your phone number for delivery:") || "";
       }
 
       const customerAddress = localStorage.getItem("userAddress") || "";
@@ -958,7 +1065,7 @@ cartPanel.addEventListener("click", async (event) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           items: currentItems,
@@ -966,23 +1073,26 @@ cartPanel.addEventListener("click", async (event) => {
             phone: customerPhone.trim(),
             address: customerAddress,
             latitude: customerLatitude ? Number(customerLatitude) : null,
-            longitude: customerLongitude ? Number(customerLongitude) : null
-          }
-        })
+            longitude: customerLongitude ? Number(customerLongitude) : null,
+          },
+        }),
       });
 
       const data = await response.json();
       console.log("[ORDER DEBUG] Order response", {
         status: response.status,
         ok: response.ok,
-        message: data.message
+        message: data.message,
       });
 
       if (response.status === 401 && data.code === "INVALID_AUTH_TOKEN") {
         localStorage.removeItem("token");
         localStorage.removeItem("userName");
         localStorage.removeItem("userRole");
-        window.MADOLOGY_SHOW_TOAST?.(data.message || "Your session expired.", "error");
+        window.MADOLOGY_SHOW_TOAST?.(
+          data.message || "Your session expired.",
+          "error",
+        );
         window.location.href = "login.html";
         return;
       }

@@ -1,7 +1,5 @@
 const API_BASE_URL =
-  window.MADOLOGY_API_BASE_URL ||
-  localStorage.getItem("apiBaseUrl") ||
-  "http://localhost:3000";
+  window.MADOLOGY_API_BASE_URL || localStorage.getItem("apiBaseUrl") || "";
 
 const params = new URLSearchParams(window.location.search);
 const email = (params.get("email") || "").trim();
@@ -21,7 +19,9 @@ function setStatus(message, isError = false) {
 emailText.textContent = email || "your email";
 
 verificationCodeInput.addEventListener("input", () => {
-  verificationCodeInput.value = verificationCodeInput.value.replace(/\D/g, "").slice(0, 6);
+  verificationCodeInput.value = verificationCodeInput.value
+    .replace(/\D/g, "")
+    .slice(0, 6);
 });
 
 resendBtn.onclick = async () => {
@@ -38,7 +38,7 @@ resendBtn.onclick = async () => {
     const res = await fetch(`${API_BASE_URL}/auth/resend-verification-code`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email })
+      body: JSON.stringify({ email }),
     });
 
     const result = await res.json();
@@ -62,7 +62,10 @@ verifyBtn.onclick = async () => {
   const code = verificationCodeInput.value.trim();
 
   if (!email) {
-    window.MADOLOGY_SHOW_TOAST?.("Missing email address. Please register again.", "error");
+    window.MADOLOGY_SHOW_TOAST?.(
+      "Missing email address. Please register again.",
+      "error",
+    );
     return;
   }
 
@@ -78,13 +81,16 @@ verifyBtn.onclick = async () => {
     const res = await fetch(`${API_BASE_URL}/auth/verify-email-code`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, code })
+      body: JSON.stringify({ email, code }),
     });
 
     const result = await res.json();
 
     if (!res.ok) {
-      window.MADOLOGY_SHOW_TOAST?.(result.message || "Verification failed.", "error");
+      window.MADOLOGY_SHOW_TOAST?.(
+        result.message || "Verification failed.",
+        "error",
+      );
       return;
     }
 
