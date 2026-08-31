@@ -6,20 +6,10 @@
       "use": "@vercel/node"
     }
   ],
-  "rewrites": [
-    { "source": "/auth/login", "destination": "/api/auth/login" },
-    { "source": "/auth/register", "destination": "/api/auth/register" },
-    { "source": "/products", "destination": "/api/products" },
-    { "source": "/products/filters", "destination": "/api/products" },
-    { "source": "/products/suggestions", "destination": "/api/products" },
-    { "source": "/location/reverse", "destination": "/api/location/reverse" },
-    { "source": "/auth/(.*)", "destination": "/api/index" },
-    { "source": "/location/(.*)", "destination": "/api/index" },
-    { "source": "/products/(.*)", "destination": "/api/products" },
-    { "source": "/orders/(.*)", "destination": "/api/index" },
-    { "source": "/order", "destination": "/api/index" },
-    { "source": "/admin/(.*)", "destination": "/api/index" },
-    { "source": "/health", "destination": "/api/index" },
-    { "source": "/ascets/(.*)", "destination": "/api/index" }
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.js"
+    }
   ]
 }
