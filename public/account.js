@@ -70,6 +70,21 @@ async function authFetch(path, options = {}) {
   return data;
 }
 
+async function fetchTrustedProductById(productId) {
+  if (!productId) {
+    return null;
+  }
+
+  const response = await fetch(`${API_BASE_URL}/products/${encodeURIComponent(productId)}`);
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    return null;
+  }
+
+  return data.product || null;
+}
+
 function setActivePanel(panelId) {
   panels.forEach((panel) =>
     panel.classList.toggle("active", panel.id === panelId),
@@ -404,14 +419,16 @@ document
     if (!item) return;
 
     if (cartButton) {
+      const trustedProduct = await fetchTrustedProductById(productId);
+
       window.MADOLOGY_CART.addItem({
         id: productId,
         productId,
-        name: item.name,
-        price: Number(item.price || 0),
+        name: trustedProduct?.displayName || trustedProduct?.name || item.name,
+        price: Number(trustedProduct?.price ?? item.price ?? 0),
         quantity: 1,
-        image: item.image,
-        img: item.image,
+        image: trustedProduct?.image || item.image,
+        img: trustedProduct?.image || item.image,
         color: "Default",
         size: "M",
       });

@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
+const { findProductById } = require("../data/products");
 const asyncHandler = require("../middleware/async.middleware");
 const {
   createRandomToken,
@@ -588,11 +589,18 @@ const updateWishlist = asyncHandler(async (req, res) => {
   }
 
   const existingItem = user.wishlist.find((item) => item.productId === productId);
+  const trustedProduct = findProductById(productId);
+  const trustedPrice = trustedProduct ? Number(trustedProduct.price) : null;
 
   if (existingItem) {
     user.wishlist = user.wishlist.filter((item) => item.productId !== productId);
   } else {
-    user.wishlist.push({ productId, name, price: Number(price) || 0, image: image || "" });
+    user.wishlist.push({
+      productId,
+      name: trustedProduct?.displayName || trustedProduct?.name || name,
+      price: Number.isFinite(trustedPrice) ? trustedPrice : 0,
+      image: trustedProduct?.image || image || ""
+    });
   }
 
   await user.save();

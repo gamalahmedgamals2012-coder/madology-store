@@ -145,14 +145,13 @@ function formatDate(value) {
 function getFallbackProduct(card) {
   const name =
     card.querySelector(".product-name")?.textContent?.trim() || "Product";
-  const priceText = card.querySelector(".product-price")?.textContent || "0";
   const image = card.querySelector("img")?.getAttribute("src") || "";
 
   return {
     id: card.getAttribute("data-product-id") || slugify(name),
     name: name.toLowerCase(),
     displayName: name,
-    price: parseFloat(priceText.replace(/[^\d.]/g, "")) || 0,
+    price: 0,
     currency: "L.E",
     image,
     category: card.getAttribute("data-category") || "essentials",
@@ -204,8 +203,9 @@ function populateFilterSelects(filters) {
 
   if (priceSelect && filters.price) {
     const maxPrice = Number(filters.price.max || 0);
+    const minPrice = Number(filters.price.min || 0);
     priceSelect.innerHTML = '<option value="all">Any price</option>';
-    [800, maxPrice]
+    [minPrice, maxPrice]
       .filter((value, index, list) => value && list.indexOf(value) === index)
       .forEach((value) => {
         const option = document.createElement("option");
