@@ -20,6 +20,14 @@ async function connectToDatabase() {
     throw new Error("MONGODB_URI is missing. Add it to your .env file.");
   }
 
+  if (mongoose.connection.readyState === 1) {
+    return mongoose.connection;
+  }
+
+  if (mongoose.connection.readyState === 2) {
+    return mongoose.connection.asPromise();
+  }
+
   mongoose.set("strictQuery", true);
 
   const connectOptions = {

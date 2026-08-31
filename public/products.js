@@ -8,11 +8,7 @@ const cartIcon = document.getElementById("cart-icon");
 const cartOverlay = document.getElementById("cartOverlay");
 const scrollTopButton = document.querySelector(".scroll-top-button");
 const searchInput = document.getElementById("productSearch");
-const searchSuggestions = document.getElementById("searchSuggestions");
 const sortSelect = document.getElementById("productSort");
-const typeSelect = document.getElementById("productType");
-const colorSelect = document.getElementById("productColor");
-const sizeSelect = document.getElementById("productSize");
 const priceSelect = document.getElementById("productPrice");
 const filterChips = Array.from(document.querySelectorAll(".filter-chip"));
 const productsContainer = document.getElementById("productsContainer");
@@ -23,7 +19,6 @@ let cartItems = window.MADOLOGY_CART.getItems();
 let productsById = new Map();
 let cardByProductId = new Map();
 let wishlistProductIds = new Set();
-let suggestionRequestId = 0;
 
 function getStoredToken() {
   const rawToken = localStorage.getItem("token");
@@ -200,30 +195,8 @@ function getProductMeta(card) {
   };
 }
 
-function buildSelectOptions(select, values, defaultLabel) {
-  if (!select) return;
-
-  const currentValue = select.value || "all";
-  select.innerHTML = `<option value="all">${defaultLabel}</option>`;
-  values.forEach((value) => {
-    const option = document.createElement("option");
-    option.value = String(value).toLowerCase();
-    option.textContent = value;
-    select.appendChild(option);
-  });
-  select.value = Array.from(select.options).some(
-    (option) => option.value === currentValue,
-  )
-    ? currentValue
-    : "all";
-}
-
 function populateFilterSelects(filters) {
   if (!filters) return;
-
-  buildSelectOptions(typeSelect, filters.types || [], "All types");
-  buildSelectOptions(colorSelect, filters.colors || [], "All colors");
-  buildSelectOptions(sizeSelect, filters.sizes || [], "All sizes");
 
   if (priceSelect && filters.price) {
     const maxPrice = Number(filters.price.max || 0);
@@ -410,68 +383,6 @@ async function toggleWishlist(product) {
   }
 }
 
-async function renderSuggestions(query) {
-  if (!searchSuggestions) {
-    return;
-  }
-
-  const trimmed = query.trim();
-  const currentRequest = ++suggestionRequestId;
-
-  if (!trimmed) {
-    searchSuggestions.hidden = true;
-    searchSuggestions.innerHTML = "";
-    return;
-  }
-
-  let suggestions = [];
-
-  try {
-    const data = await fetchJson(
-      `/products/suggestions?q=${encodeURIComponent(trimmed)}`,
-    );
-    suggestions = data.suggestions || [];
-  } catch (error) {
-    suggestions = productCards
-      .map((card) => {
-        const product = getCardProduct(card);
-        return {
-          id: product.id,
-          name: product.displayName || product.name,
-          price: product.price,
-          image: product.image,
-          category: product.category,
-        };
-      })
-      .filter((product) =>
-        normalizeName(product.name).includes(normalizeName(trimmed)),
-      )
-      .slice(0, 5);
-  }
-
-  if (currentRequest !== suggestionRequestId) {
-    return;
-  }
-
-  if (!suggestions.length) {
-    searchSuggestions.hidden = true;
-    searchSuggestions.innerHTML = "";
-    return;
-  }
-
-  searchSuggestions.innerHTML = suggestions
-    .map(
-      (product) => `
-      <button type="button" data-suggestion="${escapeHtml(product.name)}" data-product-id="${escapeHtml(product.id)}">
-        <span>${escapeHtml(product.name)}</span>
-        <small>${formatMoney(product.price)}</small>
-      </button>
-    `,
-    )
-    .join("");
-  searchSuggestions.hidden = false;
-}
-
 function filterAndSortProducts() {
   if (!productsContainer || !searchInput || !sortSelect) {
     return;
@@ -479,21 +390,23 @@ function filterAndSortProducts() {
 
   const query = searchInput.value.trim().toLowerCase();
   const sortValue = sortSelect.value;
-  const selectedType = typeSelect?.value || "all";
   const selectedMaxPrice =
     priceSelect?.value === "all" ? null : Number(priceSelect?.value);
-
-  renderSuggestions(query);
 
   const visibleCards = productCards.filter((card) => {
     const meta = getProductMeta(card);
     const categoryMatch =
       activeFilter === "all" || meta.category === activeFilter;
-    const typeMatch = selectedType === "all" || meta.type === selectedType;
     const priceMatch =
       selectedMaxPrice === null || meta.price <= selectedMaxPrice;
-    const queryMatch = !query || meta.searchable.includes(query);
-    return categoryMatch && typeMatch && priceMatch && queryMatch;
+    const queryMatch =
+      !query ||
+      meta.searchable.includes(query) ||
+      meta.name.includes(query) ||
+      normalizeName(card.querySelector(".product-name")?.textContent).includes(
+        query,
+      );
+    return categoryMatch && priceMatch && queryMatch;
   });
 
   visibleCards.sort((a, b) => {
@@ -776,33 +689,9 @@ function updateCartCount() {
 
 if (searchInput) {
   searchInput.addEventListener("input", () => filterAndSortProducts());
-  searchInput.addEventListener("focus", () =>
-    renderSuggestions(searchInput.value),
-  );
-  document.addEventListener("click", (event) => {
-    if (!event.target.closest(".products-search")) {
-      if (searchSuggestions) {
-        searchSuggestions.hidden = true;
-      }
-    }
-  });
 }
 
-if (searchSuggestions) {
-  searchSuggestions.addEventListener("click", (event) => {
-    const button = event.target.closest("button");
-
-    if (!button) return;
-
-    searchInput.value = button.dataset.suggestion || button.textContent.trim();
-    searchSuggestions.hidden = true;
-    filterAndSortProducts();
-    suggestionRequestId += 1;
-    searchSuggestions.hidden = true;
-  });
-}
-
-[sortSelect, typeSelect, colorSelect, sizeSelect, priceSelect].forEach(
+[sortSelect, priceSelect].forEach(
   (select) => {
     select?.addEventListener("change", filterAndSortProducts);
   },

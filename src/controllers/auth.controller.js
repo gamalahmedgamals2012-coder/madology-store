@@ -48,6 +48,10 @@ function normalizeRequiredText(value, label, minLength, maxLength) {
 }
 
 function normalizeRequiredCoordinate(value, label, min, max) {
+  if (value === null || value === undefined || String(value).trim() === "") {
+    throw createError(`${label} must be a number between ${min} and ${max}.`, 400);
+  }
+
   const coordinate = Number(value);
 
   if (!Number.isFinite(coordinate) || coordinate < min || coordinate > max) {
@@ -133,7 +137,8 @@ async function sendVerificationEmail(user, verificationCode) {
   }
 
   const verifyPageUrl = `${frontendUrl.replace(/\/$/, "")}/verify-email.html?email=${encodeURIComponent(user.email)}`;
-  const expiresInMinutes = Number(process.env.EMAIL_VERIFICATION_CODE_EXPIRES_MINUTES) || 10;
+  const expiresInMinutes =
+    Number(process.env.EMAIL_VERIFICATION_CODE_EXPIRES_MINUTES || process.env.EMAIL_VERIFICATION_EXPIRES_IN) || 10;
 
   console.log("[AUTH] Sending verification email", {
     userId: user._id?.toString()

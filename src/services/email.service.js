@@ -47,7 +47,7 @@ async function sendEmail({ to, subject, html, text, replyTo, headers }) {
     host: process.env.EMAIL_HOST || process.env.SMTP_HOST,
     port: process.env.EMAIL_PORT || process.env.SMTP_PORT,
     secure: process.env.EMAIL_SECURE || process.env.SMTP_SECURE,
-    user: process.env.EMAIL_USER || process.env.SMTP_USER
+    hasUser: Boolean(process.env.EMAIL_USER || process.env.SMTP_USER)
   });
 
   try {
@@ -83,8 +83,7 @@ async function sendEmail({ to, subject, html, text, replyTo, headers }) {
     console.error("[EMAIL] Mail send failed", {
       message: error.message,
       code: error.code,
-      response: error.response,
-      stack: error.stack
+      response: error.response
     });
     throw error;
   }

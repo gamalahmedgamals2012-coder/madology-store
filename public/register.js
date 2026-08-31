@@ -12,10 +12,17 @@ const passwordInput = document.getElementById("password");
 const registerBtn = document.getElementById("registerBtn");
 
 function isValidMapSelection() {
+  const latitude = Number(selectedLatitudeInput.value);
+  const longitude = Number(selectedLongitudeInput.value);
+
   return (
     selectedAddressInput.dataset.locationSelected === "true" &&
-    selectedLatitudeInput.value !== "" &&
-    selectedLongitudeInput.value !== ""
+    Number.isFinite(latitude) &&
+    Number.isFinite(longitude) &&
+    latitude >= -90 &&
+    latitude <= 90 &&
+    longitude >= -180 &&
+    longitude <= 180
   );
 }
 
@@ -36,8 +43,16 @@ registerBtn.onclick = async () => {
   }
 
   if (!isValidMapSelection()) {
+    const hasCoordinates =
+      selectedLatitudeInput.value.trim() !== "" &&
+      selectedLongitudeInput.value.trim() !== "" &&
+      Number.isFinite(Number(selectedLatitudeInput.value)) &&
+      Number.isFinite(Number(selectedLongitudeInput.value));
+
     window.MADOLOGY_SHOW_TOAST?.(
-      "Please select your address from the map first.",
+      hasCoordinates
+        ? "Please wait for the address to load after selecting the map location."
+        : "Please select your location on the map first.",
       "error",
     );
     return;
@@ -56,6 +71,31 @@ registerBtn.onclick = async () => {
     addressDetails: getSelectedLocation()?.addressDetails,
     password: passwordInput.value,
   };
+
+  if (!Number.isFinite(data.latitude) || !Number.isFinite(data.longitude)) {
+    window.MADOLOGY_SHOW_TOAST?.(
+      "Please select your location on the map first.",
+      "error",
+    );
+    registerBtn.disabled = false;
+    registerBtn.innerText = "Register";
+    return;
+  }
+
+  if (
+    data.latitude < -90 ||
+    data.latitude > 90 ||
+    data.longitude < -180 ||
+    data.longitude > 180
+  ) {
+    window.MADOLOGY_SHOW_TOAST?.(
+      "Selected coordinates are invalid. Please choose a different map location.",
+      "error",
+    );
+    registerBtn.disabled = false;
+    registerBtn.innerText = "Register";
+    return;
+  }
 
   try {
     const res = await fetch(`${API_BASE_URL}/auth/register`, {

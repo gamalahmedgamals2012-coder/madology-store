@@ -220,7 +220,7 @@ nav {
 
 /* Responsive – Tablet */
 @media (max-width: 1189.4px) {
-  ul {
+  #nav {
     width: 18em;
     height: 2.5em;
   }
@@ -247,14 +247,14 @@ nav {
 
 /* Responsive – Mobile */
 @media (max-width: 600px) {
-  ul {
+  #nav {
     width: 12em;
     height: 2em;
     left: 50%;
     transform: translateX(-50%);
   }
 
-  ul li a {
+  #nav li a {
     font-size: 10px;
   }
 

@@ -5,22 +5,34 @@ function notFoundHandler(req, res) {
   });
 }
 
+function isProductionRuntime() {
+  return process.env.NODE_ENV === "production" || Boolean(process.env.VERCEL || process.env.VERCEL_ENV);
+}
+
 function errorHandler(error, req, res, next) {
   const statusCode = error.statusCode || 500;
   const message = error.message || "Internal server error";
+  const productionRuntime = isProductionRuntime();
 
-  if (process.env.NODE_ENV !== "production") {
+  if (!productionRuntime) {
     console.error(error);
+  } else if (statusCode >= 500) {
+    console.error("[ERROR]", {
+      message: error.message,
+      statusCode,
+      path: req.originalUrl
+    });
   }
 
   res.status(statusCode).json({
     success: false,
     message,
-    ...(process.env.NODE_ENV !== "production" && error.stack ? { stack: error.stack } : {})
+    ...(!productionRuntime && error.stack ? { stack: error.stack } : {})
   });
 }
 
 module.exports = {
   notFoundHandler,
-  errorHandler
+  errorHandler,
+  isProductionRuntime
 };

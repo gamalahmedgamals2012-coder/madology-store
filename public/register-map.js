@@ -88,6 +88,34 @@ function clearSelection() {
   setStatus("Search for an address or click on the map.");
 }
 
+function setPendingLocation(latitude, longitude) {
+  if (addressInput) {
+    addressInput.value = "";
+    addressInput.dataset.locationSelected = "false";
+  }
+
+  if (latitudeInput) {
+    latitudeInput.value = String(latitude);
+  }
+
+  if (longitudeInput) {
+    longitudeInput.value = String(longitude);
+  }
+
+  window.MADOLOGY_SELECTED_LOCATION = {
+    formattedAddress: "",
+    latitude,
+    longitude,
+    addressDetails: {
+      city: "",
+      state: "",
+      country: "",
+      postalCode: "",
+    },
+    isPendingReverseGeocode: true,
+  };
+}
+
 function applySelection(location, focusMap = true) {
   if (!location || !map || !marker) {
     return;
@@ -372,6 +400,7 @@ function initMap() {
 
   marker.on("dragend", () => {
     const { lat, lng } = marker.getLatLng();
+    setPendingLocation(lat, lng);
     clearTimeout(reverseDebounceTimer);
     reverseDebounceTimer = setTimeout(() => {
       reverseGeocode(lat, lng);
@@ -380,6 +409,7 @@ function initMap() {
 
   map.on("click", (event) => {
     const { lat, lng } = event.latlng;
+    setPendingLocation(lat, lng);
     marker.setOpacity(1);
     marker.setLatLng([lat, lng]);
     clearTimeout(reverseDebounceTimer);

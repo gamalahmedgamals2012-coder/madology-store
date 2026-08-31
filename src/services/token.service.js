@@ -42,7 +42,8 @@ function hashToken(token) {
 }
 
 function getVerificationExpiryDate() {
-  const minutes = Number(process.env.EMAIL_VERIFICATION_CODE_EXPIRES_MINUTES) || 10;
+  const minutes =
+    Number(process.env.EMAIL_VERIFICATION_CODE_EXPIRES_MINUTES || process.env.EMAIL_VERIFICATION_EXPIRES_IN) || 10;
   return new Date(Date.now() + minutes * 60 * 1000);
 }
 

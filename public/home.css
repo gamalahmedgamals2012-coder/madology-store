@@ -77,7 +77,7 @@ nav {
     font-size: 13px;
   }
 
-  ul {
+  #nav {
     width: 223px;
     left: 18em;
     height: 30px;
@@ -94,7 +94,7 @@ nav {
     padding: 6px 10px;
   }
 
-  ul li a {
+  #nav li a {
     font-size: 10px;
   }
 
