@@ -5,6 +5,10 @@ const cartState = {
   items: []
 };
 
+const API_BASE_URL =
+  window.MADOLOGY_GET_API_BASE_URL?.() || window.MADOLOGY_API_BASE_URL || "";
+let trustedPriceMap = null;
+
 const elements = {
   cartList: document.getElementById("cartList"),
   subtotalValue: document.getElementById("subtotalValue"),
@@ -20,6 +24,59 @@ function formatCurrency(value) {
     style: "currency",
     currency: cartState.currency
   }).format(value);
+}
+
+async function fetchTrustedPriceMap() {
+  if (trustedPriceMap) {
+    return trustedPriceMap;
+  }
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/products`);
+    const data = await response.json();
+    const products = Array.isArray(data.products) ? data.products : [];
+
+    trustedPriceMap = new Map(
+      products.map((product) => [String(product.id), Number(product.price) || 0]),
+    );
+  } catch (error) {
+    trustedPriceMap = new Map();
+  }
+
+  return trustedPriceMap;
+}
+
+async function syncCartPricesWithCatalog() {
+  const priceMap = await fetchTrustedPriceMap();
+  if (!priceMap.size) {
+    return cartState.items;
+  }
+
+  let updated = false;
+  const syncedItems = cartState.items.map((item) => {
+    const trustedPrice = priceMap.get(String(item.id));
+
+    if (!Number.isFinite(trustedPrice) || trustedPrice <= 0) {
+      return item;
+    }
+
+    if (Number(item.price) === trustedPrice) {
+      return item;
+    }
+
+    updated = true;
+    return {
+      ...item,
+      price: trustedPrice
+    };
+  });
+
+  if (updated) {
+    cartState.items = syncedItems;
+    window.MADOLOGY_CART.setItems(syncedItems);
+  }
+
+  return syncedItems;
 }
 
 function getItemCount() {
@@ -40,7 +97,7 @@ function getTax(subtotal) {
 
 function updateQuantity(id, change) {
   cartState.items = cartState.items.map((item) => {
-    if (item.id !== id) {
+    if (String(item.id) !== String(id)) {
       return item;
     }
 
@@ -55,7 +112,7 @@ function updateQuantity(id, change) {
 }
 
 function removeItem(id) {
-  cartState.items = cartState.items.filter((item) => item.id !== id);
+  cartState.items = cartState.items.filter((item) => String(item.id) !== String(id));
   window.MADOLOGY_CART.removeItem(id);
   renderCart();
 }
@@ -178,8 +235,9 @@ function renderSummary() {
   elements.checkoutBtn.disabled = isEmpty;
 }
 
-function renderCart() {
+async function renderCart() {
   cartState.items = window.MADOLOGY_CART.getItems();
+  cartState.items = await syncCartPricesWithCatalog();
 
   if (cartState.items.length === 0) {
     renderEmptyState();

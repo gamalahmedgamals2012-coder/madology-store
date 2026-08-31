@@ -129,6 +129,10 @@ function formatMoney(value) {
   return `${Number(value || 0).toLocaleString("en-US")} L.E`;
 }
 
+function formatProductPrice(value) {
+  return `${Number(value || 0)} L.E`;
+}
+
 function formatDate(value) {
   if (!value) return "";
   return new Intl.DateTimeFormat("en-US", {
@@ -225,6 +229,7 @@ function renderRating(summary) {
 
 function applyProductToCard(card, product) {
   const imageElement = card.querySelector("img");
+  const priceElement = card.querySelector(".product-price");
 
   card.setAttribute("data-product-id", product.id);
   card.setAttribute("data-category", product.category);
@@ -238,6 +243,10 @@ function applyProductToCard(card, product) {
     normalizeList(product.sizes).join(","),
   );
   card.setAttribute("data-product-price", String(product.price));
+
+  if (priceElement) {
+    priceElement.textContent = formatProductPrice(product.price);
+  }
 
   if (imageElement) {
     imageElement.dataset.productId = product.id;
