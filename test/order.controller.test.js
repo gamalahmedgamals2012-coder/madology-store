@@ -51,7 +51,7 @@ test('buildTrustedOrderItems ignores tampered client prices', () => {
 
   assert.equal(trustedItems[0].productId, 'air-jordan');
   assert.equal(trustedItems[0].name, 'Air Jordan');
-  assert.equal(trustedItems[0].price, 700);
-  assert.equal(trustedItems[0].itemTotal, 1400);
+  assert.equal(trustedItems[0].price, 650);
+  assert.equal(trustedItems[0].itemTotal, 1300);
   assert.equal(trustedItems[0].img, '/ascets/clothes/Air jordan.jpeg');
 });

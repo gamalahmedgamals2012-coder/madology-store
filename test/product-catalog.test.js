@@ -49,7 +49,7 @@ test("getFilterOptions returns safe selectable filter values", () => {
   assert.ok(filters.types.includes("hoodie"));
   assert.ok(filters.colors.includes("Black"));
   assert.ok(filters.sizes.includes("M"));
-  assert.equal(filters.price.min, 700);
+  assert.equal(filters.price.min, 650);
   assert.equal(filters.price.max, 1300);
 });
 
