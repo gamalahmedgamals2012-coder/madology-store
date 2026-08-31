@@ -9,20 +9,50 @@ const locationRoutes = require("./routes/location.routes");
 const orderRoutes = require("./routes/order.routes");
 const adminRoutes = require("./routes/admin.routes");
 const productRoutes = require("./routes/product.routes");
+
 const { apiLimiter } = require("./middleware/rate-limit.middleware");
-const { notFoundHandler, errorHandler } = require("./middleware/error.middleware");
+const {
+  notFoundHandler,
+  errorHandler
+} = require("./middleware/error.middleware");
 
 const app = express();
 
-const allowedOrigins = (process.env.CORS_ORIGINS || "")
-  .split(",")
-  .map((origin) => origin.trim())
-  .filter(Boolean);
+function normalizeOrigin(origin) {
+  return String(origin || "")
+    .trim()
+    .replace(/\/$/, "");
+}
+
+function getAllowedOrigins() {
+  const configuredOrigins = (process.env.CORS_ORIGINS || "")
+    .split(",")
+    .map(normalizeOrigin)
+    .filter(Boolean);
+
+  const builtInOrigins = [
+    "https://madology-store.vercel.app",
+    process.env.FRONTEND_URL,
+    process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "",
+    "http://localhost:5000",
+    "http://localhost:3000",
+    "http://127.0.0.1:5500"
+  ]
+    .map(normalizeOrigin)
+    .filter(Boolean);
+
+  return Array.from(
+    new Set([...configuredOrigins, ...builtInOrigins])
+  );
+}
 
 const staticOptions = {
   maxAge: process.env.NODE_ENV === "production" ? "7d" : 0,
   immutable: process.env.NODE_ENV === "production",
   redirect: false,
+
   setHeaders(res, filePath) {
     if (filePath.toLowerCase().endsWith(".avif")) {
       res.type("image/avif");
@@ -35,6 +65,7 @@ app.set("trust proxy", 1);
 app.use(
   helmet({
     crossOriginResourcePolicy: false,
+
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
@@ -78,36 +109,71 @@ app.use(
 app.use(
   cors({
     origin(origin, callback) {
-      if (!origin || allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+      if (
+        !origin ||
+        getAllowedOrigins().includes(normalizeOrigin(origin))
+      ) {
         return callback(null, true);
       }
 
-      return callback(new Error("Origin is not allowed by CORS"));
-    }
+      const error = new Error("Origin is not allowed by CORS");
+      error.statusCode = 403;
+
+      return callback(error);
+    },
+
+    optionsSuccessStatus: 204
   })
 );
 
 app.use(express.json({ limit: "1mb" }));
+
 app.use(express.urlencoded({ extended: true }));
-app.use(morgan(process.env.NODE_ENV === "production" ? "combined" : "dev"));
+
+app.use(
+  morgan(
+    process.env.NODE_ENV === "production"
+      ? "combined"
+      : "dev"
+  )
+);
+
 app.use(apiLimiter);
 
-app.use(express.static(path.join(__dirname, "../public"), staticOptions));
+app.use(
+  express.static(
+    path.join(__dirname, "../public"),
+    staticOptions
+  )
+);
+
 app.use(
   "/ascets",
-  express.static(path.join(__dirname, "../ascets"), {
-    ...staticOptions,
-    setHeaders: (res, filePath) => {
-      const ext = path.extname(filePath).toLowerCase();
-      if (ext === ".avif") {
-        res.setHeader("Content-Type", "image/avif");
-      } else if (ext === ".webp") {
-        res.setHeader("Content-Type", "image/webp");
+  express.static(
+    path.join(__dirname, "../ascets"),
+    {
+      ...staticOptions,
+
+      setHeaders: (res, filePath) => {
+        const ext = path.extname(filePath).toLowerCase();
+
+        if (ext === ".avif") {
+          res.setHeader("Content-Type", "image/avif");
+        } else if (ext === ".webp") {
+          res.setHeader("Content-Type", "image/webp");
+        }
       }
     }
-  })
+  )
 );
-app.use("/images", express.static(path.join(__dirname, "../ascets/images"), staticOptions));
+
+app.use(
+  "/images",
+  express.static(
+    path.join(__dirname, "../ascets/images"),
+    staticOptions
+  )
+);
 
 app.get("/ascets/images/Logo.png", (req, res) => {
   res.redirect(301, "/ascets/images/logo.png");
