@@ -69,7 +69,8 @@ function slugify(value) {
 function normalizeName(value) {
   return String(value || "")
     .trim()
-    .toLowerCase();
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "");
 }
 
 function normalizeList(value) {
