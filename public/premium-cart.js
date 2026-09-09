@@ -18,6 +18,7 @@ const elements = {
   checkoutBtn: document.getElementById("checkoutBtn"),
   headerItemsCount: document.getElementById("headerItemsCount")
 };
+const t = (key, variables) => window.MADOLOGY_I18N?.t(key, variables) || key;
 
 function formatCurrency(value) {
   return new Intl.NumberFormat("en-US", {
@@ -254,7 +255,7 @@ elements.checkoutBtn.addEventListener("click", () => {
     return;
   }
 
-  window.MADOLOGY_SHOW_TOAST?.("Checkout is ready. Connect this button to your payment or order flow.", "info");
+  window.MADOLOGY_SHOW_TOAST?.(t("Checkout is ready. Connect this button to your payment or order flow."), "info");
 });
 
 renderCart();

@@ -4,12 +4,13 @@ const API_BASE_URL =
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const loginBtn = document.getElementById("loginBtn");
+const t = (key, variables) => window.MADOLOGY_I18N?.t(key, variables) || key;
 function showVerificationMessage() {
   const params = new URLSearchParams(window.location.search);
 
   if (params.get("verified") === "1") {
     window.MADOLOGY_SHOW_TOAST?.(
-      "Your email has been verified. You can log in now.",
+      t("Your email has been verified. You can log in now."),
       "success",
     );
     window.history.replaceState({}, document.title, window.location.pathname);
@@ -34,7 +35,7 @@ loginBtn.onclick = async () => {
 
     if (!res.ok) {
       window.MADOLOGY_SHOW_TOAST?.(
-        result.message || "Login failed. Please try again.",
+        result.message || t("Login failed. Please try again."),
         "error",
       );
       loginBtn.disabled = false;
@@ -52,7 +53,7 @@ loginBtn.onclick = async () => {
     window.location.href = "index.html";
   } catch (err) {
     console.error(err);
-    window.MADOLOGY_SHOW_TOAST?.("Server error. Try again later.", "error");
+    window.MADOLOGY_SHOW_TOAST?.(t("Server error. Try again later."), "error");
   } finally {
     loginBtn.disabled = false;
   }

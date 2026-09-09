@@ -432,7 +432,7 @@ document
         color: "Default",
         size: "M",
       });
-      showToast("Added to cart.", "success");
+      showToast(window.MADOLOGY_I18N?.t("Added to cart.") || "Added to cart.", "success");
       return;
     }
 

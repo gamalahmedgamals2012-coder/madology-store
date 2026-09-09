@@ -10,6 +10,7 @@ const selectedLongitudeInput = document.getElementById("longitude");
 const addressStatus = document.getElementById("addressStatus");
 const passwordInput = document.getElementById("password");
 const registerBtn = document.getElementById("registerBtn");
+const t = (key, variables) => window.MADOLOGY_I18N?.t(key, variables) || key;
 
 function isValidMapSelection() {
   const latitude = Number(selectedLatitudeInput.value);
@@ -38,7 +39,7 @@ registerBtn.onclick = async () => {
     !selectedAddressInput.value ||
     !passwordInput.value
   ) {
-    window.MADOLOGY_SHOW_TOAST?.("Please fill all fields.", "error");
+    window.MADOLOGY_SHOW_TOAST?.(t("Please fill all fields."), "error");
     return;
   }
 
@@ -51,15 +52,15 @@ registerBtn.onclick = async () => {
 
     window.MADOLOGY_SHOW_TOAST?.(
       hasCoordinates
-        ? "Please wait for the address to load after selecting the map location."
-        : "Please select your location on the map first.",
+        ? t("Please wait for the address to load after selecting the map location.")
+        : t("Please select your location on the map first."),
       "error",
     );
     return;
   }
 
   registerBtn.disabled = true;
-  registerBtn.innerText = "Registering...";
+  registerBtn.innerText = t("Registering...");
 
   const data = {
     email: emailInput.value.trim(),
@@ -74,7 +75,7 @@ registerBtn.onclick = async () => {
 
   if (!Number.isFinite(data.latitude) || !Number.isFinite(data.longitude)) {
     window.MADOLOGY_SHOW_TOAST?.(
-      "Please select your location on the map first.",
+      t("Please select your location on the map first."),
       "error",
     );
     registerBtn.disabled = false;
@@ -89,7 +90,7 @@ registerBtn.onclick = async () => {
     data.longitude > 180
   ) {
     window.MADOLOGY_SHOW_TOAST?.(
-      "Selected coordinates are invalid. Please choose a different map location.",
+      t("Selected coordinates are invalid. Please choose a different map location."),
       "error",
     );
     registerBtn.disabled = false;
@@ -108,24 +109,24 @@ registerBtn.onclick = async () => {
 
     if (!res.ok) {
       window.MADOLOGY_SHOW_TOAST?.(
-        result.message || "Registration failed.",
+      result.message || t("Registration failed."),
         "error",
       );
       return;
     }
 
     window.MADOLOGY_SHOW_TOAST?.(
-      result.message || "Registration successful.",
+      result.message || t("Registration successful."),
       "success",
     );
 
     window.location.href = `verify-email.html?email=${encodeURIComponent(data.email)}`;
   } catch (err) {
     console.error(err);
-    window.MADOLOGY_SHOW_TOAST?.("Server error. Try again later.", "error");
+    window.MADOLOGY_SHOW_TOAST?.(t("Server error. Try again later."), "error");
   } finally {
     registerBtn.disabled = false;
-    registerBtn.innerText = "Register";
+    registerBtn.innerText = t("Register");
   }
 };
 

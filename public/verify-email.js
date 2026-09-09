@@ -9,6 +9,7 @@ const verificationCodeInput = document.getElementById("verificationCode");
 const verifyBtn = document.getElementById("verifyBtn");
 const resendBtn = document.getElementById("resendBtn");
 const statusMessage = document.getElementById("statusMessage");
+const t = (key, variables) => window.MADOLOGY_I18N?.t(key, variables) || key;
 
 function setStatus(message, isError = false) {
   if (!statusMessage) return;
@@ -16,7 +17,7 @@ function setStatus(message, isError = false) {
   statusMessage.classList.toggle("error", isError);
 }
 
-emailText.textContent = email || "your email";
+emailText.textContent = email || t("your email");
 
 verificationCodeInput.addEventListener("input", () => {
   verificationCodeInput.value = verificationCodeInput.value
@@ -26,13 +27,13 @@ verificationCodeInput.addEventListener("input", () => {
 
 resendBtn.onclick = async () => {
   if (!email) {
-    setStatus("Missing email address. Please register again.", true);
+    setStatus(t("Missing email address. Please register again."), true);
     return;
   }
 
   resendBtn.disabled = true;
-  resendBtn.innerText = "Sending...";
-  setStatus("Sending a new verification code...");
+  resendBtn.innerText = t("Sending...");
+  setStatus(t("Sending a new verification code..."));
 
   try {
     const res = await fetch(`${API_BASE_URL}/auth/resend-verification-code`, {
@@ -44,17 +45,17 @@ resendBtn.onclick = async () => {
     const result = await res.json();
 
     if (!res.ok) {
-      setStatus(result.message || "Unable to resend code.", true);
+      setStatus(result.message || t("Unable to resend code."), true);
       return;
     }
 
-    setStatus(result.message || "A new verification code has been sent.");
+    setStatus(result.message || t("A new verification code has been sent."));
   } catch (error) {
     console.error(error);
-    setStatus("Server error. Try again later.", true);
+    setStatus(t("Server error. Try again later."), true);
   } finally {
     resendBtn.disabled = false;
-    resendBtn.innerText = "Resend Code";
+    resendBtn.innerText = t("Resend Code");
   }
 };
 
@@ -70,12 +71,12 @@ verifyBtn.onclick = async () => {
   }
 
   if (code.length !== 6) {
-    window.MADOLOGY_SHOW_TOAST?.("Please enter the 6-digit code.", "error");
+    window.MADOLOGY_SHOW_TOAST?.(t("Please enter the 6-digit code."), "error");
     return;
   }
 
   verifyBtn.disabled = true;
-  verifyBtn.innerText = "Verifying...";
+  verifyBtn.innerText = t("Verifying...");
 
   try {
     const res = await fetch(`${API_BASE_URL}/auth/verify-email-code`, {
@@ -88,7 +89,7 @@ verifyBtn.onclick = async () => {
 
     if (!res.ok) {
       window.MADOLOGY_SHOW_TOAST?.(
-        result.message || "Verification failed.",
+        result.message || t("Verification failed."),
         "error",
       );
       return;
@@ -105,9 +106,9 @@ verifyBtn.onclick = async () => {
     window.location.href = "index.html";
   } catch (error) {
     console.error(error);
-    window.MADOLOGY_SHOW_TOAST?.("Server error. Try again later.", "error");
+    window.MADOLOGY_SHOW_TOAST?.(t("Server error. Try again later."), "error");
   } finally {
     verifyBtn.disabled = false;
-    verifyBtn.innerText = "Verify Code";
+    verifyBtn.innerText = t("Verify Code");
   }
 };
