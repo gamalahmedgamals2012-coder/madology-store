@@ -1,0 +1,11 @@
+html[dir="rtl"] body { text-align: right; }
+html[dir="rtl"] .navbar-nav, html[dir="rtl"] .navbar-actions, html[dir="rtl"] .hero-meta { flex-direction: row-reverse; }
+html[dir="rtl"] .ms-auto { margin-right: auto !important; margin-left: 0 !important; }
+html[dir="rtl"] input, html[dir="rtl"] textarea, html[dir="rtl"] select { text-align: right; }
+html[dir="rtl"] .products-toolbar, html[dir="rtl"] .products-filters, html[dir="rtl"] .account-form { direction: rtl; }
+html[dir="rtl"] .fa-arrow-right, html[dir="rtl"] .fa-chevron-right { transform: scaleX(-1); }
+.mado-language-selector { display: inline-flex; align-items: center; gap: .35rem; margin-inline-start: .5rem; font: inherit; white-space: nowrap; }
+.mado-language-selector select { border: 1px solid currentColor; border-radius: .35rem; background: transparent; color: inherit; padding: .18rem .35rem; font: inherit; }
+.mado-language-settings { display: grid; gap: .35rem; padding: .7rem 1rem; color: inherit; font-size: .9rem; }
+.mado-language-settings .mado-language-selector { margin: 0; }
+.auth-form > .mado-language-selector { margin: .75rem 0 0; }
