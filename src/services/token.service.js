@@ -14,7 +14,7 @@ function signAuthToken(user) {
     {
       sub: user._id.toString(),
       role: user.role,
-      email: user.email,
+      username: user.username,
       name: user.name,
       type: "auth"
     },
@@ -29,29 +29,7 @@ function verifyAuthToken(token) {
   return jwt.verify(token, ensureJwtSecret());
 }
 
-function createRandomToken() {
-  return crypto.randomBytes(32).toString("hex");
-}
-
-function createVerificationCode() {
-  return crypto.randomInt(100000, 1000000).toString();
-}
-
-function hashToken(token) {
-  return crypto.createHash("sha256").update(token).digest("hex");
-}
-
-function getVerificationExpiryDate() {
-  const minutes =
-    Number(process.env.EMAIL_VERIFICATION_CODE_EXPIRES_MINUTES || process.env.EMAIL_VERIFICATION_EXPIRES_IN) || 10;
-  return new Date(Date.now() + minutes * 60 * 1000);
-}
-
 module.exports = {
   signAuthToken,
-  verifyAuthToken,
-  createRandomToken,
-  createVerificationCode,
-  hashToken,
-  getVerificationExpiryDate
+  verifyAuthToken
 };

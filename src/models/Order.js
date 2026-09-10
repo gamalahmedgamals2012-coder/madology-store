@@ -71,12 +71,6 @@ const customerSnapshotSchema = new mongoose.Schema(
       type: Number,
       default: null
     },
-    email: {
-      type: String,
-      trim: true,
-      lowercase: true,
-      default: ""
-    }
   },
   { _id: false }
 );
@@ -111,6 +105,15 @@ const orderSchema = new mongoose.Schema(
       trim: true,
       default: null
     },
+    // A client-generated key makes a retry of the same checkout safe.
+    // It is deliberately scoped to the customer so separate users may use
+    // the same key without colliding.
+    idempotencyKey: {
+      type: String,
+      trim: true,
+      maxlength: 128,
+      default: null
+    },
     statusHistory: {
       type: [
         {
@@ -140,6 +143,14 @@ const orderSchema = new mongoose.Schema(
   },
   {
     timestamps: true
+  }
+);
+
+orderSchema.index(
+  { user: 1, idempotencyKey: 1 },
+  {
+    unique: true,
+    partialFilterExpression: { idempotencyKey: { $type: "string" } }
   }
 );
 

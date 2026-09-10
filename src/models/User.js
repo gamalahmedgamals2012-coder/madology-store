@@ -9,12 +9,15 @@ const userSchema = new mongoose.Schema(
       minlength: 2,
       maxlength: 80
     },
-    email: {
+    username: {
       type: String,
       required: true,
       unique: true,
       lowercase: true,
-      trim: true
+      trim: true,
+      minlength: 3,
+      maxlength: 32,
+      match: /^[a-z0-9_]+$/
     },
     address: {
       type: String,
@@ -161,26 +164,6 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "admin"],
       default: "user"
     },
-    isVerified: {
-      type: Boolean,
-      default: false
-    },
-    verificationToken: {
-      type: String,
-      default: null
-    },
-    verificationTokenExpires: {
-      type: Date,
-      default: null
-    },
-    passwordResetTokenHash: {
-      type: String,
-      default: null
-    },
-    passwordResetTokenExpiresAt: {
-      type: Date,
-      default: null
-    }
   },
   {
     timestamps: true

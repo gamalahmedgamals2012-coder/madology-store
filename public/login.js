@@ -1,26 +1,15 @@
 const API_BASE_URL =
   window.MADOLOGY_GET_API_BASE_URL?.() || window.MADOLOGY_API_BASE_URL || "";
 
-const emailInput = document.getElementById("email");
+const usernameInput = document.getElementById("username");
 const passwordInput = document.getElementById("password");
 const loginBtn = document.getElementById("loginBtn");
 const t = (key, variables) => window.MADOLOGY_I18N?.t(key, variables) || key;
-function showVerificationMessage() {
-  const params = new URLSearchParams(window.location.search);
-
-  if (params.get("verified") === "1") {
-    window.MADOLOGY_SHOW_TOAST?.(
-      t("Your email has been verified. You can log in now."),
-      "success",
-    );
-    window.history.replaceState({}, document.title, window.location.pathname);
-  }
-}
 loginBtn.onclick = async () => {
   loginBtn.disabled = true;
 
   const data = {
-    email: emailInput.value.trim(),
+    username: usernameInput.value.trim(),
     password: passwordInput.value,
   };
 
@@ -58,4 +47,3 @@ loginBtn.onclick = async () => {
     loginBtn.disabled = false;
   }
 };
-showVerificationMessage();

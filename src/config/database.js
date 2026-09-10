@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const User = require("../models/User");
+const Order = require("../models/Order");
 
 function isSrvLookupFailure(error) {
   const message = error?.message || "";
@@ -45,6 +47,13 @@ async function connectToDatabase() {
       throw error;
     }
   }
+
+  // Do not rely on the runtime default for autoIndex. These indexes enforce
+  // unique usernames and one order per idempotency key.
+  await Promise.all([
+    User.init(),
+    Order.init(),
+  ]);
 
   console.log("✅ MongoDB connected successfully");
 }

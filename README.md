@@ -1,6 +1,6 @@
 # MADOLOGY Backend
 
-Production-ready Express backend for the MADOLOGY storefront with JWT auth, bcrypt password hashing, MongoDB Atlas, role-based access control, email verification, password reset, security middleware, and deployment support.
+Production-ready Express backend for the MADOLOGY storefront with username/password JWT auth, bcrypt password hashing, MongoDB Atlas, role-based access control, security middleware, and deployment support.
 
 ## Folder Structure
 
@@ -30,7 +30,6 @@ src/
     auth.routes.js
     order.routes.js
   services/
-    email.service.js
     token.service.js
 public/
   auth.js
@@ -44,10 +43,6 @@ public/
 
 - `POST /auth/register`
 - `POST /auth/login`
-- `GET /auth/verify/:token`
-- `POST /auth/forgot-password`
-- `GET /auth/reset-password/:token`
-- `POST /auth/reset-password/:token`
 - `GET /auth/me`
 - `POST /orders`
 - `GET /admin/users`
@@ -73,8 +68,6 @@ Compatibility routes kept for the current frontend:
    - `SMTP_SECURE`
    - `SMTP_USER`
    - `SMTP_PASS`
-   - `EMAIL_FROM`
-   - `ADMIN_EMAILS`
 
 ## Local Run
 
@@ -97,12 +90,9 @@ http://localhost:3000/health
 4. Copy the Atlas connection string into `MONGODB_URI`.
 5. Use a database name like `madology`.
 
-## Email Verification and Reset
+## Account Recovery
 
-- Registration creates a verification token that expires in 24 hours.
-- Forgot password creates a reset token that expires in 15 minutes.
-- Tokens are stored hashed in MongoDB.
-- The email link points to your backend public URL.
+Email-based verification and password recovery are intentionally not enabled. Account recovery must be handled by an administrator or a future non-email recovery mechanism.
 
 ## Frontend Integration Examples
 
@@ -118,7 +108,7 @@ Register:
 await fetch(`${API_BASE_URL}/auth/register`, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ name, email, address, password })
+  body: JSON.stringify({ username, name, address, phone, latitude, longitude, password })
 });
 ```
 
@@ -128,7 +118,7 @@ Login:
 const response = await fetch(`${API_BASE_URL}/auth/login`, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ email, password })
+  body: JSON.stringify({ username, password })
 });
 
 const data = await response.json();
@@ -201,8 +191,7 @@ await fetch(`${API_BASE_URL}/orders`, {
 
 Users default to `user`.
 
-To create an admin, add the email before registration:
+To create an admin, configure the username through the existing role-management process.
 
 ```env
-ADMIN_EMAILS=admin@madology.com
 ```

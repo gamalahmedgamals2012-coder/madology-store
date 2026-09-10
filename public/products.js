@@ -1,6 +1,14 @@
 const API_BASE_URL =
   window.MADOLOGY_GET_API_BASE_URL?.() || window.MADOLOGY_API_BASE_URL || "";
 
+function createIdempotencyKey() {
+  if (window.crypto?.randomUUID) {
+    return window.crypto.randomUUID();
+  }
+
+  return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+}
+
 const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
 const cartCountBadge = document.querySelector(".cart-num");
 const cartPanel = document.getElementById("premiumCartPanel");
@@ -943,10 +951,6 @@ cartPanel.addEventListener("click", async (event) => {
     }
 
     if (!isJwtLike(token)) {
-      console.warn("[ORDER DEBUG] Refusing to send malformed token", {
-        tokenLength: token.length,
-        tokenPreview: `${token.slice(0, 8)}...`,
-      });
       localStorage.removeItem("token");
       window.MADOLOGY_SHOW_TOAST?.(
         "Your session token is invalid. Please log in again.",
@@ -957,6 +961,7 @@ cartPanel.addEventListener("click", async (event) => {
 
     orderButton.disabled = true;
     orderButton.textContent = "Ordering...";
+    const idempotencyKey = createIdempotencyKey();
 
     try {
       let customerPhone = localStorage.getItem("userPhone") || "";
@@ -974,6 +979,7 @@ cartPanel.addEventListener("click", async (event) => {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
+          "Idempotency-Key": idempotencyKey,
         },
         body: JSON.stringify({
           items: currentItems,
@@ -992,13 +998,8 @@ cartPanel.addEventListener("click", async (event) => {
       try {
         data = responseBody ? JSON.parse(responseBody) : {};
       } catch (parseError) {
-        console.warn("[ORDER DEBUG] Non-JSON order response", { status: response.status });
+        data = {};
       }
-      console.log("[ORDER DEBUG] Order response", {
-        status: response.status,
-        ok: response.ok,
-        message: data.message,
-      });
 
       if (response.status === 401 && data.code === "INVALID_AUTH_TOKEN") {
         localStorage.removeItem("token");

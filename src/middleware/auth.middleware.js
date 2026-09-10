@@ -2,18 +2,6 @@ const User = require("../models/User");
 const asyncHandler = require("./async.middleware");
 const { verifyAuthToken } = require("../services/token.service");
 
-function maskToken(token) {
-  if (!token) {
-    return null;
-  }
-
-  if (token.length <= 16) {
-    return `${token.slice(0, 4)}...`;
-  }
-
-  return `${token.slice(0, 8)}...${token.slice(-8)}`;
-}
-
 function normalizeTokenValue(token) {
   if (!token || typeof token !== "string") {
     return null;
@@ -62,10 +50,7 @@ const requireAuth = asyncHandler(async (req, res, next) => {
   logAuthDebug("Incoming protected request", {
     method: req.method,
     url: req.originalUrl,
-    hasAuthorizationHeader: Boolean(req.headers.authorization),
-    authorizationPrefix: req.headers.authorization ? req.headers.authorization.slice(0, 16) : null,
-    extractedToken: maskToken(token),
-    extractedTokenLength: token ? token.length : 0
+    hasAuthorizationHeader: Boolean(req.headers.authorization)
   });
 
   if (!token) {
@@ -79,20 +64,11 @@ const requireAuth = asyncHandler(async (req, res, next) => {
 
   try {
     payload = verifyAuthToken(token);
-    logAuthDebug("JWT verified", {
-      decodedPayload: {
-        sub: payload.sub,
-        role: payload.role,
-        email: payload.email,
-        type: payload.type,
-        exp: payload.exp
-      }
-    });
+    logAuthDebug("JWT verified");
   } catch (error) {
     logAuthDebug("JWT verification failed", {
       errorName: error.name,
-      errorMessage: error.message,
-      token: maskToken(token)
+      errorMessage: error.message
     });
 
     return res.status(401).json({
@@ -116,7 +92,7 @@ const requireAuth = asyncHandler(async (req, res, next) => {
   logAuthDebug("Authenticated user resolved", {
     userId: user._id.toString(),
     role: user.role,
-    email: user.email
+    username: user.username
   });
   next();
 });

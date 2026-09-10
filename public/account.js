@@ -126,9 +126,9 @@ function renderUser() {
   const user = state.user || {};
 
   document.getElementById("accountName").textContent = user.name || "MADOLOGY";
-  document.getElementById("accountEmail").textContent = user.email || "";
+  document.getElementById("accountUsername").textContent = user.username || "";
   document.getElementById("profileName").value = user.name || "";
-  document.getElementById("profileEmail").value = user.email || "";
+  document.getElementById("profileUsername").value = user.username || "";
   document.getElementById("profilePhone").value = user.phone || "";
   document.getElementById("profileAddress").value = user.address || "";
   document.getElementById("profileLatitude").value = user.latitude ?? "";

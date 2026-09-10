@@ -1,7 +1,7 @@
 const API_BASE_URL =
   window.MADOLOGY_GET_API_BASE_URL?.() || window.MADOLOGY_API_BASE_URL || "";
 
-const emailInput = document.getElementById("email");
+const usernameInput = document.getElementById("username");
 const nameInput = document.getElementById("name");
 const phoneInput = document.getElementById("phone");
 const selectedAddressInput = document.getElementById("address");
@@ -33,7 +33,7 @@ function getSelectedLocation() {
 
 registerBtn.onclick = async () => {
   if (
-    !emailInput.value ||
+    !usernameInput.value ||
     !nameInput.value ||
     !phoneInput.value ||
     !selectedAddressInput.value ||
@@ -63,7 +63,7 @@ registerBtn.onclick = async () => {
   registerBtn.innerText = t("Registering...");
 
   const data = {
-    email: emailInput.value.trim(),
+    username: usernameInput.value.trim(),
     name: nameInput.value.trim(),
     phone: phoneInput.value.trim(),
     address: selectedAddressInput.value.trim(),
@@ -120,7 +120,7 @@ registerBtn.onclick = async () => {
       "success",
     );
 
-    window.location.href = `verify-email.html?email=${encodeURIComponent(data.email)}`;
+    window.location.href = "login.html";
   } catch (err) {
     console.error(err);
     window.MADOLOGY_SHOW_TOAST?.(t("Server error. Try again later."), "error");

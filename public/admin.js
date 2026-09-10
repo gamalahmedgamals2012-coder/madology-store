@@ -37,7 +37,6 @@ async function load() {
       const customer = o.customer || {};
       const user = o.user || {};
       const userName = customer.fullName || user.name || "Unknown";
-      const userEmail = customer.email || user.email || "";
       const customerPhone = customer.phone || user.phone || "Missing";
       const customerAddress = customer.address || user.address || "Missing";
       const customerLatitude = Number(customer.latitude ?? user.latitude);
@@ -78,7 +77,7 @@ async function load() {
 
       div.innerHTML = `
             <h3>${t("Order")} ${o._id}</h3>
-            <div class="meta">${t("Customer")}: ${userName} ${userEmail ? "(" + userEmail + ")" : ""} - ${t("Phone")}: ${customerPhone} - ${t("Address")}: ${addressDisplay} - ${t("Created")}: ${created} - ${t("Status")}: ${t(o.status || "pending")}</div>
+            <div class="meta">${t("Customer")}: ${userName} - ${t("Phone")}: ${customerPhone} - ${t("Address")}: ${addressDisplay} - ${t("Created")}: ${created} - ${t("Status")}: ${t(o.status || "pending")}</div>
             ${itemsHtml}
           `;
 

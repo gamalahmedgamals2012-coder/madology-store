@@ -23,6 +23,51 @@ function buildTrackingNumber() {
   return `MADO-${Date.now().toString(36).toUpperCase()}-${randomPart}`;
 }
 
+function getIdempotencyKey(req) {
+  const value = typeof req.get === "function"
+    ? req.get("Idempotency-Key")
+    : req.headers?.["idempotency-key"];
+
+  if (value === undefined || value === null || String(value).trim() === "") {
+    return null;
+  }
+
+  const key = String(value).trim();
+
+  if (key.length > 128) {
+    throw createError("Idempotency-Key must be 128 characters or fewer.", 400);
+  }
+
+  return key;
+}
+
+function serializeOrder(order) {
+  return {
+    id: order._id,
+    customer: order.customer,
+    items: order.items,
+    totalAmount: order.totalAmount,
+    status: order.status,
+    trackingNumber: order.trackingNumber,
+    createdAt: order.createdAt
+  };
+}
+
+function sendOrderResponse(res, order, { duplicate = false } = {}) {
+  return res.status(duplicate ? 200 : 201).json({
+    success: true,
+    message: duplicate
+      ? "This order was already placed."
+      : "Order placed successfully.",
+    order: serializeOrder(order),
+    ...(duplicate ? { duplicate: true } : {})
+  });
+}
+
+function isDuplicateKeyError(error) {
+  return error?.code === 11000;
+}
+
 function normalizeCart(cart) {
   if (!Array.isArray(cart) || cart.length === 0) {
     return [];
@@ -113,7 +158,6 @@ function buildCustomerSnapshot(req, user) {
   const fullName = normalizeText(customerPayload.fullName || customerPayload.name || req.body.customerName || user.name);
   const phone = normalizeText(customerPayload.phone || req.body.customerPhone || req.body.phone || user.phone);
   const address = normalizeText(customerPayload.address || req.body.customerAddress || req.body.address || user.address);
-  const email = normalizeText(customerPayload.email || user.email).toLowerCase();
   const latitude = normalizeCoordinate(customerPayload.latitude ?? req.body.latitude ?? user.latitude);
   const longitude = normalizeCoordinate(customerPayload.longitude ?? req.body.longitude ?? user.longitude);
 
@@ -135,7 +179,6 @@ function buildCustomerSnapshot(req, user) {
     address,
     latitude,
     longitude,
-    email
   };
 }
 
@@ -160,29 +203,47 @@ const createOrder = asyncHandler(async (req, res) => {
 
   const customer = buildCustomerSnapshot(req, user);
   const totalAmount = normalizedItems.reduce((sum, item) => sum + item.itemTotal, 0);
+  const idempotencyKey = getIdempotencyKey(req);
 
-  const order = await Order.create({
-    user: user._id,
-    customer,
-    items: normalizedItems,
-    totalAmount,
-    trackingNumber: buildTrackingNumber(),
-    statusHistory: [{ status: "pending", note: "Order received" }]
-  });
+  if (idempotencyKey) {
+    const existingOrder = await Order.findOne({
+      user: user._id,
+      idempotencyKey
+    });
 
-  res.status(201).json({
-    success: true,
-    message: "Order placed successfully.",
-    order: {
-      id: order._id,
-      customer: order.customer,
-      items: order.items,
-      totalAmount: order.totalAmount,
-      status: order.status,
-      trackingNumber: order.trackingNumber,
-      createdAt: order.createdAt
+    if (existingOrder) {
+      return sendOrderResponse(res, existingOrder, { duplicate: true });
     }
-  });
+  }
+
+  try {
+    const order = await Order.create({
+      user: user._id,
+      customer,
+      items: normalizedItems,
+      totalAmount,
+      trackingNumber: buildTrackingNumber(),
+      idempotencyKey,
+      statusHistory: [{ status: "pending", note: "Order received" }]
+    });
+
+    return sendOrderResponse(res, order);
+  } catch (error) {
+    // A concurrent retry can lose the unique-index race after both requests
+    // observe no order. Return the persisted order instead of a false 500.
+    if (idempotencyKey && isDuplicateKeyError(error)) {
+      const existingOrder = await Order.findOne({
+        user: user._id,
+        idempotencyKey
+      });
+
+      if (existingOrder) {
+        return sendOrderResponse(res, existingOrder, { duplicate: true });
+      }
+    }
+
+    throw error;
+  }
 });
 
 const getOrderHistory = asyncHandler(async (req, res) => {
@@ -230,6 +291,9 @@ module.exports = {
   createOrder,
   normalizeCart,
   buildTrackingNumber,
+  getIdempotencyKey,
+  serializeOrder,
+  isDuplicateKeyError,
   buildTrustedOrderItems,
   getOrderHistory,
   getOrderTracking,

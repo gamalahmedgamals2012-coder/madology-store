@@ -12,7 +12,7 @@ function createError(message, statusCode) {
 
 const listUsers = asyncHandler(async (req, res) => {
   const users = await User.find()
-    .select("-password -verificationToken -passwordResetTokenHash -passwordResetTokenExpiresAt")
+    .select("-password")
     .sort({ createdAt: -1 });
 
   res.json({
@@ -25,7 +25,7 @@ const listUsers = asyncHandler(async (req, res) => {
 const listOrders = asyncHandler(async (req, res) => {
   const orders = await Order.find()
     .select("-__v")
-    .populate("user", "name email phone address latitude longitude")
+    .populate("user", "username name phone address latitude longitude")
     .sort({ createdAt: -1 })
     .lean();
 
@@ -43,7 +43,6 @@ const listOrders = asyncHandler(async (req, res) => {
         address: customerAddress,
         latitude: customerLatitude,
         longitude: customerLongitude,
-        email: user.email || ""
       }
     };
   });
