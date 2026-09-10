@@ -64,7 +64,7 @@
   const userName = localStorage.getItem("userName");
 
   if (!token || !userName) {
-    authButton.href = "register.html";
+    authButton.href = window.MADOLOGY_AUTH_RETURN?.getRegisterUrl() || "register.html";
     authButton.innerHTML = '<i class="fa-solid fa-user-plus"></i>';
     authButton.insertAdjacentElement("afterend", themeToggle);
     return;

@@ -4,7 +4,12 @@ const API_BASE_URL =
 const usernameInput = document.getElementById("username");
 const passwordInput = document.getElementById("password");
 const loginBtn = document.getElementById("loginBtn");
+const registerLink = document.querySelector(".account-signup a");
 const t = (key, variables) => window.MADOLOGY_I18N?.t(key, variables) || key;
+
+if (registerLink) {
+  registerLink.href = window.MADOLOGY_AUTH_RETURN?.getRegisterUrl() || "register.html";
+}
 loginBtn.onclick = async () => {
   loginBtn.disabled = true;
 

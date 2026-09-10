@@ -2,7 +2,6 @@ const API_BASE_URL =
   window.MADOLOGY_GET_API_BASE_URL?.() || window.MADOLOGY_API_BASE_URL || "";
 
 const usernameInput = document.getElementById("username");
-const nameInput = document.getElementById("name");
 const phoneInput = document.getElementById("phone");
 const selectedAddressInput = document.getElementById("address");
 const selectedLatitudeInput = document.getElementById("latitude");
@@ -34,7 +33,6 @@ function getSelectedLocation() {
 registerBtn.onclick = async () => {
   if (
     !usernameInput.value ||
-    !nameInput.value ||
     !phoneInput.value ||
     !selectedAddressInput.value ||
     !passwordInput.value
@@ -64,7 +62,6 @@ registerBtn.onclick = async () => {
 
   const data = {
     username: usernameInput.value.trim(),
-    name: nameInput.value.trim(),
     phone: phoneInput.value.trim(),
     address: selectedAddressInput.value.trim(),
     latitude: Number(selectedLatitudeInput.value),
@@ -120,7 +117,10 @@ registerBtn.onclick = async () => {
       "success",
     );
 
-    window.location.href = "login.html";
+    const returnUrl = window.MADOLOGY_AUTH_RETURN?.getSafeReturnUrl(
+      new URLSearchParams(window.location.search).get("returnUrl"),
+    ) || "index.html";
+    window.location.href = returnUrl;
   } catch (err) {
     console.error(err);
     window.MADOLOGY_SHOW_TOAST?.(t("Server error. Try again later."), "error");

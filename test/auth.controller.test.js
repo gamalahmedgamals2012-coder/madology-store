@@ -3,7 +3,7 @@ const assert = require("node:assert/strict");
 const { validateRegistrationInput, normalizeUsername } = require("../src/controllers/auth.controller");
 const User = require("../src/models/User");
 
-const valid = { username: "mado_user", name: "Mado User", address: "Beni Suef, Egypt", phone: "123456789", password: "secret123", latitude: 29, longitude: 31 };
+const valid = { username: "mado_user", address: "Beni Suef, Egypt", phone: "123456789", password: "secret123", latitude: 29, longitude: 31 };
 
 test("registration validates username/password and existing profile fields", () => {
   assert.doesNotThrow(() => validateRegistrationInput(valid));
