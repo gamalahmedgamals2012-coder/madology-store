@@ -7,12 +7,14 @@ const valid = { username: "mado_user", name: "Mado User", address: "Beni Suef, E
 
 test("registration validates username/password and existing profile fields", () => {
   assert.doesNotThrow(() => validateRegistrationInput(valid));
-  assert.equal(normalizeUsername("  Mado_User "), "mado_user");
+  assert.equal(normalizeUsername("  Mado User  "), "Mado User");
 });
 
-test("registration rejects invalid usernames and email-shaped input", () => {
-  assert.throws(() => normalizeUsername("bad name"), /Username must be/);
-  assert.throws(() => normalizeUsername("user@example.com"), /Username must be/);
+test("registration allows spaces and arbitrary username characters", () => {
+  assert.equal(normalizeUsername("user@example.com"), "user@example.com");
+  assert.equal(normalizeUsername("اسم مستخدم 123"), "اسم مستخدم 123");
+  assert.throws(() => normalizeUsername("ab"), /between 3 and 36/);
+  assert.throws(() => normalizeUsername("x".repeat(37)), /between 3 and 36/);
 });
 
 test("final User schema contains username but no email or verification state", () => {

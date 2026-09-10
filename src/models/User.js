@@ -13,11 +13,9 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      lowercase: true,
       trim: true,
       minlength: 3,
-      maxlength: 32,
-      match: /^[a-z0-9_]+$/
+      maxlength: 36
     },
     address: {
       type: String,
