@@ -44,9 +44,10 @@
     const themeButton = document.createElement("button");
     themeButton.type = "button";
     themeButton.className = "theme-toggle";
-    themeButton.setAttribute("aria-label", t("Switch to dark mode"));
-    themeButton.setAttribute("aria-pressed", "false");
-    themeButton.innerHTML = `<i class="fa-solid fa-moon" aria-hidden="true"></i><span class="visually-hidden theme-toggle-label">${t("Dark mode")}</span>`;
+    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+    themeButton.setAttribute("aria-label", t(isDark ? "Switch to light mode" : "Switch to dark mode"));
+    themeButton.setAttribute("aria-pressed", String(isDark));
+    themeButton.innerHTML = `<i class="fa-solid ${isDark ? "fa-sun" : "fa-moon"}" aria-hidden="true"></i><span class="visually-hidden theme-toggle-label">${t(isDark ? "Light mode" : "Dark mode")}</span>`;
 
     themeButton.addEventListener("click", () => {
       const nextTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
