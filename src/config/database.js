@@ -55,6 +55,16 @@ async function connectToDatabase() {
     Order.init(),
   ]);
 
+  // Older deployments created a unique email_1 index. The schema no longer
+  // has email, so every new document would otherwise collide on email: null.
+  // Removing this obsolete index does not modify or delete any documents;
+  // field cleanup remains an explicit operation in the migration script.
+  await mongoose.connection.db.collection(User.collection.name).dropIndex("email_1").catch((error) => {
+    if (!/index not found|not found/i.test(error.message || "")) {
+      throw error;
+    }
+  });
+
   console.log("✅ MongoDB connected successfully");
 }
 
