@@ -10,6 +10,7 @@ const state = {
 
 const panels = Array.from(document.querySelectorAll(".account-panel"));
 const tabs = Array.from(document.querySelectorAll(".account-tab"));
+const t = (key, variables) => window.MADOLOGY_I18N?.t(key, variables) || key;
 
 function getToken() {
   return localStorage.getItem("token") || "";
@@ -207,13 +208,13 @@ function renderOrders() {
     .map(
       (order) => `
     <article class="order-card">
-      <h3>Order #${escapeHtml(String(order.id).slice(-8).toUpperCase())}</h3>
+      <h3>${t("Order #")}${escapeHtml(String(order.id).slice(-8).toUpperCase())}</h3>
       <div class="order-meta">
         <span>${formatDate(order.createdAt)}</span>
         <span>${formatMoney(order.totalAmount)}</span>
         <span class="status-pill">${escapeHtml(order.status || "pending")}</span>
       </div>
-      <p>Tracking: ${escapeHtml(order.trackingNumber || "Pending")}</p>
+      <p>${t("Tracking")}: ${escapeHtml(order.trackingNumber || t("Pending"))}</p>
       <ul class="order-items">
         ${(order.items || []).map((item) => `<li>${escapeHtml(item.name)} x ${Number(item.quantity || 1)}</li>`).join("")}
       </ul>
@@ -231,9 +232,9 @@ function renderTracking(order) {
   const history = order.statusHistory || [];
 
   panel.innerHTML = `
-    <h3>Order Tracking</h3>
-    <p>Order #${escapeHtml(String(order.id).slice(-8).toUpperCase())}</p>
-    <p>Tracking: ${escapeHtml(order.trackingNumber || "Pending")}</p>
+    <h3>${t("Order Tracking")}</h3>
+    <p>${t("Order #")}${escapeHtml(String(order.id).slice(-8).toUpperCase())}</p>
+    <p>${t("Tracking")}: ${escapeHtml(order.trackingNumber || t("Pending"))}</p>
     <span class="status-pill">${escapeHtml(order.status || "pending")}</span>
     <ul class="tracking-list">
       ${history

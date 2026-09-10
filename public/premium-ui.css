@@ -166,6 +166,23 @@ nav.navbar {
   gap: 12px;
 }
 
+/* Keep the Bootstrap hamburger centered inside its touch target on mobile. */
+.navbar-toggler {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+}
+
+.navbar-toggler .navbar-toggler-icon {
+  display: block;
+  width: 1.5em;
+  height: 1.5em;
+  background-position: center;
+  background-size: 100% 100%;
+}
+
 .navbar-actions {
   display: flex;
   align-items: center;

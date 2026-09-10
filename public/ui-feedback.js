@@ -33,7 +33,7 @@
     const closeButton = document.createElement("button");
     closeButton.type = "button";
     closeButton.className = "ui-toast-close";
-    closeButton.setAttribute("aria-label", "Dismiss notification");
+  closeButton.setAttribute("aria-label", window.MADOLOGY_I18N?.t("Dismiss notification") || "Dismiss notification");
     closeButton.textContent = "×";
     closeButton.addEventListener("click", () => removeToast(toast));
 

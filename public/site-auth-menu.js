@@ -1,4 +1,5 @@
 (function initSiteAuthMenu() {
+  const t = (key, variables) => window.MADOLOGY_I18N?.t(key, variables) || key;
   const authButton = document.querySelector(".register");
 
   if (!authButton) {
@@ -30,11 +31,11 @@
     }
 
     if (themeLabel) {
-      themeLabel.textContent = theme === "dark" ? "Light mode" : "Dark mode";
+      themeLabel.textContent = t(theme === "dark" ? "Light mode" : "Dark mode");
     }
 
     if (themeButton) {
-      themeButton.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+      themeButton.setAttribute("aria-label", t(theme === "dark" ? "Switch to light mode" : "Switch to dark mode"));
       themeButton.setAttribute("aria-pressed", String(theme === "dark"));
     }
   }
@@ -43,9 +44,9 @@
     const themeButton = document.createElement("button");
     themeButton.type = "button";
     themeButton.className = "theme-toggle";
-    themeButton.setAttribute("aria-label", "Switch to dark mode");
+    themeButton.setAttribute("aria-label", t("Switch to dark mode"));
     themeButton.setAttribute("aria-pressed", "false");
-    themeButton.innerHTML = '<i class="fa-solid fa-moon" aria-hidden="true"></i><span class="visually-hidden theme-toggle-label">Dark mode</span>';
+    themeButton.innerHTML = `<i class="fa-solid fa-moon" aria-hidden="true"></i><span class="visually-hidden theme-toggle-label">${t("Dark mode")}</span>`;
 
     themeButton.addEventListener("click", () => {
       const nextTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
@@ -112,7 +113,7 @@
   });
 
   logoutButton.addEventListener("click", () => {
-    if (!confirm("Do you really want to logout?")) {
+    if (!confirm(t("Do you really want to logout?"))) {
       return;
     }
 

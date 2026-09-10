@@ -962,7 +962,7 @@ cartPanel.addEventListener("click", async (event) => {
       let customerPhone = localStorage.getItem("userPhone") || "";
       if (!customerPhone) {
         customerPhone =
-          window.prompt("Enter your phone number for delivery:") || "";
+          window.prompt(t("Enter your phone number for delivery:")) || "";
       }
 
       const customerAddress = localStorage.getItem("userAddress") || "";
@@ -1005,7 +1005,7 @@ cartPanel.addEventListener("click", async (event) => {
         return;
       }
 
-      alert(data.message);
+      window.MADOLOGY_SHOW_TOAST?.(t(data.message || "Order placed successfully."), "success");
 
       if (response.ok) {
         localStorage.setItem("userPhone", customerPhone.trim());

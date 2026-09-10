@@ -130,8 +130,8 @@ function renderEmptyState() {
           <circle cx="98" cy="118" r="7" fill="currentColor"/>
         </svg>
       </div>
-      <h2 class="mt-6 text-2xl font-bold text-slate-900">Your cart feels a little empty</h2>
-      <p class="mx-auto mt-3 max-w-md text-sm leading-6 text-slate-500 sm:text-base">
+      <h2 class="mt-6 text-2xl font-bold text-slate-900" data-i18n="Your cart feels a little empty">Your cart feels a little empty</h2>
+      <p class="mx-auto mt-3 max-w-md text-sm leading-6 text-slate-500 sm:text-base" data-i18n="Add a few favorites to see your premium cart experience come to life. Totals and checkout will update instantly.">
         Add a few favorites to see your premium cart experience come to life. Totals and checkout will update instantly.
       </p>
       <a href="products.html" class="mt-6 inline-flex rounded-2xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800">

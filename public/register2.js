@@ -1,10 +1,11 @@
 const loginBtn = document.querySelector(".log");
+const t = (key, variables) => window.MADOLOGY_I18N?.t(key, variables) || key;
         loginBtn?.addEventListener("click", () => {
             const email = document.querySelector("#username").value.trim();
             const password = document.querySelector("#password").value.trim();
 
             if (!email || !password) {
-                window.MADOLOGY_SHOW_TOAST?.("Please fill in all fields!", "error");
+                window.MADOLOGY_SHOW_TOAST?.(t("Please fill in all fields!"), "error");
                 return;
             }
 
@@ -23,10 +24,10 @@ const loginBtn = document.querySelector(".log");
                         if (data.user?.name || data.name) {
                             localStorage.setItem("userName", data.user?.name || data.name);
                         }
-                        window.MADOLOGY_SHOW_TOAST?.("Login successful!", "success");
+                        window.MADOLOGY_SHOW_TOAST?.(t("Login successful!"), "success");
                         window.location.href = "index.html";
                     } else {
-                        window.MADOLOGY_SHOW_TOAST?.(data.message || "Login failed.", "error");
+                        window.MADOLOGY_SHOW_TOAST?.(t(data.message || "Login failed."), "error");
                     }
                 })
                 .catch(err => console.error(err));

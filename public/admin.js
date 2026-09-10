@@ -1,3 +1,4 @@
+const t = (key, variables) => window.MADOLOGY_I18N?.t(key, variables) || key;
 async function load() {
   try {
     const token = localStorage.getItem("token");
@@ -56,7 +57,7 @@ async function load() {
       const created = new Date(o.createdAt).toLocaleString();
 
       let itemsHtml =
-        "<table><thead><tr><th>Image</th><th>Product</th><th>Size</th><th>Color</th><th>Qty</th><th>Price</th><th>Item Total</th></tr></thead><tbody>";
+        `<table><thead><tr><th>${t("Image")}</th><th>${t("Product")}</th><th>${t("Size")}</th><th>${t("Color")}</th><th>${t("Qty")}</th><th>${t("Price")}</th><th>${t("Item Total")}</th></tr></thead><tbody>`;
       let total = 0;
 
       (o.items || []).forEach((it) => {
@@ -73,11 +74,11 @@ async function load() {
 
       const orderTotal =
         typeof o.totalAmount === "number" ? o.totalAmount : total;
-      itemsHtml += `</tbody><tfoot><tr><th colspan="6">Total</th><th>${orderTotal} L.E</th></tr></tfoot></table>`;
+      itemsHtml += `</tbody><tfoot><tr><th colspan="6">${t("Total")}</th><th>${orderTotal} L.E</th></tr></tfoot></table>`;
 
       div.innerHTML = `
-            <h3>Order ${o._id}</h3>
-            <div class="meta">Customer: ${userName} ${userEmail ? "(" + userEmail + ")" : ""} - Phone: ${customerPhone} - Address: ${addressDisplay} - Created: ${created} - Status: ${o.status || "pending"}</div>
+            <h3>${t("Order")} ${o._id}</h3>
+            <div class="meta">${t("Customer")}: ${userName} ${userEmail ? "(" + userEmail + ")" : ""} - ${t("Phone")}: ${customerPhone} - ${t("Address")}: ${addressDisplay} - ${t("Created")}: ${created} - ${t("Status")}: ${t(o.status || "pending")}</div>
             ${itemsHtml}
           `;
 
