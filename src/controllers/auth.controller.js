@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
+const PendingRegistration = require("../models/PendingRegistration");
 const { findProductById } = require("../data/products");
 const asyncHandler = require("../middleware/async.middleware");
 const {
@@ -194,18 +195,19 @@ async function sendPasswordResetEmail(user, rawToken) {
   });
 }
 
-async function createAndSendVerificationCode(user) {
+async function createAndSendVerificationCode(registration) {
   const verificationCode = createVerificationCode();
 
-  user.verificationToken = hashToken(verificationCode);
-  user.verificationTokenExpires = getVerificationExpiryDate();
-  await user.save();
+  registration.verificationToken = hashToken(verificationCode);
+  registration.verificationTokenExpires = getVerificationExpiryDate();
+  registration.expiresAt = registration.verificationTokenExpires;
+  await registration.save();
 
   console.log("[AUTH] Verification token stored", {
-    userId: user._id?.toString()
+    registrationId: registration._id?.toString()
   });
 
-  await sendVerificationEmail(user, verificationCode);
+  await sendVerificationEmail(registration, verificationCode);
 }
 
 const register = asyncHandler(async (req, res) => {
@@ -228,7 +230,9 @@ const register = asyncHandler(async (req, res) => {
   const normalizedLatitude = normalizeRequiredCoordinate(latitude, "Latitude", -90, 90);
   const normalizedLongitude = normalizeRequiredCoordinate(longitude, "Longitude", -180, 180);
 
-  const user = await User.create({
+  const verificationCode = createVerificationCode();
+  const verificationExpiresAt = getVerificationExpiryDate();
+  const registrationData = {
     name: String(name).trim(),
     email: normalizedEmail,
     address: normalizedAddress,
@@ -238,19 +242,26 @@ const register = asyncHandler(async (req, res) => {
     phone: String(phone).trim(),
     password: hashedPassword,
     role: isAdminEmail(normalizedEmail) ? "admin" : "user",
-    isVerified: false
-  });
+    verificationToken: hashToken(verificationCode),
+    verificationTokenExpires: verificationExpiresAt,
+    expiresAt: verificationExpiresAt
+  };
 
-  console.log("[AUTH] User created; sending verification email", {
-    userId: user._id?.toString()
+  // Re-registering before confirmation replaces only the temporary record;
+  // no User document exists until the supplied code is valid.
+  const pending = await PendingRegistration.findOneAndUpdate(
+    { email: normalizedEmail },
+    registrationData,
+    { new: true, upsert: true, runValidators: true, setDefaultsOnInsert: true }
+  );
+
+  console.log("[AUTH] Pending registration created; sending verification email", {
+    registrationId: pending._id?.toString()
   });
 
   if (hasSmtpConfig()) {
-    await createAndSendVerificationCode(user);
+    await sendVerificationEmail(pending, verificationCode);
   } else {
-    user.verificationToken = hashToken(createVerificationCode());
-    user.verificationTokenExpires = getVerificationExpiryDate();
-    await user.save();
     console.warn("[AUTH] SMTP not configured. Verification code stored but not emailed.");
   }
 
@@ -261,14 +272,8 @@ const register = asyncHandler(async (req, res) => {
       : "Registration successful. Email delivery is not configured, so the verification code could not be sent.",
     data: {
       user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        address: user.address,
-        latitude: user.latitude,
-        longitude: user.longitude,
-        isVerified: user.isVerified
+        name: pending.name,
+        email: pending.email
       },
       requiresVerification: true,
       verificationEmailSent: hasSmtpConfig()
@@ -329,20 +334,34 @@ const verifyEmailCode = asyncHandler(async (req, res) => {
 
   const normalizedEmail = String(email).trim().toLowerCase();
 
-  const user = await User.findOne({
+  const pending = await PendingRegistration.findOne({
     email: normalizedEmail,
     verificationToken: hashToken(String(code).trim()),
     verificationTokenExpires: { $gt: new Date() }
   });
 
-  if (!user) {
+  if (!pending) {
     throw createError("Verification code is invalid or has expired.", 400);
   }
 
-  user.isVerified = true;
-  user.verificationToken = null;
-  user.verificationTokenExpires = null;
-  await user.save();
+  if (await User.exists({ email: normalizedEmail })) {
+    await PendingRegistration.deleteOne({ _id: pending._id });
+    throw createError("Email already exists.", 409);
+  }
+
+  const user = await User.create({
+    name: pending.name,
+    email: pending.email,
+    address: pending.address,
+    addressDetails: pending.addressDetails,
+    latitude: pending.latitude,
+    longitude: pending.longitude,
+    phone: pending.phone,
+    password: pending.password,
+    role: pending.role,
+    isVerified: true
+  });
+  await PendingRegistration.deleteOne({ _id: pending._id });
 
   const loginToken = signAuthToken(user);
 
@@ -373,19 +392,17 @@ const resendVerificationCode = asyncHandler(async (req, res) => {
   const normalizedEmail = String(email).trim().toLowerCase();
   const user = await User.findOne({ email: normalizedEmail });
 
-  if (!user) {
-    throw createError("No account found for that email.", 404);
-  }
+  if (user) throw createError("Email is already verified.", 400);
 
-  if (user.isVerified) {
-    throw createError("Email is already verified.", 400);
-  }
+  const pending = await PendingRegistration.findOne({ email: normalizedEmail });
+
+  if (!pending) throw createError("No pending registration found for that email.", 404);
 
   if (!hasSmtpConfig()) {
     throw createError("Email sending is not configured. Add email settings to continue.", 500);
   }
 
-  await createAndSendVerificationCode(user);
+  await createAndSendVerificationCode(pending);
 
   res.json({
     success: true,

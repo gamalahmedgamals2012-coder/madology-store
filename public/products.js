@@ -986,7 +986,14 @@ cartPanel.addEventListener("click", async (event) => {
         }),
       });
 
-      const data = await response.json();
+      const responseBody = await response.text();
+      let data = {};
+
+      try {
+        data = responseBody ? JSON.parse(responseBody) : {};
+      } catch (parseError) {
+        console.warn("[ORDER DEBUG] Non-JSON order response", { status: response.status });
+      }
       console.log("[ORDER DEBUG] Order response", {
         status: response.status,
         ok: response.ok,
@@ -1005,14 +1012,14 @@ cartPanel.addEventListener("click", async (event) => {
         return;
       }
 
-      window.MADOLOGY_SHOW_TOAST?.(t(data.message || "Order placed successfully."), "success");
-
       if (response.ok) {
+        window.MADOLOGY_SHOW_TOAST?.(t(data.message || "Order placed successfully."), "success");
         localStorage.setItem("userPhone", customerPhone.trim());
         window.MADOLOGY_CART.clearCart();
         updateCartCount();
         renderCart();
       } else {
+        window.MADOLOGY_SHOW_TOAST?.(t(data.message || "Unable to place the order. Please try again."), "error");
         orderButton.disabled = false;
         orderButton.textContent = "Order from premium cart";
       }
