@@ -1015,10 +1015,17 @@ cartPanel.addEventListener("click", async (event) => {
 
       if (response.ok) {
         window.MADOLOGY_SHOW_TOAST?.(t(data.message || "Order placed successfully."), "success");
-        localStorage.setItem("userPhone", customerPhone.trim());
-        window.MADOLOGY_CART.clearCart();
-        updateCartCount();
-        renderCart();
+        // The order is already committed at this point. Keep UI cleanup
+        // isolated so a rendering/storage issue cannot turn a real success
+        // into a misleading server-error message or cause a retry.
+        try {
+          localStorage.setItem("userPhone", customerPhone.trim());
+          window.MADOLOGY_CART.clearCart();
+          updateCartCount();
+          renderCart();
+        } catch (uiError) {
+          console.error("ORDER_UI_REFRESH_FAILED", uiError);
+        }
       } else {
         window.MADOLOGY_SHOW_TOAST?.(t(data.message || "Unable to place the order. Please try again."), "error");
         orderButton.disabled = false;
