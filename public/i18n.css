@@ -6,11 +6,13 @@ html[dir="rtl"] .products-toolbar, html[dir="rtl"] .products-filters, html[dir="
 html[dir="rtl"] .fa-arrow-right, html[dir="rtl"] .fa-chevron-right { transform: scaleX(-1); }
 .mado-language-selector { display: inline-flex; align-items: center; gap: .35rem; margin-inline-start: .5rem; font: inherit; white-space: nowrap; }
 .navbar-actions .mado-language-selector { display: inline-flex !important; visibility: visible !important; opacity: 1 !important; }
+.mado-language-desktop-slot { display: inline-flex; align-items: center; }
 .mado-language-selector select { border: 1px solid currentColor; border-radius: .35rem; background: transparent; color: inherit; padding: .18rem .35rem; font: inherit; }
 .mado-language-settings { display: grid; gap: .35rem; padding: .7rem 1rem; color: inherit; font-size: .9rem; }
 .mado-language-settings .mado-language-selector { margin: 0; }
 .auth-form > .mado-language-selector { margin: .75rem 0 0; }
 @media (max-width: 991.98px) {
+  .mado-language-desktop-slot { display: none !important; }
   .mado-language-mobile-slot { display: block !important; width: 100%; padding: .7rem 1rem 0; }
   .mado-language-mobile-slot .mado-language-selector { margin: 0; }
   .mado-language-mobile-slot .mado-language-selector,

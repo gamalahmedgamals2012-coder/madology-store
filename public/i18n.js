@@ -104,6 +104,9 @@
     }
     else if (accountTabs) { const settings = document.createElement("div"); settings.className = "mado-language-settings"; settings.innerHTML = '<span>Settings</span>'; settings.append(item); accountTabs.append(settings); }
     else if (document.querySelector("#dropdownMenu")) { const settings = document.createElement("div"); settings.className = "mado-language-settings"; settings.innerHTML = '<span>Settings</span>'; settings.append(item); document.querySelector("#dropdownMenu").append(settings); }
+    else if (document.querySelector(".mado-language-desktop-slot")) {
+      document.querySelector(".mado-language-desktop-slot").append(item);
+    }
     else if (document.querySelector(".navbar-actions")) {
       const actions = document.querySelector(".navbar-actions");
       const toggler = actions.querySelector(".navbar-toggler");
