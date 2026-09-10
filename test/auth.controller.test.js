@@ -19,6 +19,7 @@ test("registration allows spaces and arbitrary username characters", () => {
 
 test("final User schema contains username but no email or verification state", () => {
   assert.ok(User.schema.path("username"));
+  assert.notEqual(User.schema.path("username").options.unique, true);
   assert.equal(User.schema.path("email"), undefined);
   assert.equal(User.schema.path("verified"), undefined);
   assert.equal(User.schema.path("emailVerified"), undefined);

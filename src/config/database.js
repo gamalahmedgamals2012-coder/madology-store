@@ -48,14 +48,14 @@ async function connectToDatabase() {
     }
   }
 
-  // Do not rely on the runtime default for autoIndex. These indexes enforce
-  // unique usernames and one order per idempotency key.
+  // Do not rely on the runtime default for autoIndex. The order idempotency
+  // index is enforced by the schema; usernames are intentionally non-unique.
   await Promise.all([
     User.init(),
     Order.init(),
   ]);
 
-  // Older deployments created a unique email_1 index. The schema no longer
+  // Older deployments created unique authentication indexes. The schema no longer
   // has email, so every new document would otherwise collide on email: null.
   // Removing this obsolete index does not modify or delete any documents;
   // field cleanup remains an explicit operation in the migration script.
@@ -63,6 +63,9 @@ async function connectToDatabase() {
     if (!/index not found|not found/i.test(error.message || "")) {
       throw error;
     }
+  });
+  await mongoose.connection.db.collection(User.collection.name).dropIndex("username_1").catch((error) => {
+    if (error.codeName !== "IndexNotFound") throw error;
   });
 
   console.log("✅ MongoDB connected successfully");
