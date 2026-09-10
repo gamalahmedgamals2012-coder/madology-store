@@ -168,7 +168,7 @@ nav.navbar {
 
 /* Keep the Bootstrap hamburger centered inside its touch target on mobile. */
 .navbar-toggler {
-  display: inline-flex !important;
+  display: none !important;
   align-items: center !important;
   justify-content: center !important;
   padding: 0 !important;
@@ -181,6 +181,12 @@ nav.navbar {
   height: 1.5em;
   background-position: center;
   background-size: 100% 100%;
+}
+
+@media (max-width: 991.98px) {
+  .navbar-toggler {
+    display: inline-flex !important;
+  }
 }
 
 .navbar-actions {
