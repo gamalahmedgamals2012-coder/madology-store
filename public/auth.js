@@ -48,6 +48,19 @@ function getAuthToken() {
   return localStorage.getItem("token");
 }
 
+function setAuthSession(token, user = {}) {
+  if (!token) return false;
+  localStorage.setItem("token", token);
+  const payload = parseJwtPayload(token) || {};
+  localStorage.setItem("userName", user.name || user.username || payload.name || payload.username || "");
+  localStorage.setItem("userRole", user.role || payload.role || "user");
+  if (user.phone !== undefined) localStorage.setItem("userPhone", user.phone || "");
+  if (user.address !== undefined) localStorage.setItem("userAddress", user.address || "");
+  if (user.latitude !== undefined) localStorage.setItem("userLatitude", user.latitude ?? "");
+  if (user.longitude !== undefined) localStorage.setItem("userLongitude", user.longitude ?? "");
+  return true;
+}
+
 function getUserName() {
   return localStorage.getItem("userName");
 }
@@ -64,13 +77,16 @@ function logout() {
 }
 
 function isLoggedIn() {
-  return Boolean(getAuthToken());
+  const token = getAuthToken();
+  const payload = token && parseJwtPayload(token);
+  return Boolean(token && payload && (!payload.exp || payload.exp * 1000 > Date.now()));
 }
 
 window.MADOLOGY_AUTH = {
   apiBaseUrl: window.MADOLOGY_API_BASE_URL,
   parseJwtPayload,
   bootstrapAuthFromUrl,
+  setAuthSession,
   getAuthToken,
   getUserName,
   getUserRole,

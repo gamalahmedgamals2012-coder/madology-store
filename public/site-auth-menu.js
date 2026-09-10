@@ -60,10 +60,11 @@
   applyTheme(getPreferredTheme());
   const themeToggle = createThemeToggle();
 
-  const token = localStorage.getItem("token");
-  const userName = localStorage.getItem("userName");
+  const token = window.MADOLOGY_AUTH?.getAuthToken?.() || localStorage.getItem("token");
+  const payload = token ? window.MADOLOGY_AUTH?.parseJwtPayload?.(token) : null;
+  const userName = localStorage.getItem("userName") || payload?.name || payload?.username || "";
 
-  if (!token || !userName) {
+  if (!window.MADOLOGY_AUTH?.isLoggedIn?.() || !userName) {
     authButton.href = window.MADOLOGY_AUTH_RETURN?.getRegisterUrl() || "register.html";
     authButton.innerHTML = '<i class="fa-solid fa-user-plus"></i>';
     authButton.insertAdjacentElement("afterend", themeToggle);

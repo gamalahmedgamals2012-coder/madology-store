@@ -118,13 +118,12 @@ registerBtn.onclick = async () => {
     );
 
     if (result.token && result.user) {
-      localStorage.setItem("token", result.token);
-      localStorage.setItem("userName", result.user.name || result.user.username || "");
-      localStorage.setItem("userRole", result.user.role || "user");
-      localStorage.setItem("userPhone", result.user.phone || "");
-      localStorage.setItem("userAddress", result.user.address || "");
-      localStorage.setItem("userLatitude", result.user.latitude ?? "");
-      localStorage.setItem("userLongitude", result.user.longitude ?? "");
+      if (window.MADOLOGY_AUTH?.setAuthSession) {
+        window.MADOLOGY_AUTH.setAuthSession(result.token, result.user);
+      } else {
+        localStorage.setItem("token", result.token);
+        localStorage.setItem("userName", result.user.name || result.user.username || "");
+      }
     }
 
     const returnUrl = window.MADOLOGY_AUTH_RETURN?.getSafeReturnUrl(
