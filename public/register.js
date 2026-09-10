@@ -117,6 +117,16 @@ registerBtn.onclick = async () => {
       "success",
     );
 
+    if (result.token && result.user) {
+      localStorage.setItem("token", result.token);
+      localStorage.setItem("userName", result.user.name || result.user.username || "");
+      localStorage.setItem("userRole", result.user.role || "user");
+      localStorage.setItem("userPhone", result.user.phone || "");
+      localStorage.setItem("userAddress", result.user.address || "");
+      localStorage.setItem("userLatitude", result.user.latitude ?? "");
+      localStorage.setItem("userLongitude", result.user.longitude ?? "");
+    }
+
     const returnUrl = window.MADOLOGY_AUTH_RETURN?.getSafeReturnUrl(
       new URLSearchParams(window.location.search).get("returnUrl"),
     ) || "index.html";
