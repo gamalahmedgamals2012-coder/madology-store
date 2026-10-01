@@ -346,7 +346,7 @@ function initMap() {
 
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
-    keepBuffer: 8,
+    keepBuffer: 2,
     updateWhenIdle: true,
     updateWhenZooming: false,
     attribution:
