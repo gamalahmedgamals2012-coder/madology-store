@@ -984,8 +984,9 @@ cartPanel.addEventListener("click", async (event) => {
     orderButton.textContent = "Ordering...";
     const idempotencyKey = createIdempotencyKey();
 
+    let customerPhone = localStorage.getItem("userPhone") || "";
+    let orderResult;
     try {
-      let customerPhone = localStorage.getItem("userPhone") || "";
       if (!customerPhone) {
         customerPhone =
           window.prompt(t("Enter your phone number for delivery:")) || "";
@@ -995,7 +996,7 @@ cartPanel.addEventListener("click", async (event) => {
       const customerLatitude = localStorage.getItem("userLatitude") || "";
       const customerLongitude = localStorage.getItem("userLongitude") || "";
 
-      const orderResult = await requestOrderWithRetry(`${API_BASE_URL}/orders`, {
+      orderResult = await requestOrderWithRetry(`${API_BASE_URL}/orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -1012,45 +1013,6 @@ cartPanel.addEventListener("click", async (event) => {
           },
         }),
       });
-      const { response, responseBody } = orderResult;
-      let data = {};
-
-      try {
-        data = responseBody ? JSON.parse(responseBody) : {};
-      } catch (parseError) {
-        data = {};
-      }
-
-      if (response.status === 401 && data.code === "INVALID_AUTH_TOKEN") {
-        localStorage.removeItem("token");
-        localStorage.removeItem("userName");
-        localStorage.removeItem("userRole");
-        window.MADOLOGY_SHOW_TOAST?.(
-          data.message || "Your session expired.",
-          "error",
-        );
-        window.location.href = "login.html";
-        return;
-      }
-
-      if (response.ok) {
-        window.MADOLOGY_SHOW_TOAST?.(t(data.message || "Order placed successfully."), "success");
-        // The order is already committed at this point. Keep UI cleanup
-        // isolated so a rendering/storage issue cannot turn a real success
-        // into a misleading server-error message or cause a retry.
-        try {
-          localStorage.setItem("userPhone", customerPhone.trim());
-          window.MADOLOGY_CART.clearCart();
-          updateCartCount();
-          renderCart();
-        } catch (uiError) {
-          console.error("ORDER_UI_REFRESH_FAILED", uiError);
-        }
-      } else {
-        window.MADOLOGY_SHOW_TOAST?.(t(data.message || "Unable to place the order. Please try again."), "error");
-        orderButton.disabled = false;
-        orderButton.textContent = "Order from premium cart";
-      }
     } catch (error) {
       console.error("ORDER_REQUEST_FAILED", {
         name: error?.name || "Error",
@@ -1058,6 +1020,40 @@ cartPanel.addEventListener("click", async (event) => {
         endpoint: `${API_BASE_URL}/orders`,
       });
       window.MADOLOGY_SHOW_TOAST?.("Server error. Try again later.", "error");
+      orderButton.disabled = false;
+      orderButton.textContent = "Order from premium cart";
+      return;
+    }
+
+    const { response, responseBody } = orderResult;
+    let data = {};
+    try {
+      data = responseBody ? JSON.parse(responseBody) : {};
+    } catch (parseError) {
+      console.error("ORDER_RESPONSE_PARSE_FAILED", parseError);
+    }
+
+    if (response.status === 401 && data.code === "INVALID_AUTH_TOKEN") {
+      localStorage.removeItem("token");
+      localStorage.removeItem("userName");
+      localStorage.removeItem("userRole");
+      window.MADOLOGY_SHOW_TOAST?.(data.message || "Your session expired.", "error");
+      window.location.href = "login.html";
+      return;
+    }
+
+    if (response.ok) {
+      window.MADOLOGY_SHOW_TOAST?.(t(data.message || "Order placed successfully."), "success");
+      try {
+        localStorage.setItem("userPhone", customerPhone.trim());
+        window.MADOLOGY_CART.clearCart();
+        updateCartCount();
+        renderCart();
+      } catch (uiError) {
+        console.error("ORDER_UI_REFRESH_FAILED", uiError);
+      }
+    } else {
+      window.MADOLOGY_SHOW_TOAST?.(t(data.message || "Unable to place the order. Please try again."), "error");
       orderButton.disabled = false;
       orderButton.textContent = "Order from premium cart";
     }
