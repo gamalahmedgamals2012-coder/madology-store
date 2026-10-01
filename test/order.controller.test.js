@@ -132,3 +132,40 @@ test('createOrder returns 201 after persistence and reuses a matching idempotenc
     Order.create = originalCreate;
   }
 });
+
+test('createOrder does not require a registration full name', async () => {
+  const originalFindOne = Order.findOne;
+  const originalCreate = Order.create;
+  const createdOrder = {
+    _id: '507f1f77bcf86cd799439013',
+    customer: { fullName: 'same-name-user', phone: '123456789', address: 'Beni Suef, Egypt' },
+    items: [{ productId: 'air-jordan', name: 'Air Jordan', size: 'M', color: 'Black', price: 650, quantity: 1, itemTotal: 650 }],
+    totalAmount: 650,
+    status: 'pending',
+    trackingNumber: 'MADO-TEST-ABC123',
+    createdAt: new Date()
+  };
+
+  try {
+    Order.findOne = async () => null;
+    Order.create = async (payload) => {
+      assert.equal(payload.customer.fullName, 'same-name-user');
+      return createdOrder;
+    };
+
+    const response = await invokeOrderController({
+      user: { _id: '507f1f77bcf86cd799439011', username: 'same-name-user', phone: '123456789', address: 'Beni Suef, Egypt' },
+      get: () => null,
+      body: {
+        items: [{ id: 'air-jordan', name: 'Air Jordan', size: 'M', color: 'Black', price: 650, quantity: 1 }],
+        customer: { phone: '123456789', address: 'Beni Suef, Egypt' }
+      }
+    });
+
+    assert.equal(response.statusCode, 201);
+    assert.equal(response.body.success, true);
+  } finally {
+    Order.findOne = originalFindOne;
+    Order.create = originalCreate;
+  }
+});

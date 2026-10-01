@@ -155,15 +155,21 @@ function buildTrustedOrderItems(cart) {
 
 function buildCustomerSnapshot(req, user) {
   const customerPayload = req.body.customer || {};
-  const fullName = normalizeText(customerPayload.fullName || customerPayload.name || req.body.customerName || user.name);
+  // Full name is no longer part of authentication/registration. Keep the
+  // legacy snapshot field for existing order/admin displays, but derive it
+  // from the authenticated username when a caller does not provide one.
+  // It must never block an otherwise valid order.
+  const fullName = normalizeText(
+    customerPayload.fullName ||
+      customerPayload.name ||
+      req.body.customerName ||
+      user.username ||
+      user.name,
+  );
   const phone = normalizeText(customerPayload.phone || req.body.customerPhone || req.body.phone || user.phone);
   const address = normalizeText(customerPayload.address || req.body.customerAddress || req.body.address || user.address);
   const latitude = normalizeCoordinate(customerPayload.latitude ?? req.body.latitude ?? user.latitude);
   const longitude = normalizeCoordinate(customerPayload.longitude ?? req.body.longitude ?? user.longitude);
-
-  if (!fullName) {
-    throw createError("Customer full name is required.", 400);
-  }
 
   if (!phone) {
     throw createError("Customer phone number is required.", 400);

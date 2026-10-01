@@ -50,8 +50,8 @@ const customerSnapshotSchema = new mongoose.Schema(
   {
     fullName: {
       type: String,
-      required: true,
-      trim: true
+      trim: true,
+      default: ""
     },
     phone: {
       type: String,
