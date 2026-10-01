@@ -1032,6 +1032,11 @@ cartPanel.addEventListener("click", async (event) => {
         orderButton.textContent = "Order from premium cart";
       }
     } catch (error) {
+      console.error("ORDER_REQUEST_FAILED", {
+        name: error?.name || "Error",
+        message: error?.message || String(error),
+        endpoint: `${API_BASE_URL}/orders`,
+      });
       window.MADOLOGY_SHOW_TOAST?.("Server error. Try again later.", "error");
       orderButton.disabled = false;
       orderButton.textContent = "Order from premium cart";
