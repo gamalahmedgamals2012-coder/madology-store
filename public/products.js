@@ -1,5 +1,6 @@
 const API_BASE_URL =
   window.MADOLOGY_GET_API_BASE_URL?.() || window.MADOLOGY_API_BASE_URL || "";
+const t = (key, variables) => window.MADOLOGY_I18N?.t(key, variables) || key;
 
 function createIdempotencyKey() {
   if (window.crypto?.randomUUID) {
