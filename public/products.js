@@ -9,6 +9,27 @@ function createIdempotencyKey() {
   return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 }
 
+async function requestOrderWithRetry(url, options) {
+  let lastError;
+
+  // A serverless response can be lost after MongoDB commits the order. Reuse
+  // the same idempotency key so a retry returns the existing order safely.
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      const response = await fetch(url, options);
+      const responseBody = await response.text();
+      return { response, responseBody };
+    } catch (error) {
+      lastError = error;
+      if (attempt === 0) {
+        continue;
+      }
+    }
+  }
+
+  throw lastError;
+}
+
 const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
 const cartCountBadge = document.querySelector(".cart-num");
 const cartPanel = document.getElementById("premiumCartPanel");
@@ -974,7 +995,7 @@ cartPanel.addEventListener("click", async (event) => {
       const customerLatitude = localStorage.getItem("userLatitude") || "";
       const customerLongitude = localStorage.getItem("userLongitude") || "";
 
-      const response = await fetch(`${API_BASE_URL}/orders`, {
+      const orderResult = await requestOrderWithRetry(`${API_BASE_URL}/orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -991,8 +1012,7 @@ cartPanel.addEventListener("click", async (event) => {
           },
         }),
       });
-
-      const responseBody = await response.text();
+      const { response, responseBody } = orderResult;
       let data = {};
 
       try {
