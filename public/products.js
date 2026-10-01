@@ -15,15 +15,25 @@ async function requestOrderWithRetry(url, options) {
   // A serverless response can be lost after MongoDB commits the order. Reuse
   // the same idempotency key so a retry returns the existing order safely.
   for (let attempt = 0; attempt < 2; attempt += 1) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 12000);
+
     try {
-      const response = await fetch(url, options);
+      const response = await fetch(url, {
+        ...options,
+        signal: controller.signal,
+      });
       const responseBody = await response.text();
       return { response, responseBody };
     } catch (error) {
-      lastError = error;
+      lastError = error?.name === "AbortError"
+        ? new Error("Order request timed out. Please try again.")
+        : error;
       if (attempt === 0) {
         continue;
       }
+    } finally {
+      clearTimeout(timeoutId);
     }
   }
 
@@ -1052,6 +1062,8 @@ cartPanel.addEventListener("click", async (event) => {
       } catch (uiError) {
         console.error("ORDER_UI_REFRESH_FAILED", uiError);
       }
+      orderButton.disabled = true;
+      orderButton.textContent = "Order from cart";
     } else {
       window.MADOLOGY_SHOW_TOAST?.(t(data.message || "Unable to place the order. Please try again."), "error");
       orderButton.disabled = false;
