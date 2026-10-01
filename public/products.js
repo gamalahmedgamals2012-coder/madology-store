@@ -15,25 +15,15 @@ async function requestOrderWithRetry(url, options) {
   // A serverless response can be lost after MongoDB commits the order. Reuse
   // the same idempotency key so a retry returns the existing order safely.
   for (let attempt = 0; attempt < 2; attempt += 1) {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 12000);
-
     try {
-      const response = await fetch(url, {
-        ...options,
-        signal: controller.signal,
-      });
+      const response = await fetch(url, options);
       const responseBody = await response.text();
       return { response, responseBody };
     } catch (error) {
-      lastError = error?.name === "AbortError"
-        ? new Error("Order request timed out. Please try again.")
-        : error;
+      lastError = error;
       if (attempt === 0) {
         continue;
       }
-    } finally {
-      clearTimeout(timeoutId);
     }
   }
 
@@ -58,6 +48,7 @@ let cartItems = window.MADOLOGY_CART.getItems();
 let productsById = new Map();
 let cardByProductId = new Map();
 let wishlistProductIds = new Set();
+let orderInProgress = false;
 
 function getStoredToken() {
   const rawToken = localStorage.getItem("token");
@@ -968,6 +959,10 @@ cartPanel.addEventListener("click", async (event) => {
   if (orderButton) {
     event.preventDefault();
 
+    if (orderInProgress) {
+      return;
+    }
+
     const currentItems = window.MADOLOGY_CART.getItems();
     if (!currentItems.length) {
       window.MADOLOGY_SHOW_TOAST?.("Your cart is empty.", "error");
@@ -990,10 +985,6 @@ cartPanel.addEventListener("click", async (event) => {
       return;
     }
 
-    orderButton.disabled = true;
-    orderButton.textContent = "Ordering...";
-    const idempotencyKey = createIdempotencyKey();
-
     let customerPhone = localStorage.getItem("userPhone") || "";
     let orderResult;
     try {
@@ -1002,9 +993,20 @@ cartPanel.addEventListener("click", async (event) => {
           window.prompt(t("Enter your phone number for delivery:")) || "";
       }
 
+      customerPhone = customerPhone.trim();
+      if (!customerPhone) {
+        window.MADOLOGY_SHOW_TOAST?.("Please enter your phone number for delivery.", "error");
+        return;
+      }
+
       const customerAddress = localStorage.getItem("userAddress") || "";
       const customerLatitude = localStorage.getItem("userLatitude") || "";
       const customerLongitude = localStorage.getItem("userLongitude") || "";
+
+      orderInProgress = true;
+      orderButton.disabled = true;
+      orderButton.textContent = "Ordering...";
+      const idempotencyKey = createIdempotencyKey();
 
       orderResult = await requestOrderWithRetry(`${API_BASE_URL}/orders`, {
         method: "POST",
@@ -1030,8 +1032,11 @@ cartPanel.addEventListener("click", async (event) => {
         endpoint: `${API_BASE_URL}/orders`,
       });
       window.MADOLOGY_SHOW_TOAST?.("Server error. Try again later.", "error");
-      orderButton.disabled = false;
-      orderButton.textContent = "Order from premium cart";
+      orderInProgress = false;
+      if (orderButton.isConnected) {
+        orderButton.disabled = false;
+        orderButton.textContent = "Order from premium cart";
+      }
       return;
     }
 
@@ -1044,6 +1049,7 @@ cartPanel.addEventListener("click", async (event) => {
     }
 
     if (response.status === 401 && data.code === "INVALID_AUTH_TOKEN") {
+      orderInProgress = false;
       localStorage.removeItem("token");
       localStorage.removeItem("userName");
       localStorage.removeItem("userRole");
@@ -1053,6 +1059,7 @@ cartPanel.addEventListener("click", async (event) => {
     }
 
     if (response.ok) {
+      orderInProgress = false;
       window.MADOLOGY_SHOW_TOAST?.(t(data.message || "Order placed successfully."), "success");
       try {
         localStorage.setItem("userPhone", customerPhone.trim());
@@ -1066,8 +1073,11 @@ cartPanel.addEventListener("click", async (event) => {
       orderButton.textContent = "Order from cart";
     } else {
       window.MADOLOGY_SHOW_TOAST?.(t(data.message || "Unable to place the order. Please try again."), "error");
-      orderButton.disabled = false;
-      orderButton.textContent = "Order from premium cart";
+      orderInProgress = false;
+      if (orderButton.isConnected) {
+        orderButton.disabled = false;
+        orderButton.textContent = "Order from premium cart";
+      }
     }
   }
 });
