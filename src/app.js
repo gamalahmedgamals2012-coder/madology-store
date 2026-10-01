@@ -106,6 +106,14 @@ app.use(
   })
 );
 
+app.use((req, res, next) => {
+  if (req.path === "/register.html") {
+    res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  }
+
+  next();
+});
+
 app.use(
   cors({
     origin(origin, callback) {
